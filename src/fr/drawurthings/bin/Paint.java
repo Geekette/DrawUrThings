@@ -18,11 +18,11 @@ public class Paint extends Observable{
 		this.figures = new ArrayList<Drawable>();
 	}
 	
-	public void addFigures(int type,int originX,int originY, int heigth, int width){
+	public void addFigures(int type,int originX,int originY, int width, int heigth){
 		if(type == LINE){
-			figures.add(new Line(originX, originY, heigth, width, figures.size()));
+			figures.add(new Line(originX, originY, width, heigth, figures.size()));
 		}else if(type == RECTANGLE){
-			figures.add(new Rectangle(originX, originY, heigth, width, figures.size()));
+			figures.add(new Rectangle(originX, originY, width, heigth, figures.size()));
 		}
 		setChanged();
 		notifyObservers();

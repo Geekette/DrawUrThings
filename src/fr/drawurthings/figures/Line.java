@@ -5,7 +5,7 @@ import java.awt.Graphics;
 
 public class Line extends Drawable{
 	
-	public Line(int originX, int originY, int height,int width,int layer){
+	public Line(int originX, int originY, int width,int height,int layer){
 		this.originX = originX;
 		this.originY = originY;
 		this.height = height;
@@ -13,7 +13,7 @@ public class Line extends Drawable{
 		this.layer = layer;
 	}
 	
-	public Line(int originX, int originY, int height,int width,int layer, Color c){
+	public Line(int originX, int originY,int width,int height,int layer, Color c){
 		this(originX, originY,height, width, layer);
 		this.border = c;
 	}
@@ -22,7 +22,7 @@ public class Line extends Drawable{
 	@Override
 	public void drawOnGraphics(Graphics g) {
 		g.setColor(this.border);
-		g.drawLine(originX, originY, width, height);
+		g.drawLine(originX, originY, originX+width, originY + height);
 	}
 
 	@Override

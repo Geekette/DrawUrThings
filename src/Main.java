@@ -10,7 +10,7 @@ public class Main {
 		DrawPanel draw = new DrawPanel(p);
 		new DrawWindow(draw);
 		p.addFigures(Paint.RECTANGLE, 50, 50, 100, 200);
-		p.addFigures(Paint.LINE, 400, 400, 0, 300);
+		p.addFigures(Paint.LINE, 600, 400, 0, 50);
 		try {
 			Thread.sleep(1000);
 		} catch (InterruptedException e) {
@@ -25,6 +25,6 @@ public class Main {
 			e.printStackTrace();
 		}
 		p.moveFiguresOnLayer(0, 400, 400);
-		p.resizeFiguresOnLayer(1, 0, 150);
+		p.resizeFiguresOnLayer(1, 150, 0);
 	}
 }

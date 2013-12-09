@@ -24,9 +24,9 @@ public class DrawPanel extends JPanel implements Observer {
 	}
 	
 	public void paint(Graphics g){
-		this.setBackground(Color.WHITE);
+		g.setColor(Color.WHITE);
+		g.fillRect(0, 0, getWidth(), getHeight());
 		this.p.paintOnGraphics(g);
-		System.out.println("la!");
 	}
 
 	@Override
