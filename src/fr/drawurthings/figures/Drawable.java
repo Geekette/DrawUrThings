@@ -6,13 +6,18 @@ public abstract class Drawable implements Comparable<Drawable> {
 	
 	public final static int LINE = 0;
 	public final static int RECTANGLE = 1;
+	public final static int SQUARE = 2;
+	public final static int OVAL = 3;
+	public final static int CIRCLE = 4;
+	public final static int POLYGON = 5;
 	
 	protected int SHAPE_TYPE;
 	
 	protected int originX, originY, height, width, layer;
 	protected Color border = Color.BLACK,  fill = Color.WHITE;
 	
-	public abstract void resize(int width, int heigth);
+	public abstract void resize(int width, int height);
+	public abstract boolean isVisibleAt(int posX, int posY);
 	public abstract String toString();
 	
 	public int getShapeType(){

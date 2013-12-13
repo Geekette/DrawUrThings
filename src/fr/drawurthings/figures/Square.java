@@ -2,32 +2,32 @@ package fr.drawurthings.figures;
 
 import java.awt.Color;
 
-public class Rectangle extends Drawable{
+public class Square extends Drawable{
 	
 	
-	public Rectangle(int originX, int originY, int width, int height, int layer){
-		this.SHAPE_TYPE = Drawable.RECTANGLE;
+	public Square(int originX, int originY, int height, int layer){
+		this.SHAPE_TYPE = Drawable.SQUARE;
 		this.originX = originX;
 		this.originY = originY;
 		this.height = height;
-		this.width = width;
+		this.width = height;
 		this.layer = layer;
 	}
 	
-	public Rectangle(int originX, int originY, int width, int height, int layer, Color border){
-		this(originX, originY, width, height, layer);
+	public Square(int originX, int originY, int height, int layer, Color border){
+		this(originX, originY, height, layer);
 		this.border = border;
 	}
 	
-	public Rectangle(int originX, int originY, int width, int height, int layer, Color border,Color fill){
-		this(originX, originY, width, height, layer,border);
+	public Square(int originX, int originY, int height, int layer, Color border,Color fill){
+		this(originX, originY, height, layer,border);
 		this.fill = fill;
 	}
 
 
 	@Override
 	public void resize(int width, int height) {
-		this.width = width;
+		this.width = height;
 		this.height = height;
 	}
 
