@@ -43,6 +43,7 @@ public class DrawPanel extends JPanel implements Observer {
 	public void paint(Graphics g){
 		g.setColor(Color.WHITE);
 		g.fillRect(0, 0, getWidth(), getHeight());
+<<<<<<< HEAD
 		for(Iterator<Drawable> it = p.getDrawables().iterator(); it.hasNext();){
 			this.paintDrawable(it.next(), g);
 		}
@@ -58,6 +59,9 @@ public class DrawPanel extends JPanel implements Observer {
 			g.setColor(d.getBorderColor());
 			g.drawRect(d.getOriginX(), d.getOriginY(), d.getWidth(), d.getHeight());
 		}
+=======
+		this.p.paintOnGraphics(g);
+>>>>>>> 49a891703ce56960b78189c86bf2547887fb334a
 	}
 
 	@Override
