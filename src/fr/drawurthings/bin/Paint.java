@@ -20,6 +20,12 @@ public class Paint extends Observable{
 			figures.add(new Line(originX, originY, width, height, figures.size()));
 		}else if(type == Drawable.RECTANGLE){
 			figures.add(new Rectangle(originX, originY, width, height, figures.size()));
+		}else if(type == Drawable.SQUARE){
+			figures.add(new Square(originX, originY, height, figures.size()));
+		}else if(type == Drawable.OVAL){
+			figures.add(new Oval(originX, originY, width, height, figures.size()));
+		}else if(type == Drawable.CIRCLE){
+			figures.add(new Circle(originX, originY, height, figures.size()));
 		}
 		setChanged();
 		notifyObservers();
