@@ -1,11 +1,11 @@
 package fr.drawurthings.figures;
 
 import java.awt.Color;
-import java.awt.Graphics;
 
 public class Line extends Drawable{
 	
-	public Line(int originX, int originY, int height,int width,int layer){
+	public Line(int originX, int originY,int width,int height,int layer){
+		this.SHAPE_TYPE = Drawable.RECTANGLE;
 		this.originX = originX;
 		this.originY = originY;
 		this.height = height;
@@ -13,22 +13,9 @@ public class Line extends Drawable{
 		this.layer = layer;
 	}
 	
-	public Line(int originX, int originY, int height,int width,int layer, Color c){
-		this(originX, originY,height, width, layer);
+	public Line(int originX, int originY, int width,int height,int layer, Color c){
+		this(originX, originY,width, height, layer);
 		this.border = c;
-	}
-
-
-	@Override
-	public void drawOnGraphics(Graphics g) {
-		g.setColor(this.border);
-		g.drawLine(originX, originY, width, height);
-	}
-
-	@Override
-	public void magnifyOnGraphics(Graphics g, double factor) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override

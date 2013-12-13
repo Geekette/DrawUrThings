@@ -1,16 +1,12 @@
 package fr.drawurthings.bin;
 
-import java.awt.Graphics;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Observable;
 
 import fr.drawurthings.figures.*;
 
 public class Paint extends Observable{
-	
-	public final static int LINE = 0;
-	public final static int RECTANGLE = 1;
+
 	
 	ArrayList<Drawable> figures;
 	
@@ -18,23 +14,20 @@ public class Paint extends Observable{
 		this.figures = new ArrayList<Drawable>();
 	}
 	
-	public void addFigures(int type,int originX,int originY, int heigth, int width){
-		if(type == LINE){
-			figures.add(new Line(originX, originY, heigth, width, figures.size()));
-		}else if(type == RECTANGLE){
-			figures.add(new Rectangle(originX, originY, heigth, width, figures.size()));
+	public void addFigures(int type,int originX,int originY, int width, int height){
+		if(type == Drawable.LINE){
+			figures.add(new Line(originX, originY, width, height, figures.size()));
+		}else if(type == Drawable.RECTANGLE){
+			figures.add(new Rectangle(originX, originY, width, height, figures.size()));
 		}
 		setChanged();
 		notifyObservers();
 	}
 	
-	public void paintOnGraphics(Graphics g){
-		for(Iterator<Drawable> it = figures.iterator();it.hasNext();){
-			it.next().drawOnGraphics(g);
-		}
+	public ArrayList<Drawable> getDrawables(){
+		return this.figures;
 	}
-
-	
+		
 	public void resizeFiguresOnLayer(int layer, int width, int heigth){
 		figures.get(layer).resize(width, heigth);
 		setChanged();
@@ -47,4 +40,7 @@ public class Paint extends Observable{
 		notifyObservers();
 	}
 
+	public int getActiveLaterAt(int posX, int posY){
+		return 0;
+	}
 }

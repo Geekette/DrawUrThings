@@ -1,17 +1,23 @@
 package fr.drawurthings.figures;
 
 import java.awt.Color;
-import java.awt.Graphics;
 
 public abstract class Drawable implements Comparable<Drawable> {
+	
+	public final static int LINE = 0;
+	public final static int RECTANGLE = 1;
+	
+	protected int SHAPE_TYPE;
 	
 	protected int originX, originY, height, width, layer;
 	protected Color border = Color.BLACK,  fill = Color.WHITE;
 	
-	public abstract void drawOnGraphics(Graphics g);
-	public abstract void magnifyOnGraphics(Graphics g, double factor);
 	public abstract void resize(int width, int heigth);
 	public abstract String toString();
+	
+	public int getShapeType(){
+		return this.SHAPE_TYPE;
+	}
 	
 	public void moveOrigin(int x, int y){
 		this.originX = x;

@@ -1,11 +1,12 @@
 package fr.drawurthings.figures;
 
 import java.awt.Color;
-import java.awt.Graphics;
 
 public class Rectangle extends Drawable{
 	
+	
 	public Rectangle(int originX, int originY, int width, int height, int layer){
+		this.SHAPE_TYPE = Drawable.RECTANGLE;
 		this.originX = originX;
 		this.originY = originY;
 		this.height = height;
@@ -23,19 +24,6 @@ public class Rectangle extends Drawable{
 		this.fill = fill;
 	}
 
-	@Override
-	public void drawOnGraphics(Graphics g) {
-		g.setColor(fill);
-		g.fillRect(originX, originY, width, height);
-		g.setColor(border);
-		g.drawRect(originX, originY, width, height);
-	}
-
-	@Override
-	public void magnifyOnGraphics(Graphics g, double factor) {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
 	public void resize(int width, int heigth) {
@@ -45,8 +33,7 @@ public class Rectangle extends Drawable{
 
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
-		return null;
+		return "Rectangle, Origin = (" + this.originX + "," + this.originY +") , Vector = (" + this.width + "," +this.height + "). Color : " + this.border + ".";
 	}
 
 }
