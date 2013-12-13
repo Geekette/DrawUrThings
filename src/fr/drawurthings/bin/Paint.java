@@ -1,6 +1,7 @@
 package fr.drawurthings.bin;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Observable;
 
 import fr.drawurthings.figures.*;
@@ -25,6 +26,7 @@ public class Paint extends Observable{
 	}
 	
 	public ArrayList<Drawable> getDrawables(){
+		Collections.sort(this.figures);
 		return this.figures;
 	}
 		
@@ -40,7 +42,12 @@ public class Paint extends Observable{
 		notifyObservers();
 	}
 
-	public int getActiveLaterAt(int posX, int posY){
+	public int getActiveLayerAt(int posX, int posY){
+		/*for(int i = figures.size();i>0;i--){
+			if(figures.get(i).isVisibleAt(posX,posY)){
+				return i;
+			}
+		}*/
 		return 0;
 	}
 }

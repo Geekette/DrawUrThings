@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 
 import fr.drawurthings.bin.Paint;
 import fr.drawurthings.figures.Drawable;
+import fr.drawurthings.graphics.listener.DrawPanelListener;
 
 @SuppressWarnings("serial")
 public class DrawPanel extends JPanel implements Observer {
@@ -24,19 +25,9 @@ public class DrawPanel extends JPanel implements Observer {
 		this.p.addObserver(this);
 		this.setPreferredSize(new Dimension(800, 600));
 		this.setVisible(true);
-		this.addMouseMotionListener(new MouseMotionListener() {
-			
-			@Override
-			public void mouseMoved(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void mouseDragged(MouseEvent e) {
-				p.moveFiguresOnLayer(0, e.getX(), e.getY());
-			}
-		});
+		DrawPanelListener dpl = new DrawPanelListener(this.p);
+		this.addMouseListener(dpl);
+		this.addMouseMotionListener(dpl);
 		repaint();
 	}
 	
