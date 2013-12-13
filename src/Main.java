@@ -10,13 +10,8 @@ public class Main {
 		Paint p = new Paint();
 		DrawPanel draw = new DrawPanel(p);
 		new DrawWindow(draw);
-<<<<<<< HEAD
 		p.addFigures(Drawable.RECTANGLE, 50, 50, 100, 200);
 		p.addFigures(Drawable.LINE, 400, 400, 0, 300);
-=======
-		p.addFigures(Paint.RECTANGLE, 50, 50, 100, 200);
-		p.addFigures(Paint.LINE, 600, 400, 0, 50);
->>>>>>> 49a891703ce56960b78189c86bf2547887fb334a
 		try {
 			Thread.sleep(1000);
 		} catch (InterruptedException e) {
@@ -31,7 +26,6 @@ public class Main {
 			e.printStackTrace();
 		}
 		p.moveFiguresOnLayer(0, 400, 400);
-<<<<<<< HEAD
 		try {
 			Thread.sleep(1000);
 		} catch (InterruptedException e) {
@@ -46,8 +40,5 @@ public class Main {
 			e.printStackTrace();
 		}
 		p.moveFiguresOnLayer(1, 150, 150);
-=======
-		p.resizeFiguresOnLayer(1, 150, 0);
->>>>>>> 49a891703ce56960b78189c86bf2547887fb334a
 	}
 }
