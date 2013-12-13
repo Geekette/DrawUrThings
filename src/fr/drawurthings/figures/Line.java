@@ -30,4 +30,13 @@ public class Line extends Drawable{
 		return "Line, Origin = (" + this.originX + "," + this.originY +") , Vector = (" + this.width + "," +this.height + "). Color : " + this.border + ".";
 	}
 
+
+	@Override
+	public boolean isVisibleAt(int posX, int posY) {
+		if(posX > originX && posX < (originX + height))
+			if(posY > originY && posY < (originY + width))
+				return true;
+		return false;
+	}
+
 }

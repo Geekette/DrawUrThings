@@ -2,11 +2,11 @@ package fr.drawurthings.figures;
 
 import java.awt.Color;
 
-public class Rectangle extends Drawable{
+public class Oval extends Drawable{
 	
 	
-	public Rectangle(int originX, int originY, int width, int height, int layer){
-		this.SHAPE_TYPE = Drawable.RECTANGLE;
+	public Oval(int originX, int originY, int width, int height, int layer){
+		this.SHAPE_TYPE = Drawable.OVAL;
 		this.originX = originX;
 		this.originY = originY;
 		this.height = height;
@@ -14,12 +14,12 @@ public class Rectangle extends Drawable{
 		this.layer = layer;
 	}
 	
-	public Rectangle(int originX, int originY, int width, int height, int layer, Color border){
+	public Oval(int originX, int originY, int width, int height, int layer, Color border){
 		this(originX, originY, width, height, layer);
 		this.border = border;
 	}
 	
-	public Rectangle(int originX, int originY, int width, int height, int layer, Color border,Color fill){
+	public Oval(int originX, int originY, int width, int height, int layer, Color border,Color fill){
 		this(originX, originY, width, height, layer,border);
 		this.fill = fill;
 	}
@@ -33,7 +33,7 @@ public class Rectangle extends Drawable{
 
 	@Override
 	public String toString() {
-		return "Rectangle, Origin = (" + this.originX + "," + this.originY +") , Vector = (" + this.width + "," +this.height + "). Color : " + this.border + ".";
+		return "Oval, Origin = (" + this.originX + "," + this.originY +") , Vector = (" + this.width + "," +this.height + "). Color : " + this.border + ".";
 	}
 
 	@Override
