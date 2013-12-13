@@ -43,7 +43,7 @@ public class DrawPanel extends JPanel implements Observer {
 	public void paintDrawable(Drawable d,Graphics g){
 		if(d.getShapeType() == Drawable.LINE){
 			g.setColor(d.getBorderColor());
-			g.drawLine(d.getOriginX(), d.getOriginY(), d.getWidth(), d.getHeight());
+			g.drawLine(d.getOriginX(), d.getOriginY(), d.getWidth() + d.getOriginX(), d.getOriginY()+d.getHeight());
 		}else if(d.getShapeType() == Drawable.RECTANGLE){
 			g.setColor(d.getFillingColor());
 			g.fillRect(d.getOriginX(), d.getOriginY(), d.getWidth(), d.getHeight());

@@ -10,35 +10,9 @@ public class Main {
 		Paint p = new Paint();
 		DrawPanel draw = new DrawPanel(p);
 		new DrawWindow(draw);
-		p.addFigures(Drawable.RECTANGLE, 50, 50, 100, 200);
-		p.addFigures(Drawable.LINE, 400, 400, 0, 300);
-		try {
-			Thread.sleep(1000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		p.resizeFiguresOnLayer(0, 90, 60);
-		try {
-			Thread.sleep(1000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		p.moveFiguresOnLayer(0, 400, 400);
-		try {
-			Thread.sleep(1000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		p.resizeFiguresOnLayer(1, 0, 150);
-		try {
-			Thread.sleep(1000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		p.moveFiguresOnLayer(1, 150, 150);
+		p.addFigures(Drawable.RECTANGLE, 150, 150, 200, 200);
+		p.addFigures(Drawable.RECTANGLE, 0, 0, 40, 50);
+		p.addFigures(Drawable.LINE, 75, 300, 100, 400);
+		
 	}
 }

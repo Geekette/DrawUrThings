@@ -5,7 +5,7 @@ import java.awt.Color;
 public class Line extends Drawable{
 	
 	public Line(int originX, int originY,int width,int height,int layer){
-		this.SHAPE_TYPE = Drawable.RECTANGLE;
+		this.SHAPE_TYPE = Drawable.LINE;
 		this.originX = originX;
 		this.originY = originY;
 		this.height = height;
@@ -15,14 +15,14 @@ public class Line extends Drawable{
 	
 
 	public Line(int originX, int originY,int width,int height,int layer, Color c){
-		this(originX, originY,height, width, layer);
+		this(originX, originY,width, height, layer);
 		this.border = c;
 	}
 
 	@Override
-	public void resize(int width, int heigth) {
+	public void resize(int width, int height) {
 		this.width = width;
-		this.height = heigth;
+		this.height = height;
 	}
 
 	@Override
@@ -33,8 +33,8 @@ public class Line extends Drawable{
 
 	@Override
 	public boolean isVisibleAt(int posX, int posY) {
-		if(posX > originX && posX < (originX + height))
-			if(posY > originY && posY < (originY + width))
+		if(posX > originX && posX < (originX + width))
+			if(posY > originY && posY < (originY + height))
 				return true;
 		return false;
 	}

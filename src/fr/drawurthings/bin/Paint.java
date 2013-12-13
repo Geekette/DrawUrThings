@@ -43,11 +43,11 @@ public class Paint extends Observable{
 	}
 
 	public int getActiveLayerAt(int posX, int posY){
-		/*for(int i = figures.size();i>0;i--){
+		for(int i = figures.size()-1;i>=0;i--){
 			if(figures.get(i).isVisibleAt(posX,posY)){
 				return i;
 			}
-		}*/
-		return 0;
+		}
+		return -1;
 	}
 }

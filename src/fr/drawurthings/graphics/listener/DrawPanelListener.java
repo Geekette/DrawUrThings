@@ -11,6 +11,7 @@ import fr.drawurthings.bin.Paint;
 public class DrawPanelListener implements MouseListener, MouseMotionListener{
 	
 	private Paint p;
+	private int working_layer = -1;
 	
 	public DrawPanelListener(Paint p){
 		this.p = p;
@@ -25,14 +26,15 @@ public class DrawPanelListener implements MouseListener, MouseMotionListener{
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
+		if(p.getActiveLayerAt(e.getX(), e.getY()) != -1){
+			this.working_layer = p.getActiveLayerAt(e.getX(), e.getY());
+		}
 		
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
+		working_layer = -1;
 	}
 
 	@Override
@@ -49,7 +51,9 @@ public class DrawPanelListener implements MouseListener, MouseMotionListener{
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		p.moveFiguresOnLayer(p.getActiveLayerAt(e.getX(), e.getY()), e.getX(), e.getY());
+		if(working_layer != -1){
+			p.moveFiguresOnLayer(this.working_layer, e.getX(), e.getY());
+		}
 	}
 
 	@Override
