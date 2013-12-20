@@ -1,14 +1,8 @@
 package fr.drawurthings.toolbox;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.util.Observable;
 import java.util.Observer;
-import fr.drawurthings.figures.*;
-
 import javax.swing.*;
 
 public class Toolbox extends JFrame implements Observer {
@@ -18,7 +12,7 @@ public class Toolbox extends JFrame implements Observer {
 	ShapesPanel tools;
 	
 	public Toolbox(ToolboxModel m){
-		super("Test");
+		super("Boîte à outils");
 		this.m=m;
 		this.m.addObserver(this);
 		setSize(450, 350);

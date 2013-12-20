@@ -1,30 +1,53 @@
 package fr.drawurthings.toolbox;
 
+import java.awt.Component;
+import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.ImageObserver;
+import java.awt.image.ImageProducer;
 
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import fr.drawurthings.figures.Drawable;
  
+
+
+/* Sources des icônes : 
+ * 
+ * https://www.iconfinder.com/search/?q=iconset%3Afugue+layer
+ * https://www.iconfinder.com/search/?q=iconset%3Afugue
+ * 
+ */
 public class ShapesPanel extends JPanel {
 	JButton[] shapes;
+
+	final static int nbShapes = 6;
 	public ShapesPanel(ToolboxModel m) {
-		setLayout(new GridLayout(4,2,10,10));
+		setLayout(new GridLayout(4,2,10,2));
 		shapes = new JButton[7];
 		// TODO
-		shapes[0] = new JButton(""+Drawable.CURSOR /*, iconeCurseur */);
-		shapes[1] = new JButton(""+Drawable.LINE /*, iconeLigne */);
-		shapes[2] = new JButton(""+Drawable.RECTANGLE /*, iconeRect */);
-		shapes[3] = new JButton(""+Drawable.OVAL/*, iconeOvale */);
-		shapes[4] = new JButton(""+Drawable.SQUARE /*, iconeCarre */);
-		shapes[5] = new JButton(""+Drawable.CIRCLE /*, iconeCercle */);
-		shapes[6] = new JButton(""+Drawable.POLYGON /*, iconePolygon */);
-		for(int i=0; i<7; i++){
-			shapes[i].addActionListener(new ShapeListener(m));
+		Icon iconeCurseur = new ImageIcon("cursor.png");
+		Icon iconeLigne   = new ImageIcon("line.png");
+		Icon iconeRect    = new ImageIcon("rectangle.png");
+		Icon iconeSquare  = new ImageIcon("square.png");
+		Icon iconeOval    = new ImageIcon("oval.png");
+		Icon iconeCircle  = new ImageIcon("circle.png");
+		Icon iconePolygon = new ImageIcon("polygon.png");
+		shapes[0] = new JButton(iconeCurseur);
+		shapes[1] = new JButton(iconeLigne);
+		shapes[2] = new JButton(iconeRect);
+		shapes[3] = new JButton(iconeSquare);
+		shapes[4] = new JButton(iconeOval);
+		shapes[5] = new JButton(iconeCircle);
+		//shapes[6] = new JButton(iconePolygon);
+		for(int i=0; i<nbShapes; i++){
+			shapes[i].addActionListener(new ShapeListener(m, this));
 			add(shapes[i]);
 		}
 	}
@@ -32,12 +55,20 @@ public class ShapesPanel extends JPanel {
 }
 
 class ShapeListener implements ActionListener{
-	ToolboxModel t;
-	public ShapeListener(ToolboxModel t){
-		this.t = t;
+	ToolboxModel m;
+	ShapesPanel s;
+	public ShapeListener(ToolboxModel m, ShapesPanel s){
+		this.m = m;
+		this.s = s;
 	}
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		t.setShape(Integer.parseInt(((JButton)arg0.getSource()).getText()));
+		int i;
+		for(i=0; i<ShapesPanel.nbShapes; i++){
+			if(s.shapes[i].equals(((JButton)arg0.getSource()))){
+				break;
+			}
+		}
+		System.out.println(i-1);
 	}
 }

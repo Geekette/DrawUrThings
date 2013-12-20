@@ -2,7 +2,9 @@ package fr.drawurthings.toolbox;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.GridLayout;
+import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -16,24 +18,23 @@ public class ColorsPanel extends JPanel {
 	
 	public ColorsPanel(ToolboxModel m){
 		
-		setLayout(new GridLayout(2, 2, 10, -10));
-		
+		setLayout(new GridLayout(2, 2, 10, -15));
+		int colorSize = 10;
 		JLabel interieur = new JLabel("Intérieur");
 		JLabel bordure   = new JLabel("Bordure");
 		panelColorInterieur = new JPanel();
-		panelColorInterieur.setPreferredSize(new Dimension(50,50));
 		panelColorInterieur.setBackground(m.getInterieur());
 		panelColorInterieur.addMouseListener(new ColorListener("interieur", m));
 		panelColorBordure = new JPanel();
-		panelColorBordure.setPreferredSize(new Dimension(50,50));
 		panelColorBordure.setBackground(m.getBordure());
 		panelColorBordure.addMouseListener(new ColorListener("bordure", m));
+		panelColorBordure.setSize(colorSize, colorSize);
+		panelColorInterieur.setSize(colorSize, colorSize);
+		//panelColorBordure.paint()
 		add(interieur);
 		add(bordure);
 		add(panelColorInterieur);
 		add(panelColorBordure);
-		panelColorBordure.setSize(50, 50);
-		panelColorInterieur.setSize(50, 50);
 	}
 	
 	public void setBordure(Color c){
@@ -61,7 +62,6 @@ class ColorListener implements MouseListener{
 		} else if(text.equals("interieur")){
 			m.setInterieur(JColorChooser.showDialog(null, "Couleur de l'interieur", Color.white));
 		}
-		
 	}
 
 	@Override
