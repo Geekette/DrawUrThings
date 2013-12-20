@@ -11,7 +11,7 @@ public class ToolboxModel extends Observable {
 	public ToolboxModel(){
 		colorInterieur = Color.WHITE;
 		colorBordure = Color.BLACK;
-		shapeSelected = 0;
+		shapeSelected = -1;
 	}
 	
 	public void setInterieur(Color c){

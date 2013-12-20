@@ -4,6 +4,7 @@ import java.awt.Color;
 
 public abstract class Drawable implements Comparable<Drawable> {
 	
+	public final static int CURSOR = -1;
 	public final static int LINE = 0;
 	public final static int RECTANGLE = 1;
 	public final static int SQUARE = 2;
