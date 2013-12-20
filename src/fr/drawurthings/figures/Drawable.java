@@ -73,6 +73,26 @@ public abstract class Drawable implements Comparable<Drawable> {
 		this.fill = fill;
 	}
 	
+	protected void adaptNegative(){
+		int newOriginX = originX, newOriginY=originY, newWidth=width, newHeight=height;
+		if(width<0 && height<0){
+			newOriginX = originX+width;
+			newOriginY = originY+height;
+			newWidth = width*-1;
+			newHeight = height*-1;
+		}else if(width<0){
+			newOriginX = originX+width;
+			newWidth = width*-1;
+		}else if(height<0){
+			newOriginY = originY+height;
+			newHeight = height*-1;
+		}
+		originX = newOriginX;
+		originY = newOriginY;
+		width = newWidth;
+		height = newHeight;
+	}
+	
 	@Override
 	public int compareTo(Drawable o) {
 		if(this.layer>o.getLayer()){

@@ -89,5 +89,9 @@ public class Paint extends Observable{
 		}
 		return -1;
 	}
+	
+	public int getCurrentTool(){
+		return this.toolbox.getShape();
+	}
 
 }

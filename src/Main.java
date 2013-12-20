@@ -17,7 +17,7 @@ public class Main {
 		DrawPanel draw = new DrawPanel(p);
 		new DrawWindow(draw);
 		p.addFigures(Drawable.OVAL, 150, 150, 190, 175);
-		p.addFigures(Drawable.RECTANGLE, 0, 0, 175, 500);
+		p.addFigures(Drawable.RECTANGLE, 0, 0, -175, 500);
 		try{
 			Thread.sleep(10000);
 		}catch(Exception e){

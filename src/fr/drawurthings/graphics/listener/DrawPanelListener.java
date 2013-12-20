@@ -13,7 +13,7 @@ import fr.drawurthings.bin.Paint;
 public class DrawPanelListener implements MouseListener, MouseMotionListener{
 	
 	private Paint p;
-	private int working_layer = -1, delta_x, delta_y;
+	private int working_layer = -1, oringin_x, origin_y, delta_x, delta_y;
 	
 	public DrawPanelListener(Paint p){
 		this.p = p;
@@ -38,17 +38,21 @@ public class DrawPanelListener implements MouseListener, MouseMotionListener{
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		if(p.getActiveLayerAt(e.getX(), e.getY()) != -1){
-			this.working_layer = p.getActiveLayerAt(e.getX(), e.getY());
-			delta_x = e.getX() - p.getDrawables().get(working_layer).getOriginX();
-			delta_y = e.getY() - p.getDrawables().get(working_layer).getOriginY();
-		}
+			oringin_x = e.getX();
+			origin_y = e.getY();
+			if(p.getActiveLayerAt(e.getX(), e.getY()) != -1){
+				this.working_layer = p.getActiveLayerAt(e.getX(), e.getY());
+				delta_x = e.getX() - p.getDrawables().get(working_layer).getOriginX();
+				delta_y = e.getY() - p.getDrawables().get(working_layer).getOriginY();
+			}
 		
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		
+		if(p.getCurrentTool() != -1){
+			p.addFigures(p.getCurrentTool(), oringin_x, origin_y, delta_x, delta_y);
+		}
 	}
 
 	@Override
@@ -65,8 +69,13 @@ public class DrawPanelListener implements MouseListener, MouseMotionListener{
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		if(working_layer != -1){
-			p.moveFiguresOnLayer(this.working_layer, e.getX()-delta_x, e.getY()-delta_y);
+		if(this.p.getCurrentTool() == -1){
+			if(working_layer != -1){
+				p.moveFiguresOnLayer(this.working_layer, e.getX()-delta_x, e.getY()-delta_y);
+			}
+		}else{
+			delta_x = e.getX() - oringin_x ;
+			delta_y = e.getY() - origin_y ;
 		}
 	}
 
