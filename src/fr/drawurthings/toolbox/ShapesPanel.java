@@ -1,20 +1,12 @@
 package fr.drawurthings.toolbox;
 
-import java.awt.Component;
-import java.awt.Graphics;
 import java.awt.GridLayout;
-import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.ImageObserver;
-import java.awt.image.ImageProducer;
-
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
-
-import fr.drawurthings.figures.Drawable;
  
 
 
@@ -38,7 +30,7 @@ public class ShapesPanel extends JPanel {
 		Icon iconeSquare  = new ImageIcon("square.png");
 		Icon iconeOval    = new ImageIcon("oval.png");
 		Icon iconeCircle  = new ImageIcon("circle.png");
-		Icon iconePolygon = new ImageIcon("polygon.png");
+		//Icon iconePolygon = new ImageIcon("polygon.png");
 		shapes[0] = new JButton(iconeCurseur);
 		shapes[1] = new JButton(iconeLigne);
 		shapes[2] = new JButton(iconeRect);
@@ -69,6 +61,6 @@ class ShapeListener implements ActionListener{
 				break;
 			}
 		}
-		System.out.println(i-1);
+		m.setShape(i-1);
 	}
 }
