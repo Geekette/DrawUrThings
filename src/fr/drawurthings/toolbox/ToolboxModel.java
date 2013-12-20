@@ -18,20 +18,25 @@ public class ToolboxModel extends Observable {
 		colorInterieur = c;
 		setChanged();notifyObservers();
 	}
+	
 	public void setBordure(Color c){
 		colorBordure = c;
 		setChanged();notifyObservers();
 	}
+	
 	public void setShape(int s){
 		shapeSelected = s;
 		setChanged();notifyObservers();
 	}
+	
 	public Color getInterieur(){
 		return colorInterieur;
 	}
+	
 	public Color getBordure(){
 		return colorBordure;
 	}
+	
 	public int getShape(){
 		return shapeSelected;
 	}
