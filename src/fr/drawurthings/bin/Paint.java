@@ -6,17 +6,19 @@ import java.util.Collections;
 import java.util.Observable;
 
 import fr.drawurthings.figures.*;
+import fr.drawurthings.toolbox.ToolboxModel;
 
 public class Paint extends Observable{
 
 	
 	ArrayList<Drawable> figures;
 	private Color bgcolor;
+	private ToolboxModel toolbox;
 	
-	
-	public Paint(){
+	public Paint(ToolboxModel t){
 		this.figures = new ArrayList<Drawable>();
 		this.bgcolor = Color.WHITE;
+		this.toolbox = t;
 	}
 
 	public Paint(Color bgColor){
@@ -36,15 +38,15 @@ public class Paint extends Observable{
 	
 	public void addFigures(int type,int originX,int originY, int width, int height){
 		if(type == Drawable.LINE){
-			figures.add(new Line(originX, originY, width, height, figures.size()));
+			figures.add(new Line(originX, originY, width, height, figures.size(),toolbox.getBordure()));
 		}else if(type == Drawable.RECTANGLE){
-			figures.add(new Rectangle(originX, originY, width, height, figures.size()));
+			figures.add(new Rectangle(originX, originY, width, height, figures.size(),toolbox.getBordure(),toolbox.getInterieur()));
 		}else if(type == Drawable.SQUARE){
-			figures.add(new Square(originX, originY, height, figures.size()));
+			figures.add(new Square(originX, originY, height, figures.size(),toolbox.getBordure(),toolbox.getInterieur()));
 		}else if(type == Drawable.OVAL){
-			figures.add(new Oval(originX, originY, width, height, figures.size()));
+			figures.add(new Oval(originX, originY, width, height, figures.size(),toolbox.getBordure(),toolbox.getInterieur()));
 		}else if(type == Drawable.CIRCLE){
-			figures.add(new Circle(originX, originY, height, figures.size()));
+			figures.add(new Circle(originX, originY, height, figures.size(),toolbox.getBordure(),toolbox.getInterieur()));
 		}
 		setChanged();
 		notifyObservers();
@@ -86,6 +88,10 @@ public class Paint extends Observable{
 			}
 		}
 		return -1;
+	}
+	
+	public int getCurrentTool(){
+		return this.toolbox.getShape();
 	}
 
 }

@@ -11,7 +11,7 @@ public class DrawWindow extends JFrame{
 	JPanel draw;
 	
 	public DrawWindow(JPanel draw){
-		super("DrawUrThings : Draw (Pre-Alpha)");
+		super("DrawUrThings : Draw (Alpha)");
 		this.setVisible(true);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.draw = draw;

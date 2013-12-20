@@ -12,6 +12,9 @@ public class Circle extends Drawable{
 		this.height = height;
 		this.width = height;
 		this.layer = layer;
+		if(width<0 || height<0){
+			adaptNegative();
+		}
 	}
 	
 	public Circle(int originX, int originY, int height, int layer, Color border){
@@ -29,6 +32,9 @@ public class Circle extends Drawable{
 	public void resize(int width, int height) {
 		this.width = height;
 		this.height = height;
+		if(width<0 || height<0){
+			adaptNegative();
+		}
 	}
 
 	@Override

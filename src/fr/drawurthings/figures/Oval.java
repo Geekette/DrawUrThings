@@ -12,6 +12,9 @@ public class Oval extends Drawable{
 		this.height = height;
 		this.width = width;
 		this.layer = layer;
+		if(width<0 || height<0){
+			adaptNegative();
+		}
 	}
 	
 	public Oval(int originX, int originY, int width, int height, int layer, Color border){
@@ -29,6 +32,9 @@ public class Oval extends Drawable{
 	public void resize(int width, int height) {
 		this.width = width;
 		this.height = height;
+		if(width<0 || height<0){
+			adaptNegative();
+		}
 	}
 
 	@Override
