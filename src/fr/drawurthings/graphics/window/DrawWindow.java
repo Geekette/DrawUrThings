@@ -15,6 +15,7 @@ public class DrawWindow extends JFrame{
 		this.setVisible(true);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.draw = draw;
+		this.setLocation(150, 50);;
 		this.buildContentPane();
 	}
 	

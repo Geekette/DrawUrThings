@@ -32,7 +32,7 @@ public class DrawPanel extends JPanel implements Observer {
 	}
 	
 	public void paint(Graphics g){
-		g.setColor(Color.WHITE);
+		g.setColor(p.getBgcolor());
 		g.fillRect(0, 0, getWidth(), getHeight());
 
 		for(Iterator<Drawable> it = p.getDrawables().iterator(); it.hasNext();){

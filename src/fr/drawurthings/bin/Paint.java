@@ -1,5 +1,6 @@
 package fr.drawurthings.bin;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Observable;
@@ -10,11 +11,29 @@ public class Paint extends Observable{
 
 	
 	ArrayList<Drawable> figures;
+	private Color bgcolor;
+	
 	
 	public Paint(){
 		this.figures = new ArrayList<Drawable>();
+		this.bgcolor = Color.WHITE;
 	}
 
+	public Paint(Color bgColor){
+		this.figures = new ArrayList<Drawable>();
+		this.bgcolor = bgColor;
+	}
+	
+	public Color getBgcolor() {
+		return bgcolor;
+	}
+
+	public void setBgcolor(Color bgcolor) {
+		this.bgcolor = bgcolor;
+		this.setChanged();
+		this.notifyObservers();
+	}
+	
 	public void addFigures(int type,int originX,int originY, int width, int height){
 		if(type == Drawable.LINE){
 			figures.add(new Line(originX, originY, width, height, figures.size()));
@@ -27,6 +46,18 @@ public class Paint extends Observable{
 		}else if(type == Drawable.CIRCLE){
 			figures.add(new Circle(originX, originY, height, figures.size()));
 		}
+		setChanged();
+		notifyObservers();
+	}
+	
+	public void setFigureFillingColor(int layer,Color c){
+		this.figures.get(layer).setFillingColor(c);
+		setChanged();
+		notifyObservers();
+	}
+	
+	public void setFigureBorderColor(int layer,Color c){
+		this.figures.get(layer).setBorderColor(c);
 		setChanged();
 		notifyObservers();
 	}
@@ -56,4 +87,5 @@ public class Paint extends Observable{
 		}
 		return -1;
 	}
+
 }
