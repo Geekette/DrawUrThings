@@ -10,7 +10,7 @@ import javax.swing.JPanel;
  
 
 
-/* Sources des icônes : 
+/* Sources des icones : 
  * 
  * https://www.iconfinder.com/search/?q=iconset%3Afugue+layer
  * https://www.iconfinder.com/search/?q=iconset%3Afugue
