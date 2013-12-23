@@ -25,7 +25,7 @@ public class DrawPanel extends JPanel implements Observer {
 		this.p.addObserver(this);
 		this.setPreferredSize(new Dimension(800, 600));
 		this.setVisible(true);
-		DrawPanelListener dpl = new DrawPanelListener(this.p);
+		DrawPanelListener dpl = new DrawPanelListener(this.p, this);
 		this.addMouseListener(dpl);
 		this.addMouseMotionListener(dpl);
 		repaint();

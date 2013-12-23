@@ -1,5 +1,3 @@
-import java.awt.Color;
-
 import fr.drawurthings.bin.Paint;
 import fr.drawurthings.figures.Drawable;
 import fr.drawurthings.graphics.panel.DrawPanel;
@@ -16,7 +14,7 @@ public class Main {
 		Paint p = new Paint(tbm);
 		DrawPanel draw = new DrawPanel(p);
 		new DrawWindow(draw);
-		p.addFigures(Drawable.OVAL, 150, 150, 190, 175);
+		/*p.addFigures(Drawable.OVAL, 150, 150, 190, 175);
 		p.addFigures(Drawable.RECTANGLE, 0, 0, -175, 500);
 		try{
 			Thread.sleep(10000);
@@ -25,7 +23,7 @@ public class Main {
 		}
 		p.addFigures(Drawable.OVAL, 150, 150, 200, 200);
 		p.addFigures(Drawable.OVAL, 150, 150, 200, 200);
-		p.addFigures(Drawable.LINE, 75, 300, 100, 400);
+		p.addFigures(Drawable.LINE, 75, 300, 100, 400);*/
 		
 	}
 }
