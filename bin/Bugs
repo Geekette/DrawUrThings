@@ -1,0 +1,5 @@
+Listes des bugs connus :
+
++ Ligne : Les tracés fonctionnent dans tous les sens mais une ligne n'est sélectionnable que si elle a été tracée dans le sens haut/gauche>bas/droite
+
++ Cercles et carrés : difficultés d'adaptation des valeurs négatives

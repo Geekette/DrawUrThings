@@ -12,8 +12,12 @@ public abstract class Drawable implements Comparable<Drawable> {
 	public final static int CIRCLE = 4;
 	public final static int POLYGON = 5;
 	
-	protected int SHAPE_TYPE;
+	public final static int TOP_LEFT_HAND_CORNER = 1000;
+	public final static int TOP_RIGHT_HAND_CORNER = 1001;
+	public final static int BOTTOM_LEFT_HAND_CORNER = 1002;
+	public final static int BOTTOM_RIGHT_HAND_CORNER = 1003;
 	
+	protected int SHAPE_TYPE;
 	protected int originX, originY, height, width, layer;
 	protected Color border = Color.BLACK,  fill = Color.WHITE;
 	
@@ -23,6 +27,33 @@ public abstract class Drawable implements Comparable<Drawable> {
 	
 	public int getShapeType(){
 		return this.SHAPE_TYPE;
+	}
+	
+	public void resizeMovingACorner(int corner, int posX, int posY){
+		int newWidth, newHeight, newOriginX, newOriginY;
+		if(corner == Drawable.TOP_LEFT_HAND_CORNER){
+			newWidth = this.width + (this.originX-posX);
+			newHeight = this.height + (this.originY-posY);
+			setWidth(newWidth);
+			setHeigth(newHeight);
+			this.moveOrigin(posX, posY);
+		}else if(corner == Drawable.BOTTOM_LEFT_HAND_CORNER){
+			newWidth = this.width + (this.originX-posX);
+			newHeight = posY - getOriginY();
+			setHeigth(newHeight);
+			setWidth(newWidth);
+			this.moveOrigin(posX, getOriginY());
+		}else if(corner == Drawable.TOP_RIGHT_HAND_CORNER){
+			newWidth = posX - getOriginX();
+			newHeight = this.height + (this.originY-posY);
+			setWidth(newWidth);
+			setHeigth(newHeight);
+			this.moveOrigin(getOriginX(), posY);
+		}else if(corner == Drawable.BOTTOM_RIGHT_HAND_CORNER){
+			setWidth(posX-getOriginX());
+			setHeigth(posY-getOriginY());
+		}
+		adaptNegative();
 	}
 	
 	public void moveOrigin(int x, int y){

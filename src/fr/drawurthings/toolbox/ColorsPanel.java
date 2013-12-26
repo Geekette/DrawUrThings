@@ -20,8 +20,8 @@ public class ColorsPanel extends JPanel {
 		
 		setLayout(new GridLayout(2, 2, 10, -15));
 		int colorSize = 10;
-		JLabel interieur = new JLabel("Intérieur");
-		JLabel bordure   = new JLabel("Bordure");
+		JLabel interieur = new JLabel("Remplissage");
+		JLabel bordure   = new JLabel("Trait");
 		panelColorInterieur = new JPanel();
 		panelColorInterieur.setBackground(m.getInterieur());
 		panelColorInterieur.addMouseListener(new ColorListener("interieur", m));

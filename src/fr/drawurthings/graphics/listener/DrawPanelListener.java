@@ -12,6 +12,7 @@ import javax.swing.JOptionPane;
 import fr.drawurthings.bin.Paint;
 import fr.drawurthings.figures.Drawable;
 import fr.drawurthings.graphics.panel.DrawPanel;
+import fr.drawurthings.graphics.panel.DrawPopup;
 
 public class DrawPanelListener implements MouseListener, MouseMotionListener{
 	
@@ -27,36 +28,27 @@ public class DrawPanelListener implements MouseListener, MouseMotionListener{
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		if(e.getClickCount() == 2){
+		if(e.getClickCount() == 2 && e.getButton() == MouseEvent.BUTTON1){
+			JOptionPane.showMessageDialog(null, "Fonctionnalité non implémentée.");
 			if(working_layer == -1){
-				int rgb_code;
-				rgb_code = JColorChooser.showDialog(null, "Background color", p.getBgcolor()).getRGB();
-				p.setBgcolor(new Color(rgb_code));
+				
 			}else{
-				int rgb_code;
-				rgb_code = JColorChooser.showDialog(null, "Background color", p.getDrawables().get(working_layer).getFillingColor()).getRGB();
-				p.setFigureFillingColor(working_layer, new Color(rgb_code));
 				//JOptionPane.showMessageDialog(null, "Vous avez double-clique sur une figure.");
 			}
-		}else{
+		}else if(e.getButton() == MouseEvent.BUTTON1){
 			if(working_layer != -1){
-				d.paint(d.getGraphics());
-				Graphics graphics = d.getGraphics();
-				Drawable figure = p.getDrawables().get(working_layer);
-				graphics.setColor(Color.BLUE);
-				if(figure.getShapeType() != Drawable.LINE){ 
-					graphics.drawRect(figure.getOriginX(), figure.getOriginY(), figure.getWidth(), figure.getHeight());
-					graphics.drawRect(figure.getOriginX()-5, figure.getOriginY()-5, 10, 10);
-					graphics.drawRect(figure.getOriginX()-5, figure.getOriginY() + figure.getHeight()-5, 10, 10);
-					graphics.drawRect(figure.getOriginX()+figure.getWidth()-5, figure.getOriginY()+ figure.getHeight()-5, 10, 10);
-					graphics.drawRect(figure.getOriginX() + figure.getWidth()-5, figure.getOriginY()-5, 10, 10);
-				}else{
-					graphics.drawRect(figure.getOriginX()-5, figure.getOriginY()-5, 10, 10);
-					graphics.drawRect(figure.getOriginX()+figure.getWidth()-5, figure.getOriginY()+ figure.getHeight()-5, 10, 10);
-				}
+				drawDelimiter();
 			}else{
 				d.repaint();
 			}
+		}else if(e.getButton() == MouseEvent.BUTTON3){
+			if(working_layer == -1){
+				new DrawPopup(p).show(d, e.getX(), e.getY());
+			}else{
+				new DrawPopup(p, p.getDrawables().get(working_layer)).show(d, e.getX(), e.getY());
+				working_layer = -1;
+			}
+			
 		}
 	}
 
@@ -64,20 +56,37 @@ public class DrawPanelListener implements MouseListener, MouseMotionListener{
 	public void mousePressed(MouseEvent e) {
 			oringin_x = e.getX();
 			origin_y = e.getY();
-			if(p.getActiveLayerAt(e.getX(), e.getY()) != -1){
-				this.working_layer = p.getActiveLayerAt(e.getX(), e.getY());
-				delta_x = e.getX() - p.getDrawables().get(working_layer).getOriginX();
-				delta_y = e.getY() - p.getDrawables().get(working_layer).getOriginY();
+			if(working_layer != -1){
+				Drawable figure = p.getDrawables().get(working_layer);
+				if(!(e.getX() >= figure.getOriginX() - 5 && e.getX() <= figure.getOriginX() + 5 && e.getY() >= figure.getOriginY() - 5 && e.getY() <= figure.getOriginY() + 5)
+						&& !(e.getX() >= figure.getOriginX() - 5 && e.getX() <= figure.getOriginX() + 5 && e.getY() >= figure.getOriginY()+figure.getHeight() - 5 && e.getY() <= figure.getOriginY()+figure.getHeight() + 5)
+						&& !(e.getX() >= figure.getOriginX()+figure.getWidth() - 5 && e.getX() <= figure.getOriginX()+figure.getWidth() + 5 && e.getY() >= figure.getOriginY()+figure.getHeight() - 5 && e.getY() <= figure.getOriginY()+figure.getHeight() + 5)
+						&& !(e.getX() >= figure.getOriginX()+figure.getWidth() - 5 && e.getX() <= figure.getOriginX()+figure.getWidth() + 5 && e.getY() >= figure.getOriginY() - 5 && e.getY() <= figure.getOriginY() + 5)
+						&& p.getActiveLayerAt(e.getX(), e.getY()) != figure.getLayer()){
+					working_layer = p.getActiveLayerAt(e.getX(), e.getY());
+				}else{
+					delta_x = e.getX() - figure.getOriginX() ;
+					delta_y = e.getY() - figure.getOriginY() ;
+				}
 			}else{
-				this.working_layer = -1;
+				if(p.getActiveLayerAt(e.getX(), e.getY()) != -1){
+					this.working_layer = p.getActiveLayerAt(e.getX(), e.getY());
+					delta_x = e.getX() - p.getDrawables().get(working_layer).getOriginX();
+					delta_y = e.getY() - p.getDrawables().get(working_layer).getOriginY();
+				}else{
+					this.working_layer = -1;
+				}
 			}
-		
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		if(p.getCurrentTool() != -1){
 			p.addFigures(p.getCurrentTool(), oringin_x, origin_y, delta_x, delta_y);
+		}else{
+			if(working_layer != -1){
+				drawDelimiter();
+			}
 		}
 	}
 
@@ -99,7 +108,18 @@ public class DrawPanelListener implements MouseListener, MouseMotionListener{
 		if(this.p.getCurrentTool() == -1){
 			if(working_layer != -1){
 				Drawable figure = p.getDrawables().get(working_layer);
-				p.moveFiguresOnLayer(this.working_layer, e.getX()-delta_x, e.getY()-delta_y);
+				if(e.getX() >= figure.getOriginX() - 5 && e.getX() <= figure.getOriginX() + 5 && e.getY() >= figure.getOriginY() - 5 && e.getY() <= figure.getOriginY() + 5){
+					p.resizeFigureUsingCorner(working_layer, Drawable.TOP_LEFT_HAND_CORNER, e.getX(), e.getY());
+				}else if(e.getX() >= figure.getOriginX() - 5 && e.getX() <= figure.getOriginX() + 5 && e.getY() >= figure.getOriginY()+figure.getHeight() - 5 && e.getY() <= figure.getOriginY()+figure.getHeight() + 5){
+					p.resizeFigureUsingCorner(working_layer, Drawable.BOTTOM_LEFT_HAND_CORNER, e.getX(), e.getY());
+				}else if(e.getX() >= figure.getOriginX()+figure.getWidth() - 5 && e.getX() <= figure.getOriginX()+figure.getWidth() + 5 && e.getY() >= figure.getOriginY()+figure.getHeight() - 5 && e.getY() <= figure.getOriginY()+figure.getHeight() + 5){
+					p.resizeFigureUsingCorner(working_layer, Drawable.BOTTOM_RIGHT_HAND_CORNER, e.getX(), e.getY());
+				}else if(e.getX() >= figure.getOriginX()+figure.getWidth() - 5 && e.getX() <= figure.getOriginX()+figure.getWidth() + 5 && e.getY() >= figure.getOriginY() - 5 && e.getY() <= figure.getOriginY() + 5){
+					p.resizeFigureUsingCorner(working_layer, Drawable.TOP_RIGHT_HAND_CORNER, e.getX(), e.getY());
+				}else{
+					p.moveFiguresOnLayer(this.working_layer, e.getX()-delta_x, e.getY()-delta_y);	
+				}
+				drawDelimiter();
 			}
 		}else{
 			try{
@@ -129,6 +149,23 @@ public class DrawPanelListener implements MouseListener, MouseMotionListener{
 	public void mouseMoved(MouseEvent e) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	private void drawDelimiter(){
+		d.paint(d.getGraphics());
+		Graphics graphics = d.getGraphics();
+		Drawable figure = p.getDrawables().get(working_layer);
+		graphics.setColor(Color.BLUE);
+		if(figure.getShapeType() != Drawable.LINE){ 
+			graphics.drawRect(figure.getOriginX(), figure.getOriginY(), figure.getWidth(), figure.getHeight());
+			graphics.drawRect(figure.getOriginX()-5, figure.getOriginY()-5, 10, 10);
+			graphics.drawRect(figure.getOriginX()-5, figure.getOriginY() + figure.getHeight()-5, 10, 10);
+			graphics.drawRect(figure.getOriginX()+figure.getWidth()-5, figure.getOriginY()+ figure.getHeight()-5, 10, 10);
+			graphics.drawRect(figure.getOriginX() + figure.getWidth()-5, figure.getOriginY()-5, 10, 10);
+		}else{
+			graphics.drawRect(figure.getOriginX()-5, figure.getOriginY()-5, 10, 10);
+			graphics.drawRect(figure.getOriginX()+figure.getWidth()-5, figure.getOriginY()+ figure.getHeight()-5, 10, 10);
+		}
 	}
 
 }
