@@ -19,6 +19,7 @@ public abstract class Drawable implements Comparable<Drawable> {
 	
 	protected int SHAPE_TYPE;
 	protected int originX, originY, height, width, layer;
+	protected double zoom = 1;
 	protected Color border = Color.BLACK,  fill = Color.WHITE;
 	
 	public abstract void resize(int width, int height);
@@ -30,25 +31,39 @@ public abstract class Drawable implements Comparable<Drawable> {
 	}
 	
 	public void resizeMovingACorner(int corner, int posX, int posY){
-		int newWidth, newHeight, newOriginX, newOriginY;
+		int newWidth, newHeight;
 		if(corner == Drawable.TOP_LEFT_HAND_CORNER){
-			newWidth = this.width + (this.originX-posX);
-			newHeight = this.height + (this.originY-posY);
+			/*setHeigth(getHeight()-(getOriginY()-posY));
+			moveOrigin(posX, posY);*/			
+			newWidth = getWidth() + (getOriginX()-posX);
+			newHeight = getHeight() + (getOriginY()-posY);
 			setWidth(newWidth);
 			setHeigth(newHeight);
 			this.moveOrigin(posX, posY);
 		}else if(corner == Drawable.BOTTOM_LEFT_HAND_CORNER){
-			newWidth = this.width + (this.originX-posX);
+			newWidth = getWidth() + (getOriginX()-posX);
 			newHeight = posY - getOriginY();
 			setHeigth(newHeight);
 			setWidth(newWidth);
-			this.moveOrigin(posX, getOriginY());
+			this.setOriginX(posX);
+			//this.moveOrigin(posX, getOriginY());
 		}else if(corner == Drawable.TOP_RIGHT_HAND_CORNER){
 			newWidth = posX - getOriginX();
-			newHeight = this.height + (this.originY-posY);
+			newHeight = getHeight() - (posY-getOriginY());
 			setWidth(newWidth);
 			setHeigth(newHeight);
-			this.moveOrigin(getOriginX(), posY);
+			setOriginY(posY);
+			/*newWidth = posX - getOriginX();
+			newHeight = getHeight() - (posY-getOriginY());
+			this.setWidth(newWidth);
+			this.setHeigth(newHeight);
+			this.moveOrigin((int)(getOriginX()*zoom), posY);*/
+			/*newWidth = posX - getOriginX();
+			newHeight = getHeight() + (getOriginY()-posY);
+			setWidth(newWidth);
+			setHeigth(newHeight);
+			this.setOriginY(posY);*/
+			//this.moveOrigin(getOriginX(), posY);
 		}else if(corner == Drawable.BOTTOM_RIGHT_HAND_CORNER){
 			setWidth(posX-getOriginX());
 			setHeigth(posY-getOriginY());
@@ -57,33 +72,41 @@ public abstract class Drawable implements Comparable<Drawable> {
 	}
 	
 	public void moveOrigin(int x, int y){
-		this.originX = x;
-		this.originY = y;
+		setOriginX(x);
+		setOriginY(y);
 	}
 	
 	public int getOriginX() {
-		return originX;
+		return (int) (zoom*originX);
 	}
 	public void setOriginX(int originX) {
-		this.originX = originX;
+		this.originX = (int) (originX/zoom);
 	}
 	public int getOriginY() {
-		return originY;
+		return (int) (zoom*originY);
 	}
 	public void setOriginY(int originY) {
-		this.originY = originY;
+		this.originY = (int) (originY/zoom);
 	}
 	public int getHeight() {
-		return height;
+		return (int) (zoom*height);
 	}
 	public void setHeigth(int height) {
-		this.height = height;
+		if(zoom == 1){
+			this.height = (int) (height/zoom);
+		}else{
+			this.height = (int) (height/zoom)+1;
+		}
 	}
 	public int getWidth() {
-		return width;
+		return (int) (zoom*width);
 	}
 	public void setWidth(int width) {
-		this.width = width;
+		if(zoom == 1){
+			this.width = (int) (width/zoom);
+		}else{
+			this.width = (int) (width/zoom)+1;
+		}
 	}
 	public int getLayer() {
 		return layer;
@@ -102,6 +125,17 @@ public abstract class Drawable implements Comparable<Drawable> {
 	}
 	public void setFillingColor(Color fill) {
 		this.fill = fill;
+	}
+	
+	public void setZoom(double zoom){
+		this.zoom = zoom;
+	}
+	
+	public void modifyScale(double scale){
+		this.originX = (int)(originX/scale);
+		this.originY = (int)(originY/scale);
+		this.width = (int)(width/scale)+1;
+		this.height = (int)(height/scale)+1;
 	}
 	
 	protected void adaptNegative(){

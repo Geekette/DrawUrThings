@@ -14,7 +14,14 @@ public class Main {
 		Paint p = new Paint(tbm);
 		DrawPanel draw = new DrawPanel(p);
 		new DrawWindow(draw);
-		/*p.addFigures(Drawable.OVAL, 150, 150, 190, 175);
+		/*p.addFigures(Drawable.RECTANGLE, 0, 0, 100, 100);
+		try{
+			Thread.sleep(2000);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		p.setMagnifyingLevel(1.5);
+		p.addFigures(Drawable.OVAL, 150, 150, 190, 175);
 		p.addFigures(Drawable.RECTANGLE, 0, 0, -175, 500);
 		try{
 			Thread.sleep(10000);

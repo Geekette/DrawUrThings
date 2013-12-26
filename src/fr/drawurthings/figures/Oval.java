@@ -44,8 +44,8 @@ public class Oval extends Drawable{
 
 	@Override
 	public boolean isVisibleAt(int posX, int posY) {
-		if(posX > originX && posX < (originX + width))
-			if(posY > originY && posY < (originY + height))
+		if((posX/zoom) > originX && (posX/zoom) < (originX + width))
+			if((posY/zoom) > originY && (posY/zoom) < (originY + height))
 				return true;
 		return false;
 	}

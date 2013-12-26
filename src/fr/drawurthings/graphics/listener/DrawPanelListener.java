@@ -29,7 +29,7 @@ public class DrawPanelListener implements MouseListener, MouseMotionListener{
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		if(e.getClickCount() == 2 && e.getButton() == MouseEvent.BUTTON1){
-			JOptionPane.showMessageDialog(null, "Fonctionnalité non implémentée.");
+			JOptionPane.showMessageDialog(null, "FonctionnalitÃ© non implementÃ©e.");
 			if(working_layer == -1){
 				
 			}else{
@@ -81,7 +81,7 @@ public class DrawPanelListener implements MouseListener, MouseMotionListener{
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		if(p.getCurrentTool() != -1){
+		if(p.getCurrentTool() != -1 && e.getButton() == MouseEvent.BUTTON1){
 			p.addFigures(p.getCurrentTool(), oringin_x, origin_y, delta_x, delta_y);
 		}else{
 			if(working_layer != -1){

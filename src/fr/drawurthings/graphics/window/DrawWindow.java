@@ -1,6 +1,7 @@
 package fr.drawurthings.graphics.window;
 
 import java.awt.Container;
+import java.awt.GridLayout;
 import java.awt.Window;
 
 import javax.swing.ImageIcon;

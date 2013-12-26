@@ -22,7 +22,7 @@ public class DrawPopup extends JPopupMenu{
 	private Drawable figure;
 	
 	private JMenuItem rotate90,rotate180,rotate270,colorBorder,colorFill, colorBW,arrangetop,arrangeup,arrangedown,arrangeback,duplicate,delete, properties;
-	private JMenuItem bgcolor,undo,redo,deleteall;
+	private JMenuItem bgcolor,undo,redo,deleteall,percent25,percent50,percent75,percent,percent125,percent150,percent175,originalsize;
 	
 	public DrawPopup(Paint p){
 		this.p = p;
@@ -58,7 +58,7 @@ public class DrawPopup extends JPopupMenu{
 		arrangeup.addActionListener(pl);
 		arrangedown = new JMenuItem("Descendre", new ImageIcon("minus.png"));
 		arrangedown.addActionListener(pl);
-		arrangeback = new JMenuItem("Mettre en arrière plan", new ImageIcon("layer_shade.png"));
+		arrangeback = new JMenuItem("Mettre en arriÃ¨re plan", new ImageIcon("layer_shade.png"));
 		arrangeback.addActionListener(pl);
 		organise.add(arrangetop);
 		organise.add(arrangeup);
@@ -67,16 +67,17 @@ public class DrawPopup extends JPopupMenu{
 		
 		JMenu rotate = new JMenu("Pivoter");
 		rotate.setIcon(new ImageIcon("rotate.png"));
-		this.rotate90 = new JMenuItem("90°");
-		this.rotate180 = new JMenuItem("180°");
-		this.rotate270 = new JMenuItem("270°");
+		this.rotate90 = new JMenuItem("90Â°");
+		this.rotate180 = new JMenuItem("180Â°");
+		this.rotate270 = new JMenuItem("270Â°");
 		rotate.add(rotate90);
 		rotate.add(rotate180);
 		rotate.add(rotate270);
 		
 		this.duplicate = new JMenuItem("Dupliquer", new ImageIcon("duplicate.png"));
+		this.duplicate.addActionListener(pl);
 		this.delete = new JMenuItem("Supprimer", new ImageIcon("remove.png"));
-		this.properties = new JMenuItem("Propriétés", new ImageIcon("pencil.png"));
+		this.properties = new JMenuItem("PropriÃ©tÃ©s", new ImageIcon("pencil.png"));
 		this.delete.addActionListener(pl);
 		this.properties.addActionListener(pl);
 		//delete.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, 0));
@@ -92,8 +93,34 @@ public class DrawPopup extends JPopupMenu{
 	
 	private void buildForBackground(){
 		PopupListener pl = new PopupListener();
-		bgcolor = new JMenuItem("Couleur d'arrière plan",new ImageIcon("color_pencil.png"));
+		
+		JMenu zoom = new JMenu("Zoom");
+		percent25 = new JMenuItem("25%");
+		percent25.addActionListener(pl);
+		percent50 = new JMenuItem("50%");
+		percent50.addActionListener(pl);
+		percent75 = new JMenuItem("75%");
+		percent75.addActionListener(pl);
+		percent = new JMenuItem("100%");
+		percent.addActionListener(pl);
+		percent125 = new JMenuItem("125%");
+		percent125.addActionListener(pl);
+		percent150 = new JMenuItem("150%");
+		percent150.addActionListener(pl);
+		percent175 = new JMenuItem("175%");
+		percent175.addActionListener(pl);
+		zoom.add(percent25);
+		zoom.add(percent50);
+		zoom.add(percent75);
+		zoom.add(percent);
+		zoom.add(percent125);
+		zoom.add(percent150);
+		zoom.add(percent175);
+		
+		bgcolor = new JMenuItem("Couleur d'arriÃ¨re plan",new ImageIcon("color_pencil.png"));
 		bgcolor.addActionListener(pl);
+		originalsize = new JMenuItem("RÃ©tablir l'Ã©chelle originale");
+		originalsize.addActionListener(pl);
 		undo = new JMenuItem("Annuler", new ImageIcon("undo.png"));
 		undo.addActionListener(pl);
 		redo = new JMenuItem("Refaire", new ImageIcon("redo.png"));
@@ -101,6 +128,9 @@ public class DrawPopup extends JPopupMenu{
 		deleteall = new JMenuItem("Tout supprimer", new ImageIcon("remove.png"));
 		deleteall.addActionListener(pl);
 		this.add(bgcolor);
+		this.add(new Separator());
+		this.add(zoom);
+		this.add(originalsize);
 		this.add(new Separator());
 		this.add(undo);
 		this.add(redo);
@@ -133,8 +163,10 @@ public class DrawPopup extends JPopupMenu{
 						p.arrangeLayout(figure.getLayer(), Paint.UPPER_LAYER);
 					}else if(source.equals(arrangedown)){
 						p.arrangeLayout(figure.getLayer(), Paint.DOWN_LAYER);
+					}else if(source.equals(duplicate)){
+						p.duplicateFigure(figure.getLayer());
 					}else{
-						JOptionPane.showMessageDialog(null, "Fonctionnalité non implémentée.");
+						JOptionPane.showMessageDialog(null, "FonctionnalitÃ© non implÃ©mentÃ©e.");
 					}
 				}catch(IllegalArgumentException ex){
 					JOptionPane.showMessageDialog(null, ex.getMessage());
@@ -142,10 +174,21 @@ public class DrawPopup extends JPopupMenu{
 			}else{
 				if(source.equals(bgcolor)){
 					int rgb_code;
-					rgb_code = JColorChooser.showDialog(null, "Couleur d'arrière plan", p.getBgcolor()).getRGB();
+					rgb_code = JColorChooser.showDialog(null, "Couleur d'arriÃ¨re plan", p.getBgcolor()).getRGB();
 					p.setBgcolor(new Color(rgb_code));
+				}else if(source.equals(deleteall)){
+					int reponse = JOptionPane.showConfirmDialog(null, "Cette opÃ©ration va supprimer toutes les figures et rÃ©initialiser l'arriÃ¨re plan. Continuer?", "Supprimer tout?", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+					if(reponse == JOptionPane.YES_OPTION){
+						p.removeAll();
+					}
+				}else if(source.equals(percent50) || source.equals(percent75) || source.equals(percent25)){
+					p.setMagnifyingLevel(Double.parseDouble(source.getText().substring(0, 2))/100);
+				}else if(source.equals(percent) || source.equals(percent125) || source.equals(percent150) || source.equals(percent175)){
+					p.setMagnifyingLevel(Double.parseDouble(source.getText().substring(0, 3))/100);
+				}else if(source.equals(originalsize)){
+					p.setMagnifyingLevel(1);
 				}else{
-					JOptionPane.showMessageDialog(null, "Fonctionnalité non implémentée.");
+					JOptionPane.showMessageDialog(null, "FonctionnalitÃ© non implÃ©mentÃ©e.");
 				}
 			}
 			

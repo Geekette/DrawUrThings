@@ -3,6 +3,7 @@ package fr.drawurthings.bin;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.Observable;
 
 import fr.drawurthings.figures.*;
@@ -18,6 +19,7 @@ public class Paint extends Observable{
 	ArrayList<Drawable> figures;
 	private Color bgcolor;
 	private ToolboxModel toolbox;
+	private double magnifyingLevel = 1;
 	
 	public Paint(ToolboxModel t){
 		this.figures = new ArrayList<Drawable>();
@@ -52,6 +54,19 @@ public class Paint extends Observable{
 		}else if(type == Drawable.CIRCLE){
 			figures.add(new Circle(originX, originY, height, figures.size(),toolbox.getBordure(),toolbox.getInterieur()));
 		}
+		if(this.magnifyingLevel !=1){
+			figures.get(figures.size()-1).modifyScale(magnifyingLevel);
+			figures.get(figures.size()-1).setZoom(magnifyingLevel);
+		}
+		setChanged();
+		notifyObservers();
+	}
+	
+	public void duplicateFigure(int layer){
+		Drawable tmp = figures.get(layer);
+		this.addFigures(tmp.getShapeType(), tmp.getOriginX()+15, tmp.getOriginY()+15, tmp.getWidth(), tmp.getHeight());
+		figures.get(figures.size()-1).setBorderColor(tmp.getBorderColor());
+		figures.get(figures.size()-1).setFillingColor(tmp.getFillingColor());
 		setChanged();
 		notifyObservers();
 	}
@@ -62,6 +77,13 @@ public class Paint extends Observable{
 		for(int i = 0;i<figures.size();i++){
 			figures.get(i).setLayer(i);
 		}
+		setChanged();
+		notifyObservers();
+	}
+	
+	public void removeAll(){
+		this.bgcolor = Color.WHITE;
+		figures.clear();
 		setChanged();
 		notifyObservers();
 	}
@@ -101,18 +123,31 @@ public class Paint extends Observable{
 		notifyObservers();
 	}
 	
+	public double getMagnifyingLevel() {
+		return magnifyingLevel;
+	}
+
+	public void setMagnifyingLevel(double magnifyingLevel) {
+		this.magnifyingLevel = magnifyingLevel;
+		for(Iterator<Drawable> it = figures.iterator();it.hasNext();){
+			it.next().setZoom(this.magnifyingLevel);
+		}
+		setChanged();
+		notifyObservers();
+	}
+
 	public void arrangeLayout(int source_layer, int action) throws IllegalArgumentException{
 		Drawable tmp = figures.get(source_layer);
 		if(action == UPPER_LAYER){
-			if(source_layer == figures.size()-1) throw new IllegalArgumentException("La figure est au premier plan et ne peut être avancée.");
+			if(source_layer == figures.size()-1) throw new IllegalArgumentException("La figure est au premier plan et ne peut Ãªtre avancÃ©e.");
 			figures.get(source_layer).setLayer(source_layer+1);
 			figures.get(source_layer+1).setLayer(source_layer);
 		}else if(action == DOWN_LAYER){
-			if(source_layer == 0) throw new IllegalArgumentException("La figure est en arrière plan et ne peut être reculée.");
+			if(source_layer == 0) throw new IllegalArgumentException("La figure est en arriÃ¨re plan et ne peut Ãªtre reculÃ©e.");
 			figures.get(source_layer).setLayer(source_layer-1);
 			figures.get(source_layer-1).setLayer(source_layer);
 		}else if(action == BACKGROUD_LAYER){
-			if(source_layer == 0) throw new IllegalArgumentException("La figure est en arrière plan et ne peut être reculée.");
+			if(source_layer == 0) throw new IllegalArgumentException("La figure est en arriÃ¨re plan et ne peut Ãªtre reculÃ©e.");
 			figures.remove(tmp);
 			for(int i = 0; i<source_layer;i++){
 				figures.get(i).setLayer(i+1);
@@ -120,7 +155,7 @@ public class Paint extends Observable{
 			tmp.setLayer(0);
 			figures.add(tmp);
 		}else if(action == FOREGROUND_LAYER){
-			if(source_layer == figures.size()-1) throw new IllegalArgumentException("La figure est au premier plan et ne peut être avancée.");
+			if(source_layer == figures.size()-1) throw new IllegalArgumentException("La figure est au premier plan et ne peut Ãªtre avancÃ©e.");
 			figures.remove(tmp);
 			figures.add(tmp);
 			for(int i = 0; i<figures.size();i++){

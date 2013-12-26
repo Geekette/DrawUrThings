@@ -12,7 +12,7 @@ public class Toolbox extends JFrame implements Observer {
 	ShapesPanel tools;
 	
 	public Toolbox(ToolboxModel m){
-		super("Boite à outils");
+		super("Boite Ã  outils");
 		this.m=m;
 		this.m.addObserver(this);
 		setSize(450, 350);

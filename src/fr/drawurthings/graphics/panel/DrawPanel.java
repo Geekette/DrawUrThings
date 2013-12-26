@@ -45,25 +45,40 @@ public class DrawPanel extends JPanel implements Observer {
 			g.setColor(d.getBorderColor());
 			g.drawLine(d.getOriginX(), d.getOriginY(), d.getWidth() + d.getOriginX(), d.getOriginY()+d.getHeight());
 		}else if(d.getShapeType() == Drawable.RECTANGLE){
+			/*g.setColor(d.getFillingColor());
+			g.fillRect((int)(p.getMagnifyingLevel()*d.getOriginX()),(int) (p.getMagnifyingLevel()* d.getOriginY()),(int) (p.getMagnifyingLevel()* d.getWidth()),(int) (p.getMagnifyingLevel()* d.getHeight()));
+			g.setColor(d.getBorderColor());
+			g.drawRect((int)(p.getMagnifyingLevel()*d.getOriginX()),(int) (p.getMagnifyingLevel()* d.getOriginY()),(int) (p.getMagnifyingLevel()* d.getWidth()),(int) (p.getMagnifyingLevel()* d.getHeight()));
+			*/
 			g.setColor(d.getFillingColor());
 			g.fillRect(d.getOriginX(), d.getOriginY(), d.getWidth(), d.getHeight());
 			g.setColor(d.getBorderColor());
 			g.drawRect(d.getOriginX(), d.getOriginY(), d.getWidth(), d.getHeight());
 		}else if(d.getShapeType() == Drawable.SQUARE){
-			g.setColor(d.getFillingColor());
-			g.fillRect(d.getOriginX(), d.getOriginY(), d.getHeight(), d.getHeight());
+			/*g.setColor(d.getFillingColor());
+			g.fillRect((int)(p.getMagnifyingLevel()*d.getOriginX()),(int) (p.getMagnifyingLevel()* d.getOriginY()),(int) (p.getMagnifyingLevel()* d.getWidth()),(int) (p.getMagnifyingLevel()* d.getHeight()));
 			g.setColor(d.getBorderColor());
-			g.drawRect(d.getOriginX(), d.getOriginY(), d.getHeight(), d.getHeight());
+			g.drawRect((int)(p.getMagnifyingLevel()*d.getOriginX()),(int) (p.getMagnifyingLevel()* d.getOriginY()),(int) (p.getMagnifyingLevel()* d.getWidth()),(int) (p.getMagnifyingLevel()* d.getHeight()));
+			*/
+			g.setColor(d.getFillingColor());
+			g.fillRect(d.getOriginX(), d.getOriginY(), d.getWidth(), d.getHeight());
+			g.setColor(d.getBorderColor());
+			g.drawRect(d.getOriginX(), d.getOriginY(), d.getWidth(), d.getHeight());
 		}else if(d.getShapeType() == Drawable.OVAL){
+			/*g.setColor(d.getFillingColor());
+			g.fillOval((int)(p.getMagnifyingLevel()*d.getOriginX()),(int) (p.getMagnifyingLevel()* d.getOriginY()),(int) (p.getMagnifyingLevel()* d.getWidth()),(int) (p.getMagnifyingLevel()* d.getHeight()));
+			g.setColor(d.getBorderColor());
+			g.drawOval((int)(p.getMagnifyingLevel()*d.getOriginX()),(int) (p.getMagnifyingLevel()* d.getOriginY()),(int) (p.getMagnifyingLevel()* d.getWidth()),(int) (p.getMagnifyingLevel()* d.getHeight()));
+			*/
 			g.setColor(d.getFillingColor());
 			g.fillOval(d.getOriginX(), d.getOriginY(), d.getWidth(), d.getHeight());
 			g.setColor(d.getBorderColor());
 			g.drawOval(d.getOriginX(), d.getOriginY(), d.getWidth(), d.getHeight());
 		}else if(d.getShapeType() == Drawable.CIRCLE){
 			g.setColor(d.getFillingColor());
-			g.fillOval(d.getOriginX(), d.getOriginY(), d.getHeight(), d.getHeight());
+			g.fillOval(d.getOriginX(), d.getOriginY(), d.getWidth(), d.getHeight());
 			g.setColor(d.getBorderColor());
-			g.drawOval(d.getOriginX(), d.getOriginY(), d.getHeight(), d.getHeight());
+			g.drawOval(d.getOriginX(), d.getOriginY(), d.getWidth(), d.getHeight());
 		}
 	}
 
