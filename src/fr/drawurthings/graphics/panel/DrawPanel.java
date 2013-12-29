@@ -3,8 +3,6 @@ package fr.drawurthings.graphics.panel;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionListener;
 import java.util.Iterator;
 import java.util.Observable;
 import java.util.Observer;
@@ -23,20 +21,34 @@ public class DrawPanel extends JPanel implements Observer {
 	public DrawPanel(Paint draw){
 		this.p = draw;
 		this.p.addObserver(this);
-		this.setPreferredSize(new Dimension(800, 600));
+		this.setPreferredSize(new Dimension(1920, 1080));
 		this.setVisible(true);
 		DrawPanelListener dpl = new DrawPanelListener(this.p, this);
 		this.addMouseListener(dpl);
 		this.addMouseMotionListener(dpl);
+		this.addMouseWheelListener(dpl);
 		repaint();
 	}
 	
 	public void paint(Graphics g){
 		g.setColor(p.getBgcolor());
 		g.fillRect(0, 0, getWidth(), getHeight());
-
 		for(Iterator<Drawable> it = p.getDrawables().iterator(); it.hasNext();){
 			this.paintDrawable(it.next(), g);
+		}
+		if(p.getWorkingLayer() >= 0 && p.getCurrentTool() == -1){
+			Drawable figure = p.getDrawables().get(p.getWorkingLayer());
+			g.setColor(Color.BLUE);
+			if(figure.getShapeType() != Drawable.LINE){ 
+				g.drawRect(figure.getOriginX(), figure.getOriginY(), figure.getWidth(), figure.getHeight());
+				g.drawRect(figure.getOriginX()-5, figure.getOriginY()-5, 10, 10);
+				g.drawRect(figure.getOriginX()-5, figure.getOriginY() + figure.getHeight()-5, 10, 10);
+				g.drawRect(figure.getOriginX()+figure.getWidth()-5, figure.getOriginY()+ figure.getHeight()-5, 10, 10);
+				g.drawRect(figure.getOriginX() + figure.getWidth()-5, figure.getOriginY()-5, 10, 10);
+			}else{
+				g.drawRect(figure.getOriginX()-5, figure.getOriginY()-5, 10, 10);
+				g.drawRect(figure.getOriginX()+figure.getWidth()-5, figure.getOriginY()+ figure.getHeight()-5, 10, 10);
+			}
 		}
 	}
 	
@@ -45,31 +57,16 @@ public class DrawPanel extends JPanel implements Observer {
 			g.setColor(d.getBorderColor());
 			g.drawLine(d.getOriginX(), d.getOriginY(), d.getWidth() + d.getOriginX(), d.getOriginY()+d.getHeight());
 		}else if(d.getShapeType() == Drawable.RECTANGLE){
-			/*g.setColor(d.getFillingColor());
-			g.fillRect((int)(p.getMagnifyingLevel()*d.getOriginX()),(int) (p.getMagnifyingLevel()* d.getOriginY()),(int) (p.getMagnifyingLevel()* d.getWidth()),(int) (p.getMagnifyingLevel()* d.getHeight()));
-			g.setColor(d.getBorderColor());
-			g.drawRect((int)(p.getMagnifyingLevel()*d.getOriginX()),(int) (p.getMagnifyingLevel()* d.getOriginY()),(int) (p.getMagnifyingLevel()* d.getWidth()),(int) (p.getMagnifyingLevel()* d.getHeight()));
-			*/
 			g.setColor(d.getFillingColor());
 			g.fillRect(d.getOriginX(), d.getOriginY(), d.getWidth(), d.getHeight());
 			g.setColor(d.getBorderColor());
 			g.drawRect(d.getOriginX(), d.getOriginY(), d.getWidth(), d.getHeight());
 		}else if(d.getShapeType() == Drawable.SQUARE){
-			/*g.setColor(d.getFillingColor());
-			g.fillRect((int)(p.getMagnifyingLevel()*d.getOriginX()),(int) (p.getMagnifyingLevel()* d.getOriginY()),(int) (p.getMagnifyingLevel()* d.getWidth()),(int) (p.getMagnifyingLevel()* d.getHeight()));
-			g.setColor(d.getBorderColor());
-			g.drawRect((int)(p.getMagnifyingLevel()*d.getOriginX()),(int) (p.getMagnifyingLevel()* d.getOriginY()),(int) (p.getMagnifyingLevel()* d.getWidth()),(int) (p.getMagnifyingLevel()* d.getHeight()));
-			*/
 			g.setColor(d.getFillingColor());
 			g.fillRect(d.getOriginX(), d.getOriginY(), d.getWidth(), d.getHeight());
 			g.setColor(d.getBorderColor());
 			g.drawRect(d.getOriginX(), d.getOriginY(), d.getWidth(), d.getHeight());
 		}else if(d.getShapeType() == Drawable.OVAL){
-			/*g.setColor(d.getFillingColor());
-			g.fillOval((int)(p.getMagnifyingLevel()*d.getOriginX()),(int) (p.getMagnifyingLevel()* d.getOriginY()),(int) (p.getMagnifyingLevel()* d.getWidth()),(int) (p.getMagnifyingLevel()* d.getHeight()));
-			g.setColor(d.getBorderColor());
-			g.drawOval((int)(p.getMagnifyingLevel()*d.getOriginX()),(int) (p.getMagnifyingLevel()* d.getOriginY()),(int) (p.getMagnifyingLevel()* d.getWidth()),(int) (p.getMagnifyingLevel()* d.getHeight()));
-			*/
 			g.setColor(d.getFillingColor());
 			g.fillOval(d.getOriginX(), d.getOriginY(), d.getWidth(), d.getHeight());
 			g.setColor(d.getBorderColor());

@@ -1,12 +1,13 @@
 package fr.drawurthings.graphics.listener;
 
-import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 
-import javax.swing.JColorChooser;
 import javax.swing.JOptionPane;
 
 import fr.drawurthings.bin.Paint;
@@ -14,11 +15,12 @@ import fr.drawurthings.figures.Drawable;
 import fr.drawurthings.graphics.panel.DrawPanel;
 import fr.drawurthings.graphics.panel.DrawPopup;
 
-public class DrawPanelListener implements MouseListener, MouseMotionListener{
+public class DrawPanelListener implements MouseListener, MouseMotionListener, MouseWheelListener{
 	
 	private Paint p;
 	private DrawPanel d;
-	private int working_layer = -1, oringin_x, origin_y, delta_x, delta_y;
+	private int working_layer = -1, active_corner, oringin_x, origin_y, delta_x, delta_y;
+	boolean now_resizing = false, dragged = false;
 	
 	public DrawPanelListener(Paint p, DrawPanel d){
 		this.p = p;
@@ -33,13 +35,7 @@ public class DrawPanelListener implements MouseListener, MouseMotionListener{
 			if(working_layer == -1){
 				
 			}else{
-				//JOptionPane.showMessageDialog(null, "Vous avez double-clique sur une figure.");
-			}
-		}else if(e.getButton() == MouseEvent.BUTTON1){
-			if(working_layer != -1){
-				drawDelimiter();
-			}else{
-				d.repaint();
+
 			}
 		}else if(e.getButton() == MouseEvent.BUTTON3){
 			if(working_layer == -1){
@@ -47,8 +43,8 @@ public class DrawPanelListener implements MouseListener, MouseMotionListener{
 			}else{
 				new DrawPopup(p, p.getDrawables().get(working_layer)).show(d, e.getX(), e.getY());
 				working_layer = -1;
+				p.setWorkingLayer(working_layer);
 			}
-			
 		}
 	}
 
@@ -56,50 +52,54 @@ public class DrawPanelListener implements MouseListener, MouseMotionListener{
 	public void mousePressed(MouseEvent e) {
 			oringin_x = e.getX();
 			origin_y = e.getY();
+			working_layer = p.getWorkingLayer();
 			if(working_layer != -1){
 				Drawable figure = p.getDrawables().get(working_layer);
-				if(!(e.getX() >= figure.getOriginX() - 5 && e.getX() <= figure.getOriginX() + 5 && e.getY() >= figure.getOriginY() - 5 && e.getY() <= figure.getOriginY() + 5)
-						&& !(e.getX() >= figure.getOriginX() - 5 && e.getX() <= figure.getOriginX() + 5 && e.getY() >= figure.getOriginY()+figure.getHeight() - 5 && e.getY() <= figure.getOriginY()+figure.getHeight() + 5)
-						&& !(e.getX() >= figure.getOriginX()+figure.getWidth() - 5 && e.getX() <= figure.getOriginX()+figure.getWidth() + 5 && e.getY() >= figure.getOriginY()+figure.getHeight() - 5 && e.getY() <= figure.getOriginY()+figure.getHeight() + 5)
-						&& !(e.getX() >= figure.getOriginX()+figure.getWidth() - 5 && e.getX() <= figure.getOriginX()+figure.getWidth() + 5 && e.getY() >= figure.getOriginY() - 5 && e.getY() <= figure.getOriginY() + 5)
-						&& p.getActiveLayerAt(e.getX(), e.getY()) != figure.getLayer()){
+				if(e.getX() >= figure.getOriginX() - 5 && e.getX() <= figure.getOriginX() + 5 && e.getY() >= figure.getOriginY() - 5 && e.getY() <= figure.getOriginY() + 5){
+					active_corner = Drawable.TOP_LEFT_HAND_CORNER;
+					d.setCursor(new Cursor(Cursor.NW_RESIZE_CURSOR));
+					now_resizing=true;
+				}else if(e.getX() >= figure.getOriginX() - 5 && e.getX() <= figure.getOriginX() + 5 && e.getY() >= figure.getOriginY()+figure.getHeight() - 5 && e.getY() <= figure.getOriginY()+figure.getHeight() + 5){
+					active_corner = Drawable.BOTTOM_LEFT_HAND_CORNER;
+					d.setCursor(new Cursor(Cursor.SW_RESIZE_CURSOR));
+					now_resizing=true;
+				}else if(e.getX() >= figure.getOriginX()+figure.getWidth() - 5 && e.getX() <= figure.getOriginX()+figure.getWidth() + 5 && e.getY() >= figure.getOriginY()+figure.getHeight() - 5 && e.getY() <= figure.getOriginY()+figure.getHeight() + 5){
+					active_corner = Drawable.BOTTOM_RIGHT_HAND_CORNER;
+					d.setCursor(new Cursor(Cursor.SE_RESIZE_CURSOR));
+					now_resizing=true;
+				}else if(e.getX() >= figure.getOriginX()+figure.getWidth() - 5 && e.getX() <= figure.getOriginX()+figure.getWidth() + 5 && e.getY() >= figure.getOriginY() - 5 && e.getY() <= figure.getOriginY() + 5){
+					active_corner = Drawable.TOP_RIGHT_HAND_CORNER;
+					d.setCursor(new Cursor(Cursor.NE_RESIZE_CURSOR));
+					now_resizing=true;
+				}else if (p.getActiveLayerAt(e.getX(), e.getY()) != figure.getLayer()){
 					working_layer = p.getActiveLayerAt(e.getX(), e.getY());
+					p.setWorkingLayer(working_layer);
 				}else{
+					d.setCursor(new Cursor(Cursor.HAND_CURSOR));
 					delta_x = e.getX() - figure.getOriginX() ;
 					delta_y = e.getY() - figure.getOriginY() ;
 				}
 			}else{
 				if(p.getActiveLayerAt(e.getX(), e.getY()) != -1){
 					this.working_layer = p.getActiveLayerAt(e.getX(), e.getY());
+					p.setWorkingLayer(working_layer);
 					delta_x = e.getX() - p.getDrawables().get(working_layer).getOriginX();
 					delta_y = e.getY() - p.getDrawables().get(working_layer).getOriginY();
 				}else{
 					this.working_layer = -1;
+					p.setWorkingLayer(working_layer);
 				}
 			}
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		if(p.getCurrentTool() != -1 && e.getButton() == MouseEvent.BUTTON1){
+		now_resizing = false;
+		d.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+		if(p.getCurrentTool() != -1 && e.getButton() == MouseEvent.BUTTON1 && dragged){
 			p.addFigures(p.getCurrentTool(), oringin_x, origin_y, delta_x, delta_y);
-		}else{
-			if(working_layer != -1){
-				drawDelimiter();
-			}
 		}
-	}
-
-	@Override
-	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
+		dragged = false;
 	}
 
 	@Override
@@ -107,65 +107,51 @@ public class DrawPanelListener implements MouseListener, MouseMotionListener{
 		Graphics graphics = d.getGraphics();
 		if(this.p.getCurrentTool() == -1){
 			if(working_layer != -1){
-				Drawable figure = p.getDrawables().get(working_layer);
-				if(e.getX() >= figure.getOriginX() - 5 && e.getX() <= figure.getOriginX() + 5 && e.getY() >= figure.getOriginY() - 5 && e.getY() <= figure.getOriginY() + 5){
-					p.resizeFigureUsingCorner(working_layer, Drawable.TOP_LEFT_HAND_CORNER, e.getX(), e.getY());
-				}else if(e.getX() >= figure.getOriginX() - 5 && e.getX() <= figure.getOriginX() + 5 && e.getY() >= figure.getOriginY()+figure.getHeight() - 5 && e.getY() <= figure.getOriginY()+figure.getHeight() + 5){
-					p.resizeFigureUsingCorner(working_layer, Drawable.BOTTOM_LEFT_HAND_CORNER, e.getX(), e.getY());
-				}else if(e.getX() >= figure.getOriginX()+figure.getWidth() - 5 && e.getX() <= figure.getOriginX()+figure.getWidth() + 5 && e.getY() >= figure.getOriginY()+figure.getHeight() - 5 && e.getY() <= figure.getOriginY()+figure.getHeight() + 5){
-					p.resizeFigureUsingCorner(working_layer, Drawable.BOTTOM_RIGHT_HAND_CORNER, e.getX(), e.getY());
-				}else if(e.getX() >= figure.getOriginX()+figure.getWidth() - 5 && e.getX() <= figure.getOriginX()+figure.getWidth() + 5 && e.getY() >= figure.getOriginY() - 5 && e.getY() <= figure.getOriginY() + 5){
-					p.resizeFigureUsingCorner(working_layer, Drawable.TOP_RIGHT_HAND_CORNER, e.getX(), e.getY());
+				if(now_resizing){
+					p.resizeFigureUsingCorner(working_layer, active_corner, e.getX(), e.getY());
 				}else{
-					p.moveFiguresOnLayer(this.working_layer, e.getX()-delta_x, e.getY()-delta_y);	
+					p.moveFiguresOnLayer(this.working_layer, e.getX()-delta_x, e.getY()-delta_y);
 				}
-				drawDelimiter();
 			}
 		}else{
 			try{
-				Thread.sleep(20);
-				//d.paint(d.getGraphics());
-				d.repaint();
+				Thread.sleep(15);
+				d.paint(d.getGraphics());
+				delta_x = e.getX() - oringin_x ;
+				delta_y = e.getY() - origin_y ;
+				d.paintDrawable(p.buildDrawable(p.getCurrentTool(), oringin_x, origin_y, delta_x, delta_y), graphics);
 			}catch(Exception ex){
 				
 			}
-			delta_x = e.getX() - oringin_x ;
-			delta_y = e.getY() - origin_y ;
-			if(p.getCurrentTool() == Drawable.LINE){
-				graphics.drawLine(oringin_x, origin_y, e.getX(), e.getY());
-			}else if(p.getCurrentTool() == Drawable.RECTANGLE){
-				graphics.drawRect(oringin_x, origin_y, delta_x, delta_y);
-			}else if(p.getCurrentTool() == Drawable.SQUARE){
-				graphics.drawRect(oringin_x, origin_y, (delta_x/delta_x) * delta_y, (delta_x/delta_x) * delta_y);
-			}else if(p.getCurrentTool() == Drawable.OVAL){
-				graphics.drawOval(oringin_x,origin_y, delta_x, delta_y);
-			}else if(p.getCurrentTool() == Drawable.CIRCLE){
-				graphics.drawOval(oringin_x, origin_y, (delta_x/delta_x) * delta_y, (delta_x/delta_x) * delta_y);
+		}
+		dragged = true;
+	}
+
+	
+	@Override
+	public void mouseWheelMoved(MouseWheelEvent e) {
+		if(e.isControlDown()){	
+			if(e.getWheelRotation()<0){
+				p.demagnify();
+			}else{
+				p.magnify();
 			}
 		}
 	}
 
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub	
+	}
+	
 	@Override
 	public void mouseMoved(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
 	}
-	
-	private void drawDelimiter(){
-		d.paint(d.getGraphics());
-		Graphics graphics = d.getGraphics();
-		Drawable figure = p.getDrawables().get(working_layer);
-		graphics.setColor(Color.BLUE);
-		if(figure.getShapeType() != Drawable.LINE){ 
-			graphics.drawRect(figure.getOriginX(), figure.getOriginY(), figure.getWidth(), figure.getHeight());
-			graphics.drawRect(figure.getOriginX()-5, figure.getOriginY()-5, 10, 10);
-			graphics.drawRect(figure.getOriginX()-5, figure.getOriginY() + figure.getHeight()-5, 10, 10);
-			graphics.drawRect(figure.getOriginX()+figure.getWidth()-5, figure.getOriginY()+ figure.getHeight()-5, 10, 10);
-			graphics.drawRect(figure.getOriginX() + figure.getWidth()-5, figure.getOriginY()-5, 10, 10);
-		}else{
-			graphics.drawRect(figure.getOriginX()-5, figure.getOriginY()-5, 10, 10);
-			graphics.drawRect(figure.getOriginX()+figure.getWidth()-5, figure.getOriginY()+ figure.getHeight()-5, 10, 10);
-		}
-	}
-
 }

@@ -32,9 +32,7 @@ public abstract class Drawable implements Comparable<Drawable> {
 	
 	public void resizeMovingACorner(int corner, int posX, int posY){
 		int newWidth, newHeight;
-		if(corner == Drawable.TOP_LEFT_HAND_CORNER){
-			/*setHeigth(getHeight()-(getOriginY()-posY));
-			moveOrigin(posX, posY);*/			
+		if(corner == Drawable.TOP_LEFT_HAND_CORNER){			
 			newWidth = getWidth() + (getOriginX()-posX);
 			newHeight = getHeight() + (getOriginY()-posY);
 			setWidth(newWidth);
@@ -46,24 +44,12 @@ public abstract class Drawable implements Comparable<Drawable> {
 			setHeigth(newHeight);
 			setWidth(newWidth);
 			this.setOriginX(posX);
-			//this.moveOrigin(posX, getOriginY());
 		}else if(corner == Drawable.TOP_RIGHT_HAND_CORNER){
 			newWidth = posX - getOriginX();
 			newHeight = getHeight() - (posY-getOriginY());
 			setWidth(newWidth);
 			setHeigth(newHeight);
 			setOriginY(posY);
-			/*newWidth = posX - getOriginX();
-			newHeight = getHeight() - (posY-getOriginY());
-			this.setWidth(newWidth);
-			this.setHeigth(newHeight);
-			this.moveOrigin((int)(getOriginX()*zoom), posY);*/
-			/*newWidth = posX - getOriginX();
-			newHeight = getHeight() + (getOriginY()-posY);
-			setWidth(newWidth);
-			setHeigth(newHeight);
-			this.setOriginY(posY);*/
-			//this.moveOrigin(getOriginX(), posY);
 		}else if(corner == Drawable.BOTTOM_RIGHT_HAND_CORNER){
 			setWidth(posX-getOriginX());
 			setHeigth(posY-getOriginY());

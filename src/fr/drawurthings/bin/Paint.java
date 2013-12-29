@@ -19,6 +19,7 @@ public class Paint extends Observable{
 	ArrayList<Drawable> figures;
 	private Color bgcolor;
 	private ToolboxModel toolbox;
+	private int active_layer = -1;
 	private double magnifyingLevel = 1;
 	
 	public Paint(ToolboxModel t){
@@ -42,17 +43,26 @@ public class Paint extends Observable{
 		this.notifyObservers();
 	}
 	
+	/**
+	 * Ajoute au dessin une figure de type et dimension passées en paramètres. Le contexte courant couleur/zoom lui est appliqué.
+	 * @param type Type de figure (voir fr.drawurthings.drawable)
+	 * @param originX Position de l'origine du vecteur directeur sur l'axe horizontal
+	 * @param originY Position de l'origine du vecteur directeur sur l'axe vertical
+	 * @param width Position horizontale de la pointe du vecteur directeur
+	 * @param height Position verticale de la pointe du vecteur directeur
+	 * @return Une instance fille de la classe abstraite fr.drawurthings.figures.Drawable
+	 */
 	public void addFigures(int type,int originX,int originY, int width, int height){
 		if(type == Drawable.LINE){
 			figures.add(new Line(originX, originY, width, height, figures.size(),toolbox.getBordure()));
 		}else if(type == Drawable.RECTANGLE){
 			figures.add(new Rectangle(originX, originY, width, height, figures.size(),toolbox.getBordure(),toolbox.getInterieur()));
 		}else if(type == Drawable.SQUARE){
-			figures.add(new Square(originX, originY, height, figures.size(),toolbox.getBordure(),toolbox.getInterieur()));
+			figures.add(new Square(originX, originY,width, height, figures.size(),toolbox.getBordure(),toolbox.getInterieur()));
 		}else if(type == Drawable.OVAL){
 			figures.add(new Oval(originX, originY, width, height, figures.size(),toolbox.getBordure(),toolbox.getInterieur()));
 		}else if(type == Drawable.CIRCLE){
-			figures.add(new Circle(originX, originY, height, figures.size(),toolbox.getBordure(),toolbox.getInterieur()));
+			figures.add(new Circle(originX, originY,width, height, figures.size(),toolbox.getBordure(),toolbox.getInterieur()));
 		}
 		if(this.magnifyingLevel !=1){
 			figures.get(figures.size()-1).modifyScale(magnifyingLevel);
@@ -62,6 +72,40 @@ public class Paint extends Observable{
 		notifyObservers();
 	}
 	
+	
+	/**
+	 * Retourne un Drawable adapté au contexte (couleurs et niveau de zoom actif) de l'objet Paint courant.
+	 * @param type Type de figure (voir fr.drawurthings.drawable)
+	 * @param originX Position de l'origine du vecteur directeur sur l'axe horizontal
+	 * @param originY Position de l'origine du vecteur directeur sur l'axe vertical
+	 * @param width Position horizontale de la pointe du vecteur directeur
+	 * @param height Position verticale de la pointe du vecteur directeur
+	 * @return Une instance fille de la classe abstraite fr.drawurthings.figures.Drawable
+	 */
+	public Drawable buildDrawable(int type,int originX,int originY, int width, int height){
+		Drawable toReturn = null;
+		if(type == Drawable.LINE){
+			toReturn = new Line(originX, originY, width, height, figures.size(),toolbox.getBordure());
+		}else if(type == Drawable.RECTANGLE){
+			toReturn = new Rectangle(originX, originY, width, height, figures.size(),toolbox.getBordure(),toolbox.getInterieur());
+		}else if(type == Drawable.SQUARE){
+			toReturn = new Square(originX, originY,width, height, figures.size(),toolbox.getBordure(),toolbox.getInterieur());
+		}else if(type == Drawable.OVAL){
+			toReturn = new Oval(originX, originY, width, height, figures.size(),toolbox.getBordure(),toolbox.getInterieur());
+		}else if(type == Drawable.CIRCLE){
+			toReturn = new Circle(originX, originY,width, height, figures.size(),toolbox.getBordure(),toolbox.getInterieur());
+		}
+		if(this.magnifyingLevel !=1){
+			toReturn.modifyScale(magnifyingLevel);
+			toReturn.setZoom(magnifyingLevel);
+		}
+		return toReturn;
+	}
+	
+	/**
+	 * Ajoute au dessin une copie de la figure dont le numéro de calque est passé en paramétre avec un décalage horizontal et vertical de 15px.
+	 * @param layer Numéro du calque contenant la figure à dupliquer.
+	 */
 	public void duplicateFigure(int layer){
 		Drawable tmp = figures.get(layer);
 		this.addFigures(tmp.getShapeType(), tmp.getOriginX()+15, tmp.getOriginY()+15, tmp.getWidth(), tmp.getHeight());
@@ -71,6 +115,10 @@ public class Paint extends Observable{
 		notifyObservers();
 	}
 	
+	/**
+	 * Supprime la figure passée en paramètre.
+	 * @param layer Numéro du calque contenant la figure à supprimer.
+	 */
 	public void removeFigure(int layer){
 		figures.remove(layer);
 		Collections.sort(figures);
@@ -81,12 +129,16 @@ public class Paint extends Observable{
 		notifyObservers();
 	}
 	
+	/**
+	 * Supprime toutes les figures et restaure la couleur d'arrière plan à blanc.
+	 */
 	public void removeAll(){
 		this.bgcolor = Color.WHITE;
 		figures.clear();
 		setChanged();
 		notifyObservers();
 	}
+	
 	
 	public void setFigureFillingColor(int layer,Color c){
 		this.figures.get(layer).setFillingColor(c);
@@ -135,6 +187,30 @@ public class Paint extends Observable{
 		setChanged();
 		notifyObservers();
 	}
+	
+	public void magnify(){
+		if(magnifyingLevel == 0.25){
+			setMagnifyingLevel(0.5);
+		}else if(magnifyingLevel == 0.5){
+			setMagnifyingLevel(1);
+		}else if(magnifyingLevel == 1){
+			setMagnifyingLevel(1.5);
+		}else if(magnifyingLevel == 1.5){
+			setMagnifyingLevel(2.5);
+		}
+	}
+	
+	public void demagnify(){
+		if(magnifyingLevel == 2.5){
+			setMagnifyingLevel(1.5);
+		}else if(magnifyingLevel == 0.5){
+			setMagnifyingLevel(0.25);
+		}else if(magnifyingLevel == 1){
+			setMagnifyingLevel(0.5);
+		}else if(magnifyingLevel == 1.5){
+			magnifyingLevel = 1;
+		}
+	}
 
 	public void arrangeLayout(int source_layer, int action) throws IllegalArgumentException{
 		Drawable tmp = figures.get(source_layer);
@@ -173,6 +249,16 @@ public class Paint extends Observable{
 			}
 		}
 		return -1;
+	}
+	
+	public int getWorkingLayer(){
+		return active_layer;
+	}
+	
+	public void setWorkingLayer(int layer){
+		this.active_layer = layer;
+		setChanged();
+		notifyObservers();
 	}
 	
 	public int getCurrentTool(){

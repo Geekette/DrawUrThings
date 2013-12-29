@@ -16,6 +16,7 @@ public class Toolbox extends JFrame implements Observer {
 		this.m=m;
 		this.m.addObserver(this);
 		setSize(450, 350);
+		setLocation(0, 50);
 		this.setAlwaysOnTop(true);
 		this.requestFocus();
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
