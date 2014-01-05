@@ -1,45 +1,21 @@
 package fr.drawurthings.figures;
 
-import java.awt.Color;
+public abstract class Polygon extends Drawable{
+	
+	public int[] xPoints, yPoints;
 
-public class Polygon extends Drawable{
-	
-	
-	/**
-	 * IL FAUT IMPLEMENTER LA METHODE.
-	 */
-	
-	public Polygon(int originX, int originY, int width, int height, int layer){
-		this.SHAPE_TYPE = Drawable.OVAL;
-		this.originX = originX;
-		this.originY = originY;
-		this.height = height;
-		this.width = width;
-		this.layer = layer;
-	}
-	
-	public Polygon(int originX, int originY, int width, int height, int layer, Color border){
-		this(originX, originY, width, height, layer);
-		this.border = border;
-	}
-	
-	public Polygon(int originX, int originY, int width, int height, int layer, Color border,Color fill){
-		this(originX, originY, width, height, layer,border);
-		this.fill = fill;
-	}
-
+	public abstract int[] getXArray();
+	public abstract int[] getYArray();
+	public abstract int getNbPoint();
+	public abstract void recalculate();
 
 	@Override
-	public void resize(int width, int height) {
-		this.width = height;
-		this.height = height;
+	public void moveOrigin(int x, int y){
+		setOriginX(x);
+		setOriginY(y);
+		recalculate();
 	}
-
-	@Override
-	public String toString() {
-		return "Rectangle, Origin = (" + this.originX + "," + this.originY +") , Vector = (" + this.width + "," +this.height + "). Color : " + this.border + ".";
-	}
-
+	
 	@Override
 	public boolean isVisibleAt(int posX, int posY) {
 		if(posX > originX && posX < (originX + height))

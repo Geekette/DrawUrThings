@@ -3,6 +3,7 @@ package fr.drawurthings.toolbox;
 import java.awt.*;
 import java.util.Observable;
 import java.util.Observer;
+
 import javax.swing.*;
 
 public class Toolbox extends JFrame implements Observer {
@@ -13,10 +14,11 @@ public class Toolbox extends JFrame implements Observer {
 	
 	public Toolbox(ToolboxModel m){
 		super("Boite à outils");
+		this.setIconImage(new ImageIcon("vectoricon.png").getImage());
 		this.m=m;
 		this.m.addObserver(this);
 		setSize(450, 350);
-		setLocation(0, 50);
+		setLocation(0, 150);
 		this.setAlwaysOnTop(true);
 		this.requestFocus();
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);

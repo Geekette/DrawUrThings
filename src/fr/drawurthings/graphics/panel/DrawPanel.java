@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 
 import fr.drawurthings.bin.Paint;
 import fr.drawurthings.figures.Drawable;
+import fr.drawurthings.figures.Polygon;
 import fr.drawurthings.graphics.listener.DrawPanelListener;
 
 @SuppressWarnings("serial")
@@ -76,6 +77,12 @@ public class DrawPanel extends JPanel implements Observer {
 			g.fillOval(d.getOriginX(), d.getOriginY(), d.getWidth(), d.getHeight());
 			g.setColor(d.getBorderColor());
 			g.drawOval(d.getOriginX(), d.getOriginY(), d.getWidth(), d.getHeight());
+		}else if(d.getShapeType() > Drawable.CIRCLE){
+			Polygon pol = (Polygon) d;
+			g.setColor(d.getFillingColor());
+			g.fillPolygon(pol.getXArray(), pol.getYArray(), pol.getNbPoint());
+			g.setColor(d.getBorderColor());
+			g.drawPolygon(pol.getXArray(), pol.getYArray(), pol.getNbPoint());
 		}
 	}
 

@@ -19,7 +19,7 @@ import javax.swing.JPanel;
 public class ShapesPanel extends JPanel {
 	JButton[] shapes;
 
-	final static int nbShapes = 6;
+	final static int nbShapes = 7;
 	public ShapesPanel(ToolboxModel m) {
 		setLayout(new GridLayout(4,2,10,2));
 		shapes = new JButton[7];
@@ -30,14 +30,14 @@ public class ShapesPanel extends JPanel {
 		Icon iconeSquare  = new ImageIcon("square.png");
 		Icon iconeOval    = new ImageIcon("oval.png");
 		Icon iconeCircle  = new ImageIcon("circle.png");
-		//Icon iconePolygon = new ImageIcon("polygon.png");
+		Icon iconePolygon = new ImageIcon("polygon.png");
 		shapes[0] = new JButton(iconeCurseur);
 		shapes[1] = new JButton(iconeLigne);
 		shapes[2] = new JButton(iconeRect);
 		shapes[3] = new JButton(iconeSquare);
 		shapes[4] = new JButton(iconeOval);
 		shapes[5] = new JButton(iconeCircle);
-		//shapes[6] = new JButton(iconePolygon);
+		shapes[6] = new JButton(iconePolygon);
 		for(int i=0; i<nbShapes; i++){
 			shapes[i].addActionListener(new ShapeListener(m, this));
 			add(shapes[i]);

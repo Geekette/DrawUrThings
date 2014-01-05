@@ -1,6 +1,12 @@
 package fr.drawurthings.bin;
 
 import java.awt.Color;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -9,8 +15,12 @@ import java.util.Observable;
 import fr.drawurthings.figures.*;
 import fr.drawurthings.toolbox.ToolboxModel;
 
-public class Paint extends Observable{
+public class Paint extends Observable implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7422059367299580777L;
 	public static int BACKGROUD_LAYER = -10;
 	public static int UPPER_LAYER = -20;
 	public static int DOWN_LAYER = -30;
@@ -63,6 +73,8 @@ public class Paint extends Observable{
 			figures.add(new Oval(originX, originY, width, height, figures.size(),toolbox.getBordure(),toolbox.getInterieur()));
 		}else if(type == Drawable.CIRCLE){
 			figures.add(new Circle(originX, originY,width, height, figures.size(),toolbox.getBordure(),toolbox.getInterieur()));
+		}else if(type>=Drawable.TRI_ISO && type<=Drawable.TRI_ISO){
+			figures.add(new Triangle(type, originX, originY, width, height, figures.size(),toolbox.getBordure(),toolbox.getInterieur()));
 		}
 		if(this.magnifyingLevel !=1){
 			figures.get(figures.size()-1).modifyScale(magnifyingLevel);
@@ -94,6 +106,8 @@ public class Paint extends Observable{
 			toReturn = new Oval(originX, originY, width, height, figures.size(),toolbox.getBordure(),toolbox.getInterieur());
 		}else if(type == Drawable.CIRCLE){
 			toReturn = new Circle(originX, originY,width, height, figures.size(),toolbox.getBordure(),toolbox.getInterieur());
+		}else if(type>=Drawable.TRI_ISO && type<=Drawable.TRI_ISO){
+			toReturn = new Triangle(type, originX, originY, width, height, figures.size(),toolbox.getBordure(),toolbox.getInterieur());
 		}
 		if(this.magnifyingLevel !=1){
 			toReturn.modifyScale(magnifyingLevel);
@@ -263,6 +277,33 @@ public class Paint extends Observable{
 	
 	public int getCurrentTool(){
 		return this.toolbox.getShape();
+	}
+	
+	public void saveAs(String file){
+		try{
+			File fichier = new File(file);
+			ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(fichier));
+			os.writeObject(this);
+			os.close();
+		}catch(Exception ex){
+
+		}
+	}
+	
+	public void open(String file){
+		ObjectInputStream is = null;
+		try{
+			File fichier = new File(file);
+			is = new ObjectInputStream(new FileInputStream(fichier));
+			Paint p = (Paint)is.readObject();
+			is.close();
+			this.figures = p.getDrawables();
+			this.bgcolor = p.getBgcolor();
+			setChanged();
+			notifyObservers();
+		}catch(Exception ex){
+			ex.printStackTrace();
+		}
 	}
 
 }

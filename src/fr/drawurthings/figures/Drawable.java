@@ -1,16 +1,20 @@
 package fr.drawurthings.figures;
 
 import java.awt.Color;
+import java.io.Serializable;
 
-public abstract class Drawable implements Comparable<Drawable> {
+public abstract class Drawable implements Comparable<Drawable>, Serializable {
 	
-	public final static int CURSOR = -1;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2727166371836007588L;
 	public final static int LINE = 0;
 	public final static int RECTANGLE = 1;
 	public final static int SQUARE = 2;
 	public final static int OVAL = 3;
 	public final static int CIRCLE = 4;
-	public final static int POLYGON = 5;
+	public final static int TRI_ISO = 5;
 	
 	public final static int TOP_LEFT_HAND_CORNER = 1000;
 	public final static int TOP_RIGHT_HAND_CORNER = 1001;

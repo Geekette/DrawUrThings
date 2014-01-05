@@ -1,10 +1,15 @@
 package fr.drawurthings.toolbox;
 
 import java.awt.Color;
+import java.io.Serializable;
 import java.util.Observable;
 
-public class ToolboxModel extends Observable {
+public class ToolboxModel extends Observable implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 9057354513410611102L;
 	Color colorInterieur, colorBordure;
 	int shapeSelected;
 	
