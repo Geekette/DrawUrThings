@@ -21,7 +21,7 @@ public class Toolbox extends JFrame implements Observer {
 		setLocation(0, 150);
 		this.setAlwaysOnTop(true);
 		this.requestFocus();
-		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		Container boxes = getContentPane();
 		boxes.setLayout(new GridLayout(2, 1));
 

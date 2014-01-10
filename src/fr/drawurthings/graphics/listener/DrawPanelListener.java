@@ -14,6 +14,7 @@ import fr.drawurthings.bin.Paint;
 import fr.drawurthings.figures.Drawable;
 import fr.drawurthings.graphics.panel.DrawPanel;
 import fr.drawurthings.graphics.panel.DrawPopup;
+import fr.drawurthings.graphics.window.FigureEditor;
 
 public class DrawPanelListener implements MouseListener, MouseMotionListener, MouseWheelListener{
 	
@@ -31,11 +32,11 @@ public class DrawPanelListener implements MouseListener, MouseMotionListener, Mo
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		if(e.getClickCount() == 2 && e.getButton() == MouseEvent.BUTTON1){
-			JOptionPane.showMessageDialog(null, "Fonctionnalité non implementée.");
+			
 			if(working_layer == -1){
-				
+				JOptionPane.showMessageDialog(null, "Fonctionnalité non implementée.");
 			}else{
-
+				new FigureEditor(this.p, this.working_layer);
 			}
 		}else if(e.getButton() == MouseEvent.BUTTON3){
 			if(working_layer == -1){

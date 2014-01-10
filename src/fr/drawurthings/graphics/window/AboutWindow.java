@@ -35,12 +35,13 @@ public class AboutWindow extends JFrame {
 		
 		JLabel logo = new JLabel(new ImageIcon("logo.png"));
 		
-		String resume = "\tDrawUrThings (Version 1.0 - Alpha (05012014) - JRE "+ System.getProperty("java.version")+")\n\tAlexandre Canny\n\tThéo Plockyn\n\tValentin Ramecourt";
+		String resume = "\tDrawUrThings (Version 1.0 - Beta (09012014) - JRE "+ System.getProperty("java.version")+")\n\tAlexandre Canny\n\tThÃ©o Plockyn\n\tValentin Ramecourt";
 		resume = resume.replaceAll("\n", "<br>");
 		
-		String credit = "Remerciements : \n\tNicolas Anquetil\n\nRessources graphiques : \n\tFugue Icons (par Yusuke Kamiyamane) \n\nPolices :\n\tWaltograph (par Justin Callaghan)\n\n"
-				+ "Remerciements spéciaux :";
+		String credit = "Remerciements : \n\tNicolas Anquetil\n\tEric Lepretre\n\nRessources graphiques : \n\tFugue Icons (par Yusuke Kamiyamane) \n\nPolices :\n\tWaltograph (par Justin Callaghan)\n\n"
+				+ "Remerciements spÃ©ciaux :";
 		JTextArea credits = new JTextArea(credit);
+		credits.setEditable(false);
 		JScrollPane paneCredit = new JScrollPane(credits);
 		paneCredit.setPreferredSize(new Dimension(420,160));
 		

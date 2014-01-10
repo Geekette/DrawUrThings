@@ -3,10 +3,13 @@ package fr.drawurthings.graphics.panel;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.util.Iterator;
 import java.util.Observable;
 import java.util.Observer;
 
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 import fr.drawurthings.bin.Paint;
@@ -83,6 +86,18 @@ public class DrawPanel extends JPanel implements Observer {
 			g.fillPolygon(pol.getXArray(), pol.getYArray(), pol.getNbPoint());
 			g.setColor(d.getBorderColor());
 			g.drawPolygon(pol.getXArray(), pol.getYArray(), pol.getNbPoint());
+		}
+	}
+	
+	public void exportAs(String filedir){
+		BufferedImage bi = new BufferedImage(this.getSize().width, this.getSize().height, BufferedImage.TYPE_INT_ARGB); 
+		Graphics g = bi.createGraphics();
+		this.paint(g);
+		g.dispose();
+		try{
+			ImageIO.write(bi,"png",new File(filedir));
+		}catch (Exception e) {
+				
 		}
 	}
 

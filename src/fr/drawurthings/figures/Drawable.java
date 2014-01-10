@@ -79,7 +79,8 @@ public abstract class Drawable implements Comparable<Drawable>, Serializable {
 		this.originY = (int) (originY/zoom);
 	}
 	public int getHeight() {
-		return (int) (zoom*height);
+			return (int) (zoom*height);
+		
 	}
 	public void setHeigth(int height) {
 		if(zoom == 1){
@@ -115,6 +116,20 @@ public abstract class Drawable implements Comparable<Drawable>, Serializable {
 	}
 	public void setFillingColor(Color fill) {
 		this.fill = fill;
+	}
+	
+	public void rotate(int angle){
+		int h = this.getHeight(), w = this.getWidth();
+		if(angle == 90){
+			this.setWidth(h);
+			this.setHeigth(w);
+		}else if(angle == 180){
+			setHeigth(-h);
+		}else if(angle == 270){
+			this.setHeigth(-w);
+			this.setWidth(-h);
+		}
+		adaptNegative();
 	}
 	
 	public void setZoom(double zoom){

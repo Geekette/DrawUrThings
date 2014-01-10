@@ -12,14 +12,18 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
 import fr.drawurthings.bin.Paint;
+import fr.drawurthings.graphics.window.DrawWindow;
+import fr.drawurthings.toolbox.Toolbox;
 
 public class TopMenuBar extends JPanel{
 	
 	Paint paint;
+	DrawWindow dw;
 	JMenuItem file, edit, display, help;
 	
-	public TopMenuBar(Paint p){
-		this.paint = p;
+	public TopMenuBar(DrawWindow dw){
+		this.dw = dw;
+		this.paint = dw.getPaint();
 		build();
 	}
 	
@@ -49,9 +53,11 @@ public class TopMenuBar extends JPanel{
 		public void actionPerformed(ActionEvent e) {
 			Component source = (Component) e.getSource();
 			if(e.getSource().equals(file)){
-				new FilePopup(paint).show(source,source.getX(),getHeight());
-			}else{
-				new FilePopup(paint).show(source,source.getX(),getHeight());
+				new FilePopup(dw).show(source,0,getHeight());
+			}else if(e.getSource().equals(display)){
+				new DisplayPopup(dw).show(source,0,getHeight());
+			}else if(e.getSource().equals(help)){
+				new HelpPopup().show(source,0,getHeight());
 			}
 			
 		}

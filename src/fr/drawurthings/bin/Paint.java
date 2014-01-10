@@ -189,6 +189,12 @@ public class Paint extends Observable implements Serializable{
 		notifyObservers();
 	}
 	
+	public void rotateFigureOnLayer(int layer, int angle){
+		this.figures.get(layer).rotate(angle);
+		this.setChanged();
+		this.notifyObservers();
+	}
+	
 	public double getMagnifyingLevel() {
 		return magnifyingLevel;
 	}
@@ -277,6 +283,10 @@ public class Paint extends Observable implements Serializable{
 	
 	public int getCurrentTool(){
 		return this.toolbox.getShape();
+	}
+	
+	public ToolboxModel getToolbox(){
+		return this.toolbox;
 	}
 	
 	public void saveAs(String file){

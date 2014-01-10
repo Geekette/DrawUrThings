@@ -13,6 +13,7 @@ import javax.swing.JPopupMenu;
 
 import fr.drawurthings.bin.Paint;
 import fr.drawurthings.figures.Drawable;
+import fr.drawurthings.graphics.window.FigureEditor;
 
 @SuppressWarnings("serial")
 public class DrawPopup extends JPopupMenu{
@@ -67,8 +68,11 @@ public class DrawPopup extends JPopupMenu{
 		JMenu rotate = new JMenu("Pivoter");
 		rotate.setIcon(new ImageIcon("rotate.png"));
 		this.rotate90 = new JMenuItem("90°");
+		rotate90.addActionListener(pl);
 		this.rotate180 = new JMenuItem("180°");
+		rotate180.addActionListener(pl);
 		this.rotate270 = new JMenuItem("270°");
+		rotate270.addActionListener(pl);
 		rotate.add(rotate90);
 		rotate.add(rotate180);
 		rotate.add(rotate270);
@@ -158,6 +162,14 @@ public class DrawPopup extends JPopupMenu{
 						p.arrangeLayout(figure.getLayer(), Paint.DOWN_LAYER);
 					}else if(source.equals(duplicate)){
 						p.duplicateFigure(figure.getLayer());
+					}else if(source.equals(rotate90)){
+						p.rotateFigureOnLayer(figure.getLayer(), 90);
+					}else if(source.equals(rotate180)){
+						p.rotateFigureOnLayer(figure.getLayer(), 180);
+					}else if(source.equals(rotate270)){
+						p.rotateFigureOnLayer(figure.getLayer(), 270);
+					}else if(source.equals(properties)){
+						new FigureEditor(p, figure.getLayer());
 					}else{
 						JOptionPane.showMessageDialog(null, "Fonctionnalité non implémentée.");
 					}

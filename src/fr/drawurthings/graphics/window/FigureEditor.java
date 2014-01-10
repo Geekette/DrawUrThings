@@ -1,7 +1,9 @@
 package fr.drawurthings.graphics.window;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -16,27 +18,35 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import fr.drawurthings.bin.Paint;
+import fr.drawurthings.figures.Drawable;
 
 @SuppressWarnings("serial")
 public class FigureEditor extends JFrame {
 	
 	Paint p;
 	int working_layer;
+	Drawable currentDrawable;
 	
 	JTabbedPane mainPanel;
 	JButton okBut, cancelBut;
 	JTextField tailleX, tailleY, originX, originY;
-	JPanel param, borderColor, bgColor;
+	JPanel param, borderColor, bgColor, bottomPanel;
 	JColorChooser bgColorCC, borderColorCC;
 	
+	private Ecouteur ec;
+	
 	public FigureEditor(Paint p, int working_layer){
-		setTitle("Figure Editor");
-		setSize(500, 500);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setLocationRelativeTo(null);
+		setTitle("Editer une figure");
+		this.p = p;
+		this.working_layer = working_layer;
+		this.currentDrawable = this.p.getDrawables().get(this.working_layer);
+		this.ec = new Ecouteur();
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		buildContentPane();
 		setVisible(true);
 		pack();
+		Dimension resol = Toolkit.getDefaultToolkit().getScreenSize();
+		this.setLocation(resol.width/2-getWidth()/2, resol.height/2-getHeight()/2);
 	}
 	
 	public void buildContentPane(){
@@ -54,8 +64,8 @@ public class FigureEditor extends JFrame {
 		param.setLayout(new BoxLayout(param, BoxLayout.Y_AXIS));
         param.add(paramArea);
         param.add(createBottomPanel());
-        param.setBorder(BorderFactory.createTitledBorder("Editez les paramètres"));
-        mainPanel.addTab("Paramètres figure", null, param, "Permet de changer les paramètres de la figure");
+        param.setBorder(BorderFactory.createTitledBorder("Editez les paramÃ¨tres"));
+        mainPanel.addTab("ParamÃ¨tres figure", null, param, "Permet de changer les paramÃ¨tres de la figure");
         
         borderColorCC = new JColorChooser();
         borderColor.setLayout(new BoxLayout(borderColor, BoxLayout.Y_AXIS));
@@ -80,28 +90,28 @@ public class FigureEditor extends JFrame {
 		
 		if(i == 0){
 			JTextArea originXTA = new JTextArea("Origine en X :");
-			originX = new JTextField();
+			originX = new JTextField("" + currentDrawable.getOriginX());
 			originXTA.setPreferredSize(originXTA.getPreferredSize());
 			originX.setPreferredSize(originX.getPreferredSize());
 			paramLine.add(originXTA);
 			paramLine.add(originX);
 		}else if(i == 1){
 			JTextArea originYTA = new JTextArea("Origine en Y :");
-			originY = new JTextField();
+			originY = new JTextField("" + currentDrawable.getOriginY());
 			originYTA.setPreferredSize(originYTA.getPreferredSize());
 			originY.setPreferredSize(originY.getPreferredSize());
 			paramLine.add(originYTA);
 			paramLine.add(originY);
 		}else if(i == 2){
 			JTextArea tailleXTA = new JTextArea("Largeur :");
-			tailleX = new JTextField();
+			tailleX = new JTextField("" + currentDrawable.getWidth());
 			tailleXTA.setPreferredSize(tailleXTA.getPreferredSize());
 			tailleX.setPreferredSize(tailleX.getPreferredSize());
 			paramLine.add(tailleXTA);
 			paramLine.add(tailleX);
 		}else if(i == 3){
 			JTextArea tailleYTA = new JTextArea("Hauteur :");
-			tailleY = new JTextField();
+			tailleY = new JTextField("" + currentDrawable.getHeight());
 			tailleYTA.setPreferredSize(tailleYTA.getPreferredSize());
 			tailleY.setPreferredSize(tailleY.getPreferredSize());
 			paramLine.add(tailleYTA);
@@ -112,13 +122,16 @@ public class FigureEditor extends JFrame {
 	}
 
 	private JPanel createBottomPanel() {
-		JPanel bottomPanel = new JPanel();
-		okBut = new JButton("OK");
-		cancelBut = new JButton("Annuler");
-		bottomPanel.setLayout(new BoxLayout(bottomPanel, BoxLayout.X_AXIS));
-		bottomPanel.add(okBut);
-		bottomPanel.add(cancelBut);
-		
+		//if(this.bottomPanel == null){
+			bottomPanel = new JPanel();
+			okBut = new JButton("OK");
+			cancelBut = new JButton("Annuler");
+			okBut.addActionListener(ec);
+			cancelBut.addActionListener(ec);
+			bottomPanel.setLayout(new BoxLayout(bottomPanel, BoxLayout.X_AXIS));
+			bottomPanel.add(okBut);
+			bottomPanel.add(cancelBut);
+		//}
 		return bottomPanel;
 	}
 	
@@ -134,7 +147,7 @@ public class FigureEditor extends JFrame {
 				 * On empeche l'utilisateur de rentrer de la merde dans les champs.
 				 */
 				/**
-				 * On change les données dont les champs sont détaillés, et on fait gaffe à ce que ça ne soit que des valeurs numériques(+ valeurs cohérentes pour figures spécifiques [Carré par ex]), avant d'arriver ici !
+				 * On change les donnÃ©es dont les champs sont dÃ©taillÃ©s, et on fait gaffe Ã  ce que Ã§a ne soit que des valeurs numÃ©riques(+ valeurs cohÃ©rentes pour figures spÃ©cifiques [CarrÃ©s par ex]), avant d'arriver ici !
 				 */
 				
 				p.resizeFiguresOnLayer(working_layer, Integer.parseInt(tailleX.getText()), Integer.parseInt(tailleY.getText()));
@@ -146,6 +159,7 @@ public class FigureEditor extends JFrame {
 				Color newColor = bgColorCC.getColor();
 				p.setFigureFillingColor(working_layer, newColor);
 			}
+			dispose();
 			
 		}
 		

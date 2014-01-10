@@ -47,12 +47,14 @@ public class Triangle extends Polygon{
 	
 	@Override
 	public void recalculate(){
-		xPoints[0] = (this.getOriginX()+(this.getWidth()/2));
-		yPoints[0] = this.getOriginY();
-		xPoints[1] = this.getOriginX();
-		yPoints[1] = this.getOriginY()+ this.getHeight();
-		xPoints[2] = this.getOriginX()+getWidth();
-		yPoints[2] = this.getOriginY()+getHeight();
+		if(this.SHAPE_TYPE == Drawable.TRI_ISO){
+			xPoints[0] = (int) (this.getOriginX()+(this.getWidth()/2));
+			yPoints[0] = (int) (this.getOriginY());
+			xPoints[1] = (int) (this.getOriginX());
+			yPoints[1] = (int) (this.getOriginY()+ this.getHeight());
+			xPoints[2] = (int) (this.getOriginX()+getWidth());
+			yPoints[2] = (int) (this.getOriginY()+getHeight());
+		}
 	}
 
 	
