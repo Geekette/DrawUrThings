@@ -29,6 +29,7 @@ public class Paint extends Observable implements Serializable{
 	private ArrayList<Drawable> figures;
 	private Color bgcolor;
 	private ToolboxModel toolbox;
+	private Export export;
 	private int active_layer = -1;
 	private double magnifyingLevel = 1;
 	
@@ -36,6 +37,7 @@ public class Paint extends Observable implements Serializable{
 		this.figures = new ArrayList<Drawable>();
 		this.bgcolor = Color.WHITE;
 		this.toolbox = t;
+		this.export  = new Export(this);
 	}
 
 	public Paint(Color bgColor){
@@ -190,7 +192,7 @@ public class Paint extends Observable implements Serializable{
 	}
 	
 	public void rotateFigureOnLayer(int layer, int angle){
-		this.figures.get(layer).setRotation(angle);
+		this.figures.get(layer).setRotation(angle);;
 		this.setChanged();
 		this.notifyObservers();
 	}
@@ -316,4 +318,8 @@ public class Paint extends Observable implements Serializable{
 		}
 	}
 
+	public void exportAs(String file){
+		export.exportAs(file);
+	}
+	
 }

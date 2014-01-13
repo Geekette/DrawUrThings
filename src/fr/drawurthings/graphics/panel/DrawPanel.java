@@ -26,7 +26,6 @@ public class DrawPanel extends JPanel implements Observer {
 		this.p = draw;
 		this.p.addObserver(this);
 		this.setPreferredSize(new Dimension(1920, 1080));
-		this.setVisible(true);
 		DrawPanelListener dpl = new DrawPanelListener(this.p, this);
 		this.addMouseListener(dpl);
 		this.addMouseMotionListener(dpl);
@@ -86,18 +85,6 @@ public class DrawPanel extends JPanel implements Observer {
 			g.fillPolygon(pol.getXArray(), pol.getYArray(), pol.getNbPoint());
 			g.setColor(d.getBorderColor());
 			g.drawPolygon(pol.getXArray(), pol.getYArray(), pol.getNbPoint());
-		}
-	}
-	
-	public void exportAs(String filedir){
-		BufferedImage bi = new BufferedImage(this.getSize().width, this.getSize().height, BufferedImage.TYPE_INT_ARGB); 
-		Graphics g = bi.createGraphics();
-		this.paint(g);
-		g.dispose();
-		try{
-			ImageIO.write(bi,"png",new File(filedir));
-		}catch (Exception e) {
-				
 		}
 	}
 
