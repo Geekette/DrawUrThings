@@ -23,15 +23,15 @@ import fr.drawurthings.figures.Drawable;
 @SuppressWarnings("serial")
 public class FigureEditor extends JFrame {
 	
-	Paint p;
-	int working_layer;
-	Drawable currentDrawable;
+	private Paint p;
+	private int working_layer;
+	private Drawable currentDrawable;
 	
-	JTabbedPane mainPanel;
-	JButton okBut, cancelBut;
-	JTextField tailleX, tailleY, originX, originY;
-	JPanel param, borderColor, bgColor, bottomPanel;
-	JColorChooser bgColorCC, borderColorCC;
+	private JTabbedPane mainPanel;
+	private JButton okBut, cancelBut;
+	private JTextField tailleX, tailleY, originX, originY;
+	private JPanel param, borderColor, bgColor, bottomPanel;
+	private JColorChooser bgColorCC, borderColorCC;
 	
 	private Ecouteur ec;
 	
@@ -65,7 +65,7 @@ public class FigureEditor extends JFrame {
         param.add(paramArea);
         param.add(createBottomPanel());
         param.setBorder(BorderFactory.createTitledBorder("Editez les paramètres"));
-        mainPanel.addTab("Paramètres figure", null, param, "Permet de changer les paramètres de la figure");
+        mainPanel.addTab("Paramètres figure", null, param, "Permet de changer les param��tres de la figure");
         
         borderColorCC = new JColorChooser();
         borderColor.setLayout(new BoxLayout(borderColor, BoxLayout.Y_AXIS));
@@ -147,7 +147,7 @@ public class FigureEditor extends JFrame {
 				 * On empeche l'utilisateur de rentrer de la merde dans les champs.
 				 */
 				/**
-				 * On change les données dont les champs sont détaillés, et on fait gaffe à ce que ça ne soit que des valeurs numériques(+ valeurs cohérentes pour figures spécifiques [Carrés par ex]), avant d'arriver ici !
+				 * On change les donn��es dont les champs sont d��taill��s, et on fait gaffe �� ce que ��a ne soit que des valeurs num��riques(+ valeurs coh��rentes pour figures sp��cifiques [Carr��s par ex]), avant d'arriver ici !
 				 */
 				
 				p.resizeFiguresOnLayer(working_layer, Integer.parseInt(tailleX.getText()), Integer.parseInt(tailleY.getText()));

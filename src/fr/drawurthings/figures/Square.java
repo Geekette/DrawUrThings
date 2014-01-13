@@ -2,6 +2,7 @@ package fr.drawurthings.figures;
 
 import java.awt.Color;
 
+@SuppressWarnings("serial")
 public class Square extends Drawable{
 	
 	

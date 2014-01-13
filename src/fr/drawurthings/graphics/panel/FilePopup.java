@@ -3,11 +3,8 @@ package fr.drawurthings.graphics.panel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.FileFilter;
-import java.io.IOException;
 
 import javax.swing.ImageIcon;
-import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
@@ -16,12 +13,13 @@ import javax.swing.JPopupMenu;
 import fr.drawurthings.bin.Paint;
 import fr.drawurthings.graphics.window.DrawWindow;
 
+@SuppressWarnings("serial")
 public class FilePopup extends JPopupMenu {
 
-	Paint paint;
-	DrawWindow dw;
+	private Paint paint;
+	private DrawWindow dw;
 
-	JMenuItem newbutton, open, saveas, export, exit;
+	private JMenuItem newbutton, open, saveas, export, exit;
 
 	public FilePopup(DrawWindow dw) {
 		this.paint = dw.getPaint();

@@ -3,18 +3,16 @@ package fr.drawurthings.graphics.panel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JCheckBox;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
-import javax.swing.JPopupMenu.Separator;
 
 import fr.drawurthings.bin.Paint;
 import fr.drawurthings.graphics.window.DrawWindow;
-import fr.drawurthings.toolbox.Toolbox;
 
+@SuppressWarnings("serial")
 public class DisplayPopup extends JPopupMenu{
 	
 	private JMenuItem toolbox, figlist,percent25,percent50,percent,percent150,percent250;

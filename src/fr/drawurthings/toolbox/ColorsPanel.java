@@ -1,10 +1,7 @@
 package fr.drawurthings.toolbox;
 
 import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
 import java.awt.GridLayout;
-import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -12,9 +9,10 @@ import javax.swing.JColorChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+@SuppressWarnings("serial")
 public class ColorsPanel extends JPanel {
 	
-	JPanel panelColorInterieur, panelColorBordure;
+	private JPanel panelColorInterieur, panelColorBordure;
 	
 	public ColorsPanel(ToolboxModel m){
 		

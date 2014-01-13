@@ -21,7 +21,7 @@ public class DrawPanelListener implements MouseListener, MouseMotionListener, Mo
 	private Paint p;
 	private DrawPanel d;
 	private int working_layer = -1, active_corner, oringin_x, origin_y, delta_x, delta_y;
-	boolean now_resizing = false, dragged = false;
+	private boolean now_resizing = false, dragged = false;
 	
 	public DrawPanelListener(Paint p, DrawPanel d){
 		this.p = p;

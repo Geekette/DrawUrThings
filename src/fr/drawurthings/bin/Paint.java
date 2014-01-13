@@ -26,7 +26,7 @@ public class Paint extends Observable implements Serializable{
 	public static int DOWN_LAYER = -30;
 	public static int FOREGROUND_LAYER = -40;
 	
-	ArrayList<Drawable> figures;
+	private ArrayList<Drawable> figures;
 	private Color bgcolor;
 	private ToolboxModel toolbox;
 	private int active_layer = -1;
@@ -190,7 +190,7 @@ public class Paint extends Observable implements Serializable{
 	}
 	
 	public void rotateFigureOnLayer(int layer, int angle){
-		this.figures.get(layer).rotate(angle);
+		this.figures.get(layer).setRotation(angle);
 		this.setChanged();
 		this.notifyObservers();
 	}

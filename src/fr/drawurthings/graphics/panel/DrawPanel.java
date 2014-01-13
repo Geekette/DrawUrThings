@@ -20,7 +20,7 @@ import fr.drawurthings.graphics.listener.DrawPanelListener;
 @SuppressWarnings("serial")
 public class DrawPanel extends JPanel implements Observer {
 	
-	Paint p;
+	private Paint p;
 	
 	public DrawPanel(Paint draw){
 		this.p = draw;
@@ -103,6 +103,7 @@ public class DrawPanel extends JPanel implements Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
+		this.setPreferredSize(new Dimension((int) (1920*p.getMagnifyingLevel()), (int) (1080*p.getMagnifyingLevel())));
 		repaint();
 	}
 

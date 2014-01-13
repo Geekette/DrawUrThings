@@ -3,6 +3,7 @@ package fr.drawurthings.toolbox;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -16,6 +17,7 @@ import javax.swing.JPanel;
  * https://www.iconfinder.com/search/?q=iconset%3Afugue
  * 
  */
+@SuppressWarnings("serial")
 public class ShapesPanel extends JPanel {
 	JButton[] shapes;
 
@@ -23,7 +25,6 @@ public class ShapesPanel extends JPanel {
 	public ShapesPanel(ToolboxModel m) {
 		setLayout(new GridLayout(4,2,10,2));
 		shapes = new JButton[7];
-		// TODO
 		Icon iconeCurseur = new ImageIcon("cursor.png");
 		Icon iconeLigne   = new ImageIcon("line.png");
 		Icon iconeRect    = new ImageIcon("rectangle.png");

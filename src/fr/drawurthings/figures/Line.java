@@ -2,6 +2,7 @@ package fr.drawurthings.figures;
 
 import java.awt.Color;
 
+@SuppressWarnings("serial")
 public class Line extends Drawable{
 	
 	public Line(int originX, int originY,int width,int height,int layer){

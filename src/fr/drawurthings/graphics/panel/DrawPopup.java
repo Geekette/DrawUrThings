@@ -83,7 +83,6 @@ public class DrawPopup extends JPopupMenu{
 		this.properties = new JMenuItem("Propriétés", new ImageIcon("pencil.png"));
 		this.delete.addActionListener(pl);
 		this.properties.addActionListener(pl);
-		//delete.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, 0));
 		this.add(color);
 		this.add(organise);
 		this.add(rotate);
@@ -145,13 +144,11 @@ public class DrawPopup extends JPopupMenu{
 					if(source.equals(delete)){
 						p.removeFigure(figure.getLayer());
 					}else if(source.equals(colorBorder)){
-						int rgb_code;
-						rgb_code = JColorChooser.showDialog(null, "Couleur des bords", figure.getBorderColor()).getRGB();
-						p.setFigureBorderColor(figure.getLayer(), new Color(rgb_code));
+						Color c = JColorChooser.showDialog(null, "Couleur des bords", figure.getBorderColor());
+						p.setFigureBorderColor(figure.getLayer(), c);
 					}else if(source.equals(colorFill)){
-						int rgb_code;
-						rgb_code = JColorChooser.showDialog(null, "Couleur de remplissage", figure.getFillingColor()).getRGB();
-						p.setFigureFillingColor(figure.getLayer(), new Color(rgb_code));
+						Color c = JColorChooser.showDialog(null, "Couleur de remplissage", figure.getFillingColor());
+						p.setFigureFillingColor(figure.getLayer(), c);
 					}else if(source.equals(arrangetop)){
 						p.arrangeLayout(figure.getLayer(), Paint.FOREGROUND_LAYER);
 					}else if(source.equals(arrangeback)){
@@ -178,9 +175,8 @@ public class DrawPopup extends JPopupMenu{
 				}
 			}else{
 				if(source.equals(bgcolor)){
-					int rgb_code;
-					rgb_code = JColorChooser.showDialog(null, "Couleur d'arrière plan", p.getBgcolor()).getRGB();
-					p.setBgcolor(new Color(rgb_code));
+					Color c = JColorChooser.showDialog(null, "Couleur d'arrière plan", p.getBgcolor());
+					p.setBgcolor(c);
 				}else if(source.equals(deleteall)){
 					int reponse = JOptionPane.showConfirmDialog(null, "Cette opération va supprimer toutes les figures et réinitialiser l'arrière plan. Continuer?", "Supprimer tout?", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 					if(reponse == JOptionPane.YES_OPTION){

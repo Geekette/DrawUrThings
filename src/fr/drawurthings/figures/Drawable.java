@@ -22,7 +22,7 @@ public abstract class Drawable implements Comparable<Drawable>, Serializable {
 	public final static int BOTTOM_RIGHT_HAND_CORNER = 1003;
 	
 	protected int SHAPE_TYPE;
-	protected int originX, originY, height, width, layer;
+	protected int originX, originY, height, width, layer, rotation;
 	protected double zoom = 1;
 	protected Color border = Color.BLACK,  fill = Color.WHITE;
 	
@@ -79,8 +79,51 @@ public abstract class Drawable implements Comparable<Drawable>, Serializable {
 		this.originY = (int) (originY/zoom);
 	}
 	public int getHeight() {
+		if(rotation == 0 || rotation == 180){
 			return (int) (zoom*height);
-		
+		}else{
+			return (int) (zoom*width);
+		}
+	}
+	public void setHeigth(int height) {
+		if(rotation == 0 || rotation == 180){
+			if(zoom == 1){
+				this.height = (int) (height/zoom);
+			}else{
+				this.height = (int) (height/zoom)+1;
+			}
+		}else{
+			if(zoom == 1){
+				this.width = (int) (height/zoom);
+			}else{
+				this.width = (int) (height/zoom)+1;
+			}
+		}
+	}
+	public int getWidth() {
+		if(rotation == 90 || rotation == 270){
+			return (int) (zoom*height);
+		}else{
+			return (int) (zoom*width);
+		}
+	}
+	public void setWidth(int width) {
+		if(rotation == 90 || rotation == 270){
+			if(zoom == 1){
+				this.height = (int) (width/zoom);
+			}else{
+				this.height = (int) (width/zoom)+1;
+			}
+		}else{
+			if(zoom == 1){
+				this.width = (int) (width/zoom);
+			}else{
+				this.width = (int) (width/zoom)+1;
+			}
+		}
+	}
+	/*public int getHeight() {
+			return (int) (zoom*height);	
 	}
 	public void setHeigth(int height) {
 		if(zoom == 1){
@@ -98,12 +141,18 @@ public abstract class Drawable implements Comparable<Drawable>, Serializable {
 		}else{
 			this.width = (int) (width/zoom)+1;
 		}
-	}
+	}*/
 	public int getLayer() {
 		return layer;
 	}
 	public void setLayer(int layer) {
 		this.layer = layer;
+	}
+	public int getRotation(){
+		return this.rotation;
+	}
+	public void setRotation(int r){
+		this.rotation = (this.rotation+r)%360;
 	}
 	public Color getBorderColor() {
 		return border;
@@ -118,19 +167,7 @@ public abstract class Drawable implements Comparable<Drawable>, Serializable {
 		this.fill = fill;
 	}
 	
-	public void rotate(int angle){
-		int h = this.getHeight(), w = this.getWidth();
-		if(angle == 90){
-			this.setWidth(h);
-			this.setHeigth(w);
-		}else if(angle == 180){
-			setHeigth(-h);
-		}else if(angle == 270){
-			this.setHeigth(-w);
-			this.setWidth(-h);
-		}
-		adaptNegative();
-	}
+	
 	
 	public void setZoom(double zoom){
 		this.zoom = zoom;

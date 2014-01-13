@@ -6,6 +6,7 @@ import java.util.Observer;
 
 import javax.swing.*;
 
+@SuppressWarnings("serial")
 public class Toolbox extends JFrame implements Observer {
 	
 	ToolboxModel m;
@@ -35,10 +36,6 @@ public class Toolbox extends JFrame implements Observer {
 
 		pack();
 		setVisible(true);
-	}
-	
-	public static void main(String args[]){
-		Toolbox t = new Toolbox(new ToolboxModel());
 	}
 
 	@Override

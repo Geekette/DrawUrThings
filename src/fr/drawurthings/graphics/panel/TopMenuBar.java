@@ -3,7 +3,6 @@ package fr.drawurthings.graphics.panel;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -13,13 +12,13 @@ import javax.swing.JPanel;
 
 import fr.drawurthings.bin.Paint;
 import fr.drawurthings.graphics.window.DrawWindow;
-import fr.drawurthings.toolbox.Toolbox;
 
+@SuppressWarnings("serial")
 public class TopMenuBar extends JPanel{
 	
-	Paint paint;
-	DrawWindow dw;
-	JMenuItem file, edit, display, help;
+	private Paint paint;
+	private DrawWindow dw;
+	private JMenuItem file, edit, display, help;
 	
 	public TopMenuBar(DrawWindow dw){
 		this.dw = dw;
@@ -54,6 +53,8 @@ public class TopMenuBar extends JPanel{
 			Component source = (Component) e.getSource();
 			if(e.getSource().equals(file)){
 				new FilePopup(dw).show(source,0,getHeight());
+			}else if(e.getSource().equals(edit)){
+				new EditPopup(paint).show(source,0,getHeight());
 			}else if(e.getSource().equals(display)){
 				new DisplayPopup(dw).show(source,0,getHeight());
 			}else if(e.getSource().equals(help)){

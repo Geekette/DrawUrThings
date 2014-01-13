@@ -10,8 +10,8 @@ import fr.drawurthings.graphics.panel.DrawPopup;
 
 public class FigureListListener implements MouseListener {
 
-	Paint model;
-	int indice = -1;
+	private Paint model;
+	private int indice = -1;
 	
 	public FigureListListener(Paint p){
 		this.model = p;
@@ -27,6 +27,7 @@ public class FigureListListener implements MouseListener {
 
 	@Override
 	public void mousePressed(MouseEvent e) {
+		@SuppressWarnings("rawtypes")
 		JList sourceList = (JList)e.getComponent();
 		if(e.getButton() == MouseEvent.BUTTON3){
 			sourceList.setSelectedIndex(sourceList.locationToIndex(e.getPoint()));

@@ -14,6 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
+@SuppressWarnings("serial")
 public class AboutWindow extends JFrame {
 
 	
@@ -35,10 +36,10 @@ public class AboutWindow extends JFrame {
 		
 		JLabel logo = new JLabel(new ImageIcon("logo.png"));
 		
-		String resume = "\tDrawUrThings (Version 1.0 - Beta (09012014) - JRE "+ System.getProperty("java.version")+")\n\tAlexandre Canny\n\tThéo Plockyn\n\tValentin Ramecourt";
+		String resume = "\tDrawUrThings (Version 1.0 - RC1 (13012014) - JRE "+ System.getProperty("java.version")+")\n\tAlexandre Canny\n\tThéo Plockyn\n\tValentin Ramecourt";
 		resume = resume.replaceAll("\n", "<br>");
 		
-		String credit = "Remerciements : \n\tNicolas Anquetil\n\tEric Lepretre\n\nRessources graphiques : \n\tFugue Icons (par Yusuke Kamiyamane) \n\nPolices :\n\tWaltograph (par Justin Callaghan)\n\n"
+		String credit = "Remerciements : \n\tNicolas Anquetil\n\tEric Lepretre\n\tJean Martinet\n\nRessources graphiques : \n\tFugue Icons (par Yusuke Kamiyamane) \n\nPolices :\n\tWaltograph (par Justin Callaghan)\n\n"
 				+ "Remerciements spéciaux :";
 		JTextArea credits = new JTextArea(credit);
 		credits.setEditable(false);
@@ -65,8 +66,5 @@ public class AboutWindow extends JFrame {
 		this.pack();
 	}
 	
-	public static void main(String[] args) {
-		new AboutWindow();
-	}
 
 }

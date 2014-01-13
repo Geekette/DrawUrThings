@@ -8,9 +8,10 @@ import javax.swing.JPopupMenu;
 
 import fr.drawurthings.graphics.window.AboutWindow;
 
+@SuppressWarnings("serial")
 public class HelpPopup extends JPopupMenu {
 	
-	JMenuItem about;
+	private JMenuItem about;
 	
 	public HelpPopup(){
 		ActionListener l = new HelpListener();
