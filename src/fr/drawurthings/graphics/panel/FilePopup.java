@@ -16,8 +16,8 @@ import fr.drawurthings.graphics.window.DrawWindow;
 @SuppressWarnings("serial")
 public class FilePopup extends JPopupMenu {
 
-	private Paint paint;
-	private DrawWindow dw;
+	private final Paint paint;
+	private final DrawWindow dw;
 
 	private JMenuItem newbutton, open, saveas, export, exit;
 
@@ -95,7 +95,7 @@ public class FilePopup extends JPopupMenu {
 				}else{
 					name+=".png";
 				}
-				dw.getDrawPanel().exportAs(name);
+				paint.exportAs(name);
 			}
 
 		}

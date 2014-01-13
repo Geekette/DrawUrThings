@@ -12,7 +12,13 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.Observable;
 
-import fr.drawurthings.figures.*;
+import fr.drawurthings.figures.Circle;
+import fr.drawurthings.figures.Drawable;
+import fr.drawurthings.figures.Line;
+import fr.drawurthings.figures.Oval;
+import fr.drawurthings.figures.Rectangle;
+import fr.drawurthings.figures.Square;
+import fr.drawurthings.figures.Triangle;
 import fr.drawurthings.toolbox.ToolboxModel;
 
 public class Paint extends Observable implements Serializable{
@@ -25,26 +31,24 @@ public class Paint extends Observable implements Serializable{
 	public static int UPPER_LAYER = -20;
 	public static int DOWN_LAYER = -30;
 	public static int FOREGROUND_LAYER = -40;
-	
+
 	private ArrayList<Drawable> figures;
 	private Color bgcolor;
 	private ToolboxModel toolbox;
-	private Export export;
 	private int active_layer = -1;
 	private double magnifyingLevel = 1;
-	
+
 	public Paint(ToolboxModel t){
 		this.figures = new ArrayList<Drawable>();
 		this.bgcolor = Color.WHITE;
 		this.toolbox = t;
-		this.export  = new Export(this);
 	}
 
 	public Paint(Color bgColor){
 		this.figures = new ArrayList<Drawable>();
 		this.bgcolor = bgColor;
 	}
-	
+
 	public Color getBgcolor() {
 		return bgcolor;
 	}
@@ -54,7 +58,7 @@ public class Paint extends Observable implements Serializable{
 		this.setChanged();
 		this.notifyObservers();
 	}
-	
+
 	/**
 	 * Ajoute au dessin une figure de type et dimension passées en paramètres. Le contexte courant couleur/zoom lui est appliqué.
 	 * @param type Type de figure (voir fr.drawurthings.drawable)
@@ -85,8 +89,8 @@ public class Paint extends Observable implements Serializable{
 		setChanged();
 		notifyObservers();
 	}
-	
-	
+
+
 	/**
 	 * Retourne un Drawable adapté au contexte (couleurs et niveau de zoom actif) de l'objet Paint courant.
 	 * @param type Type de figure (voir fr.drawurthings.drawable)
@@ -117,7 +121,7 @@ public class Paint extends Observable implements Serializable{
 		}
 		return toReturn;
 	}
-	
+
 	/**
 	 * Ajoute au dessin une copie de la figure dont le numéro de calque est passé en paramétre avec un décalage horizontal et vertical de 15px.
 	 * @param layer Numéro du calque contenant la figure à dupliquer.
@@ -130,7 +134,7 @@ public class Paint extends Observable implements Serializable{
 		setChanged();
 		notifyObservers();
 	}
-	
+
 	/**
 	 * Supprime la figure passée en paramètre.
 	 * @param layer Numéro du calque contenant la figure à supprimer.
@@ -144,7 +148,7 @@ public class Paint extends Observable implements Serializable{
 		setChanged();
 		notifyObservers();
 	}
-	
+
 	/**
 	 * Supprime toutes les figures et restaure la couleur d'arrière plan à blanc.
 	 */
@@ -154,49 +158,49 @@ public class Paint extends Observable implements Serializable{
 		setChanged();
 		notifyObservers();
 	}
-	
-	
+
+
 	public void setFigureFillingColor(int layer,Color c){
 		this.figures.get(layer).setFillingColor(c);
 		setChanged();
 		notifyObservers();
 	}
-	
+
 	public void setFigureBorderColor(int layer,Color c){
 		this.figures.get(layer).setBorderColor(c);
 		setChanged();
 		notifyObservers();
 	}
-	
+
 	public ArrayList<Drawable> getDrawables(){
 		Collections.sort(this.figures);
 		return this.figures;
 	}
-		
+
 	public void resizeFiguresOnLayer(int layer, int width, int heigth){
 		figures.get(layer).resize(width, heigth);
 		setChanged();
 		notifyObservers();
 	}
-	
+
 	public void moveFiguresOnLayer(int layer, int coordX, int coordY){
 		figures.get(layer).moveOrigin(coordX, coordY);
 		setChanged();
 		notifyObservers();
 	}
-	
+
 	public void resizeFigureUsingCorner(int layer, int corner, int posX, int posY){
 		this.figures.get(layer).resizeMovingACorner(corner, posX, posY);
 		setChanged();
 		notifyObservers();
 	}
-	
+
 	public void rotateFigureOnLayer(int layer, int angle){
 		this.figures.get(layer).setRotation(angle);
 		this.setChanged();
 		this.notifyObservers();
 	}
-	
+
 	public double getMagnifyingLevel() {
 		return magnifyingLevel;
 	}
@@ -209,7 +213,7 @@ public class Paint extends Observable implements Serializable{
 		setChanged();
 		notifyObservers();
 	}
-	
+
 	public void magnify(){
 		if(magnifyingLevel == 0.25){
 			setMagnifyingLevel(0.5);
@@ -221,7 +225,7 @@ public class Paint extends Observable implements Serializable{
 			setMagnifyingLevel(2.5);
 		}
 	}
-	
+
 	public void demagnify(){
 		if(magnifyingLevel == 2.5){
 			setMagnifyingLevel(1.5);
@@ -272,25 +276,25 @@ public class Paint extends Observable implements Serializable{
 		}
 		return -1;
 	}
-	
+
 	public int getWorkingLayer(){
 		return active_layer;
 	}
-	
+
 	public void setWorkingLayer(int layer){
 		this.active_layer = layer;
 		setChanged();
 		notifyObservers();
 	}
-	
+
 	public int getCurrentTool(){
 		return this.toolbox.getShape();
 	}
-	
+
 	public ToolboxModel getToolbox(){
 		return this.toolbox;
 	}
-	
+
 	public void saveAs(String file){
 		try{
 			File fichier = new File(file);
@@ -301,7 +305,7 @@ public class Paint extends Observable implements Serializable{
 
 		}
 	}
-	
+
 	public void open(String file){
 		ObjectInputStream is = null;
 		try{
@@ -319,7 +323,8 @@ public class Paint extends Observable implements Serializable{
 	}
 
 	public void exportAs(String file){
+		Export export  = new Export(this);
 		export.exportAs(file);
 	}
-	
+
 }
