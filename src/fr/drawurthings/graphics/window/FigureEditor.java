@@ -6,6 +6,8 @@ import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -27,11 +29,19 @@ public class FigureEditor extends JFrame {
 	private int working_layer;
 	private Drawable currentDrawable;
 	
+<<<<<<< HEAD
 	private JTabbedPane mainPanel;
 	private JButton okBut, cancelBut;
 	private JTextField tailleX, tailleY, originX, originY;
 	private JPanel param, borderColor, bgColor, bottomPanel;
 	private JColorChooser bgColorCC, borderColorCC;
+=======
+	JTabbedPane mainPanel;
+	JButton okBut, cancelBut, appliquerBut;
+	JTextField tailleX, tailleY, originX, originY;
+	JPanel param, borderColor, bgColor, bottomPanel;
+	JColorChooser bgColorCC, borderColorCC;
+>>>>>>> 3ac4fc5eddcfb8fc6c8c2e68c6eceb609b9d26da
 	
 	private Ecouteur ec;
 	
@@ -90,32 +100,40 @@ public class FigureEditor extends JFrame {
 		
 		if(i == 0){
 			JTextArea originXTA = new JTextArea("Origine en X :");
+			originXTA.setEditable(false);
 			originX = new JTextField("" + currentDrawable.getOriginX());
 			originXTA.setPreferredSize(originXTA.getPreferredSize());
 			originX.setPreferredSize(originX.getPreferredSize());
 			paramLine.add(originXTA);
 			paramLine.add(originX);
+			originX.addKeyListener(ec);
 		}else if(i == 1){
 			JTextArea originYTA = new JTextArea("Origine en Y :");
+			originYTA.setEditable(false);
 			originY = new JTextField("" + currentDrawable.getOriginY());
 			originYTA.setPreferredSize(originYTA.getPreferredSize());
 			originY.setPreferredSize(originY.getPreferredSize());
 			paramLine.add(originYTA);
 			paramLine.add(originY);
+			originY.addKeyListener(ec);
 		}else if(i == 2){
 			JTextArea tailleXTA = new JTextArea("Largeur :");
+			tailleXTA.setEditable(false);
 			tailleX = new JTextField("" + currentDrawable.getWidth());
 			tailleXTA.setPreferredSize(tailleXTA.getPreferredSize());
 			tailleX.setPreferredSize(tailleX.getPreferredSize());
 			paramLine.add(tailleXTA);
 			paramLine.add(tailleX);
+			tailleX.addKeyListener(ec);
 		}else if(i == 3){
 			JTextArea tailleYTA = new JTextArea("Hauteur :");
+			tailleYTA.setEditable(false);
 			tailleY = new JTextField("" + currentDrawable.getHeight());
 			tailleYTA.setPreferredSize(tailleYTA.getPreferredSize());
 			tailleY.setPreferredSize(tailleY.getPreferredSize());
 			paramLine.add(tailleYTA);
 			paramLine.add(tailleY);
+			tailleY.addKeyListener(ec);
 		}
 		
 		return paramLine;
@@ -125,23 +143,27 @@ public class FigureEditor extends JFrame {
 		//if(this.bottomPanel == null){
 			bottomPanel = new JPanel();
 			okBut = new JButton("OK");
+			appliquerBut = new JButton("Appliquer");
 			cancelBut = new JButton("Annuler");
 			okBut.addActionListener(ec);
 			cancelBut.addActionListener(ec);
+			appliquerBut.addActionListener(ec);
 			bottomPanel.setLayout(new BoxLayout(bottomPanel, BoxLayout.X_AXIS));
 			bottomPanel.add(okBut);
 			bottomPanel.add(cancelBut);
+			bottomPanel.add(appliquerBut);
 		//}
 		return bottomPanel;
 	}
 	
-	public class Ecouteur implements ActionListener{
-
+	public class Ecouteur implements ActionListener, KeyListener{
+		
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			JButton source = (JButton)e.getSource();
 			if(source.equals(cancelBut)){
 				dispose();
+<<<<<<< HEAD
 			}else if(mainPanel.getSelectedComponent().equals(param)){
 				/**
 				 * On empeche l'utilisateur de rentrer de la merde dans les champs.
@@ -158,16 +180,51 @@ public class FigureEditor extends JFrame {
 			}else if(mainPanel.getSelectedComponent().equals(bgColor)){
 				Color newColor = bgColorCC.getColor();
 				p.setFigureFillingColor(working_layer, newColor);
+=======
+			}else{
+				if(mainPanel.getSelectedComponent().equals(param)){
+					/**
+					 * On empeche l'utilisateur de rentrer de la merde dans les champs.
+					 */
+					/**
+					 * On change les données dont les champs sont détaillés, et on fait gaffe à ce que ça ne soit que des valeurs numériques(+ valeurs cohérentes pour figures spécifiques [Carrés par ex]), avant d'arriver ici !
+					 */
+					
+					p.resizeFiguresOnLayer(working_layer, Integer.parseInt(tailleX.getText()), Integer.parseInt(tailleY.getText()));
+					p.moveFiguresOnLayer(working_layer, Integer.parseInt(originX.getText()), Integer.parseInt(originY.getText()));
+				}else if(mainPanel.getSelectedComponent().equals(borderColor)){
+					Color newColor = borderColorCC.getColor();
+					p.setFigureBorderColor(working_layer, newColor);
+				}else if(mainPanel.getSelectedComponent().equals(bgColor)){
+					Color newColor = bgColorCC.getColor();
+					p.setFigureFillingColor(working_layer, newColor);
+				}
+				if(source.equals(okBut))
+					dispose();
 			}
-			dispose();
+		}
+
+		@Override
+		public void keyPressed(KeyEvent e) {
+		}
+
+		@Override
+		public void keyReleased(KeyEvent e) {
+			JTextField laSource = (JTextField)e.getSource();
+			try{
+				Double.parseDouble(laSource.getText());
+			}catch(NumberFormatException ex){
+				if(laSource.getText().length() != 0)
+					laSource.setText(laSource.getText().substring(0, laSource.getText().length() - 1));
+>>>>>>> 3ac4fc5eddcfb8fc6c8c2e68c6eceb609b9d26da
+			}
+		}
+
+		@Override
+		public void keyTyped(KeyEvent e) {
 			
 		}
 		
 	}
-	
-	/*@SuppressWarnings("unused")
-	public static void main(String args[]){
-		FigureEditor fe = new FigureEditor();
-	}*/
 	
 }
