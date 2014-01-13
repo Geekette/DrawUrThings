@@ -19,8 +19,8 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-import fr.drawurthings.bin.Paint;
 import fr.drawurthings.figures.Drawable;
+import fr.drawurthings.model.Paint;
 
 @SuppressWarnings("serial")
 public class FigureEditor extends JFrame {

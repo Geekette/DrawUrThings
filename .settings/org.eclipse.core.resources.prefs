@@ -1,10 +1,10 @@
 eclipse.preferences.version=1
 encoding//src/Bugs=UTF-8
-encoding//src/fr/drawurthings/bin/Paint.java=UTF-8
+encoding//src/fr/drawurthings/graphics/draw/DrawPopup.java=UTF-8
 encoding//src/fr/drawurthings/graphics/listener/DrawPanelListener.java=UTF-8
-encoding//src/fr/drawurthings/graphics/panel/DisplayPopup.java=UTF-8
-encoding//src/fr/drawurthings/graphics/panel/DrawPopup.java=UTF-8
-encoding//src/fr/drawurthings/graphics/panel/FilePopup.java=UTF-8
+encoding//src/fr/drawurthings/graphics/menubar/DisplayPopup.java=UTF-8
+encoding//src/fr/drawurthings/graphics/menubar/FilePopup.java=UTF-8
 encoding//src/fr/drawurthings/graphics/window/AboutWindow.java=UTF-8
 encoding//src/fr/drawurthings/graphics/window/FigureEditor.java=UTF-8
-encoding//src/fr/drawurthings/toolbox/Toolbox.java=UTF-8
+encoding//src/fr/drawurthings/graphics/window/Toolbox.java=UTF-8
+encoding//src/fr/drawurthings/model/Paint.java=UTF-8

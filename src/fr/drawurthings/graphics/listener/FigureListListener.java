@@ -5,8 +5,8 @@ import java.awt.event.MouseListener;
 
 import javax.swing.JList;
 
-import fr.drawurthings.bin.Paint;
-import fr.drawurthings.graphics.panel.DrawPopup;
+import fr.drawurthings.graphics.draw.DrawPopup;
+import fr.drawurthings.model.Paint;
 
 public class FigureListListener implements MouseListener {
 

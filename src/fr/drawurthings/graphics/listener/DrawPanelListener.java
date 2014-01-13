@@ -10,11 +10,11 @@ import java.awt.event.MouseWheelListener;
 
 import javax.swing.JOptionPane;
 
-import fr.drawurthings.bin.Paint;
 import fr.drawurthings.figures.Drawable;
-import fr.drawurthings.graphics.panel.DrawPanel;
-import fr.drawurthings.graphics.panel.DrawPopup;
+import fr.drawurthings.graphics.draw.DrawPanel;
+import fr.drawurthings.graphics.draw.DrawPopup;
 import fr.drawurthings.graphics.window.FigureEditor;
+import fr.drawurthings.model.Paint;
 
 public class DrawPanelListener implements MouseListener, MouseMotionListener, MouseWheelListener{
 	

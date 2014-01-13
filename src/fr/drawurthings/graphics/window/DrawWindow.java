@@ -12,10 +12,9 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-import fr.drawurthings.bin.Paint;
-import fr.drawurthings.graphics.panel.DrawPanel;
-import fr.drawurthings.graphics.panel.TopMenuBar;
-import fr.drawurthings.toolbox.Toolbox;
+import fr.drawurthings.graphics.draw.DrawPanel;
+import fr.drawurthings.graphics.menubar.TopMenuBar;
+import fr.drawurthings.model.Paint;
 
 @SuppressWarnings("serial")
 public class DrawWindow extends JFrame implements Observer{
@@ -28,7 +27,7 @@ public class DrawWindow extends JFrame implements Observer{
 	
 	public DrawWindow(Paint p){
 		super("DrawUrThings : Draw (RC1)");
-		this.setIconImage(new ImageIcon("vectoricon.png").getImage());
+		this.setIconImage(new ImageIcon("ressources/icon/vectoricon.png").getImage());
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setVisible(true);
 		this.setLocation(170, 50);

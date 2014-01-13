@@ -122,26 +122,6 @@ public abstract class Drawable implements Comparable<Drawable>, Serializable {
 			}
 		}
 	}
-	/*public int getHeight() {
-			return (int) (zoom*height);	
-	}
-	public void setHeigth(int height) {
-		if(zoom == 1){
-			this.height = (int) (height/zoom);
-		}else{
-			this.height = (int) (height/zoom)+1;
-		}
-	}
-	public int getWidth() {
-		return (int) (zoom*width);
-	}
-	public void setWidth(int width) {
-		if(zoom == 1){
-			this.width = (int) (width/zoom);
-		}else{
-			this.width = (int) (width/zoom)+1;
-		}
-	}*/
 	public int getLayer() {
 		return layer;
 	}

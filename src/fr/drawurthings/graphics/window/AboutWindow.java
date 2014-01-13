@@ -20,7 +20,7 @@ public class AboutWindow extends JFrame {
 	
 	public AboutWindow(){
 		super("A propos de DrawUrThings");
-		this.setIconImage(new ImageIcon("vectoricon.png").getImage());
+		this.setIconImage(new ImageIcon("ressources/icon/vectoricon.png").getImage());
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		Dimension resol = Toolkit.getDefaultToolkit().getScreenSize();
 		this.setLocation(resol.width/2-230, resol.height/2-180);
@@ -34,13 +34,13 @@ public class AboutWindow extends JFrame {
 		c.setLayout(new GridBagLayout());
 		GridBagConstraints gbc = new GridBagConstraints();
 		
-		JLabel logo = new JLabel(new ImageIcon("logo.png"));
+		JLabel logo = new JLabel(new ImageIcon("ressources/image/logo.png"));
 		
-		String resume = "\tDrawUrThings (Version 1.0 - RC1 (13012014) - JRE "+ System.getProperty("java.version")+")\n\tAlexandre Canny\n\tThéo Plockyn\n\tValentin Ramecourt";
+		String resume = "\tDrawUrThings (Version 1.0 \"Hugo\" - RC1 (13012014) - JRE "+ System.getProperty("java.version")+")\n\tAlexandre Canny\n\tThéo Plockyn\n\tValentin Ramecourt";
 		resume = resume.replaceAll("\n", "<br>");
 		
 		String credit = "Remerciements : \n\tNicolas Anquetil\n\tEric Lepretre\n\tJean Martinet\n\nRessources graphiques : \n\tFugue Icons (par Yusuke Kamiyamane) \n\nPolices :\n\tWaltograph (par Justin Callaghan)\n\n"
-				+ "Remerciements spéciaux :";
+				+ "Remerciements spéciaux :\n\tPatricia Everaere\n\tLes contributeurs de la documentation Java\n\nMessages des développeurs : \n\t\"Maman, on fait le Space Moutain!?\" (Geekette)";
 		JTextArea credits = new JTextArea(credit);
 		credits.setEditable(false);
 		JScrollPane paneCredit = new JScrollPane(credits);

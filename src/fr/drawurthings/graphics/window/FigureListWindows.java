@@ -6,8 +6,8 @@ import java.awt.Toolkit;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
-import fr.drawurthings.bin.Paint;
-import fr.drawurthings.graphics.panel.FiguresList;
+import fr.drawurthings.graphics.draw.FiguresList;
+import fr.drawurthings.model.Paint;
 
 @SuppressWarnings("serial")
 public class FigureListWindows extends JFrame {
@@ -15,7 +15,7 @@ public class FigureListWindows extends JFrame {
 	public FigureListWindows(Paint p){
 		this.setTitle("Liste de figures");
 		Dimension resol = Toolkit.getDefaultToolkit().getScreenSize();
-		this.setIconImage(new ImageIcon("vectoricon.png").getImage());
+		this.setIconImage(new ImageIcon("ressources/icon/vectoricon.png").getImage());
 		this.setVisible(true);
 		this.setAlwaysOnTop(true);
 		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
