@@ -192,7 +192,7 @@ public class Paint extends Observable implements Serializable{
 	}
 	
 	public void rotateFigureOnLayer(int layer, int angle){
-		this.figures.get(layer).setRotation(angle);;
+		this.figures.get(layer).setRotation(angle);
 		this.setChanged();
 		this.notifyObservers();
 	}
