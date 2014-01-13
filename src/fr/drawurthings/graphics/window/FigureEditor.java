@@ -29,19 +29,12 @@ public class FigureEditor extends JFrame {
 	private int working_layer;
 	private Drawable currentDrawable;
 	
-<<<<<<< HEAD
 	private JTabbedPane mainPanel;
-	private JButton okBut, cancelBut;
+	private JButton okBut, cancelBut,appliquerBut;
 	private JTextField tailleX, tailleY, originX, originY;
-	private JPanel param, borderColor, bgColor, bottomPanel;
+	private JPanel param, borderColor, bgColor;
 	private JColorChooser bgColorCC, borderColorCC;
-=======
-	JTabbedPane mainPanel;
-	JButton okBut, cancelBut, appliquerBut;
-	JTextField tailleX, tailleY, originX, originY;
-	JPanel param, borderColor, bgColor, bottomPanel;
-	JColorChooser bgColorCC, borderColorCC;
->>>>>>> 3ac4fc5eddcfb8fc6c8c2e68c6eceb609b9d26da
+
 	
 	private Ecouteur ec;
 	
@@ -75,7 +68,7 @@ public class FigureEditor extends JFrame {
         param.add(paramArea);
         param.add(createBottomPanel());
         param.setBorder(BorderFactory.createTitledBorder("Editez les paramètres"));
-        mainPanel.addTab("Paramètres figure", null, param, "Permet de changer les param��tres de la figure");
+        mainPanel.addTab("Paramètres figure", null, param, "Permet de changer les paramtres de la figure");
         
         borderColorCC = new JColorChooser();
         borderColor.setLayout(new BoxLayout(borderColor, BoxLayout.Y_AXIS));
@@ -140,8 +133,7 @@ public class FigureEditor extends JFrame {
 	}
 
 	private JPanel createBottomPanel() {
-		//if(this.bottomPanel == null){
-			bottomPanel = new JPanel();
+			JPanel bottomPanel = new JPanel();
 			okBut = new JButton("OK");
 			appliquerBut = new JButton("Appliquer");
 			cancelBut = new JButton("Annuler");
@@ -152,7 +144,6 @@ public class FigureEditor extends JFrame {
 			bottomPanel.add(okBut);
 			bottomPanel.add(cancelBut);
 			bottomPanel.add(appliquerBut);
-		//}
 		return bottomPanel;
 	}
 	
@@ -161,35 +152,10 @@ public class FigureEditor extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			JButton source = (JButton)e.getSource();
-			if(source.equals(cancelBut)){
+			if(source.getText().equals("Annuler")){
 				dispose();
-<<<<<<< HEAD
-			}else if(mainPanel.getSelectedComponent().equals(param)){
-				/**
-				 * On empeche l'utilisateur de rentrer de la merde dans les champs.
-				 */
-				/**
-				 * On change les donn��es dont les champs sont d��taill��s, et on fait gaffe �� ce que ��a ne soit que des valeurs num��riques(+ valeurs coh��rentes pour figures sp��cifiques [Carr��s par ex]), avant d'arriver ici !
-				 */
-				
-				p.resizeFiguresOnLayer(working_layer, Integer.parseInt(tailleX.getText()), Integer.parseInt(tailleY.getText()));
-				p.moveFiguresOnLayer(working_layer, Integer.parseInt(originX.getText()), Integer.parseInt(originY.getText()));
-			}else if(mainPanel.getSelectedComponent().equals(borderColor)){
-				Color newColor = borderColorCC.getColor();
-				p.setFigureBorderColor(working_layer, newColor);
-			}else if(mainPanel.getSelectedComponent().equals(bgColor)){
-				Color newColor = bgColorCC.getColor();
-				p.setFigureFillingColor(working_layer, newColor);
-=======
 			}else{
 				if(mainPanel.getSelectedComponent().equals(param)){
-					/**
-					 * On empeche l'utilisateur de rentrer de la merde dans les champs.
-					 */
-					/**
-					 * On change les données dont les champs sont détaillés, et on fait gaffe à ce que ça ne soit que des valeurs numériques(+ valeurs cohérentes pour figures spécifiques [Carrés par ex]), avant d'arriver ici !
-					 */
-					
 					p.resizeFiguresOnLayer(working_layer, Integer.parseInt(tailleX.getText()), Integer.parseInt(tailleY.getText()));
 					p.moveFiguresOnLayer(working_layer, Integer.parseInt(originX.getText()), Integer.parseInt(originY.getText()));
 				}else if(mainPanel.getSelectedComponent().equals(borderColor)){
@@ -199,7 +165,7 @@ public class FigureEditor extends JFrame {
 					Color newColor = bgColorCC.getColor();
 					p.setFigureFillingColor(working_layer, newColor);
 				}
-				if(source.equals(okBut))
+				if(source.getText().equals("OK"))
 					dispose();
 			}
 		}
@@ -216,7 +182,6 @@ public class FigureEditor extends JFrame {
 			}catch(NumberFormatException ex){
 				if(laSource.getText().length() != 0)
 					laSource.setText(laSource.getText().substring(0, laSource.getText().length() - 1));
->>>>>>> 3ac4fc5eddcfb8fc6c8c2e68c6eceb609b9d26da
 			}
 		}
 
