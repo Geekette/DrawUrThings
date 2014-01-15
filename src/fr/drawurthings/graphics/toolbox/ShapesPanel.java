@@ -10,20 +10,25 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import fr.drawurthings.model.ToolboxModel;
- 
 
 
-/* Sources des icones : 
+
+/**
+ * Panel d'outils selectionnables.
  * 
- * https://www.iconfinder.com/search/?q=iconset%3Afugue+layer
- * https://www.iconfinder.com/search/?q=iconset%3Afugue
- * 
+ * @author Théo Plockyn, Valentin Ramecourt, Alexandre Canny
+ *
  */
 @SuppressWarnings("serial")
 public class ShapesPanel extends JPanel {
 	JButton[] shapes;
 
 	final static int nbShapes = 7;
+
+	/**
+	 * Constructeur du panel contenant les outils
+	 * @param m - Le modèle de la toolbox
+	 */
 	public ShapesPanel(ToolboxModel m) {
 		setLayout(new GridLayout(4,2,10,2));
 		shapes = new JButton[7];
@@ -49,6 +54,12 @@ public class ShapesPanel extends JPanel {
 
 }
 
+/**
+ * ActionListener du panel d'outils permettant de choisir l'outil ou la forme que l'on souhaite.
+ * 
+ * @author Théo Plockyn, Valentin Ramecourt, Alexandre Canny
+ *
+ */
 class ShapeListener implements ActionListener{
 	ToolboxModel m;
 	ShapesPanel s;
@@ -60,7 +71,7 @@ class ShapeListener implements ActionListener{
 	public void actionPerformed(ActionEvent arg0) {
 		int i;
 		for(i=0; i<ShapesPanel.nbShapes; i++){
-			if(s.shapes[i].equals(((JButton)arg0.getSource()))){
+			if(s.shapes[i].equals((arg0.getSource()))){
 				break;
 			}
 		}

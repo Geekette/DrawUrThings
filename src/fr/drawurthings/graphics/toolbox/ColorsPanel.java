@@ -11,13 +11,23 @@ import javax.swing.JPanel;
 
 import fr.drawurthings.model.ToolboxModel;
 
+/**
+ * Panel de couleurs selectionnables.
+ * 
+ * @author Théo Plockyn, Valentin Ramecourt, Alexandre Canny
+ *
+ */
 @SuppressWarnings("serial")
 public class ColorsPanel extends JPanel {
-	
-	private JPanel panelColorInterieur, panelColorBordure;
-	
+
+	private final JPanel panelColorInterieur, panelColorBordure;
+
+	/**
+	 * Constructeur du panel contenant les deux couleurs
+	 * @param m - Le modèle de la toolbox
+	 */
 	public ColorsPanel(ToolboxModel m){
-		
+
 		setLayout(new GridLayout(2, 2, 10, -15));
 		int colorSize = 10;
 		JLabel interieur = new JLabel("Remplissage");
@@ -35,17 +45,31 @@ public class ColorsPanel extends JPanel {
 		add(panelColorInterieur);
 		add(panelColorBordure);
 	}
-	
+
+	/**
+	 * Setter de la couleur de la bordure
+	 * @param c - La couleur souhaitée de la bordure
+	 */
 	public void setBordure(Color c){
 		panelColorBordure.setBackground(c);
 	}
-	
+
+	/**
+	 * Setter de la couleur de l'intérieur
+	 * @param c - La couleur souhaitée de l'interieur
+	 */
 	public void setInterieur(Color c){
 		panelColorInterieur.setBackground(c);
 	}
 
 }
 
+/**
+ * MouseListener du panel de couleur permettant de choisir soit la couleur d'intérieur soit de bordure.
+ * 
+ * @author Théo Plockyn, Valentin Ramecourt, Alexandre Canny
+ *
+ */
 class ColorListener implements MouseListener{
 	String text;
 	ToolboxModel m;
@@ -53,7 +77,7 @@ class ColorListener implements MouseListener{
 		this.text = text;
 		this.m = m;
 	}
-	
+
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
 		if(text.equals("bordure")){
@@ -66,25 +90,25 @@ class ColorListener implements MouseListener{
 	@Override
 	public void mouseEntered(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void mouseExited(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void mousePressed(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
-	
+
 }
