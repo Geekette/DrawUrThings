@@ -9,9 +9,9 @@ import fr.drawurthings.graphics.draw.DrawPopup;
 import fr.drawurthings.model.Paint;
 
 /**
- * Listener de la fenêtre de liste de layers.
+ * Listener de la fenÃªtre de liste de layers.
  * 
- * @author Alexandre Canny, Valentin Ramecourt, Théo Plockyn
+ * @author Alexandre Canny, Valentin Ramecourt, ThÃ©o Plockyn
  *
  */
 public class FigureListListener implements MouseListener {

@@ -20,6 +20,13 @@ import fr.drawurthings.figures.Rectangle;
 import fr.drawurthings.figures.Square;
 import fr.drawurthings.figures.Triangle;
 
+/**
+ * La classe publique Paint fournie les méthodes nécessaire à la gestion d'un
+ * dessin vectoriel simple composées d'objets Drawable (fr.drawurthings.figures).
+ * En plus de la gestion de couleurs de fonds et l'accés aux calques, elle permets offre
+ * également la possibilités de déplacer les figures ou encore d'effectuer des zooms sur le dessin.
+ * Enfin, le dessin est exportable au format png.
+ */
 public class Paint extends Observable implements Serializable{
 
 	private static final long serialVersionUID = 7422059367299580777L;
