@@ -2,7 +2,9 @@ package fr.drawurthings.figures;
 
 import java.awt.Color;
 
-
+/**
+ * La classe Line définit l'ensemble des méthodes permettant la gestion d'une ligne dans un espace vectoriel.
+ */
 public class Line extends Drawable{
 	
 	/**

@@ -3,6 +3,11 @@ package fr.drawurthings.figures;
 import java.awt.Color;
 import java.io.Serializable;
 
+/**
+ * La classe abstraite Drawable définit l'ensemble des méthodes permettant la gestion d'une figure géométrique simple
+ * en mode vectoriel. Chaque figure du type Drawable sera ainsi inscrite dans un rectangle ayant une origine et une projection
+ * de sa longeur et de sa largeur sur les axes verticaux et horizontaux relatifs à cette origine.
+ */
 public abstract class Drawable implements Comparable<Drawable>, Serializable {
 	
 	static final long serialVersionUID = -2727166371836007588L;
@@ -121,7 +126,7 @@ public abstract class Drawable implements Comparable<Drawable>, Serializable {
 	}
 	/**
 	 * Déplace l'origine sur l'axe des X.
-	 * @param Nouvelle coordonnée en X de l'origine.
+	 * @param originX Nouvelle coordonnée en X de l'origine.
 	 */
 	public void setOriginX(int originX) {
 		this.originX = (int) (originX/zoom);
@@ -135,7 +140,7 @@ public abstract class Drawable implements Comparable<Drawable>, Serializable {
 	}
 	/**
 	 * Déplace l'origine sur l'axe des Y.
-	 * @param Nouvelle coordonnée en Y de l'origine.
+	 * @param originY Nouvelle coordonnée en Y de l'origine.
 	 */
 	public void setOriginY(int originY) {
 		this.originY = (int) (originY/zoom);
@@ -218,14 +223,14 @@ public abstract class Drawable implements Comparable<Drawable>, Serializable {
 	}
 	/**
 	 * Retourne l'angle duquel la figure est pivoté par rapport à son état à la création
-	 * @return
+	 * @return Angle de rotation de la figure par rapport à sa création.
 	 */
 	public int getRotation(){
 		return this.rotation;
 	}
 	/**
 	 * Pivote la figure en ajoutant l'angle séléctionné modulo 360 (Pour garder une valeur entre 0 et 360).
-	 * @param angle Angle multiple de 90.
+	 * @param r Angle multiple de 90.
 	 */
 	public void setRotation(int r){
 		this.rotation = (this.rotation+r)%360;
@@ -253,7 +258,7 @@ public abstract class Drawable implements Comparable<Drawable>, Serializable {
 	}
 	/**
 	 * Défini la couleur de remplissage de la figure.
-	 * @param border java.awt.Color Couleur du remplissage de la figure.
+	 * @param fill java.awt.Color Couleur du remplissage de la figure.
 	 */
 	public void setFillingColor(Color fill) {
 		this.fill = fill;

@@ -12,6 +12,9 @@ import javax.swing.JPopupMenu;
 import fr.drawurthings.graphics.window.DrawWindow;
 import fr.drawurthings.model.Paint;
 
+/**
+ * Classe définissant un JPopupMenu contenant des options d'affichage pour le logiciel DrawUrThings.
+ */
 @SuppressWarnings("serial")
 public class DisplayPopup extends JPopupMenu{
 	

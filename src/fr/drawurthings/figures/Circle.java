@@ -2,6 +2,9 @@ package fr.drawurthings.figures;
 
 import java.awt.Color;
 
+/**
+ * La classe Circle définit l'ensemble des méthodes permettant la gestion d'un cercle dans un espace vectoriel.
+ */
 @SuppressWarnings("serial")
 public class Circle extends Drawable{
 	
@@ -32,7 +35,7 @@ public class Circle extends Drawable{
 		this.fill = fill;
 	}
 
-
+	@Override
 	public void resizeMovingACorner(int corner, int posX, int posY){
 		int newWidth, newHeight;
 		if(corner == Drawable.TOP_LEFT_HAND_CORNER){			

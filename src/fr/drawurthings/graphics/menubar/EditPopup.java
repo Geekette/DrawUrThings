@@ -9,6 +9,9 @@ import javax.swing.JPopupMenu;
 
 import fr.drawurthings.model.Paint;
 
+/**
+ * Classe d√©finissant un JPopupMenu contenant des options d'edition pour le logiciel DrawUrThings.
+ */
 @SuppressWarnings("serial")
 public class EditPopup extends JPopupMenu {
 	
@@ -18,7 +21,7 @@ public class EditPopup extends JPopupMenu {
 	
 	/**
 	 * Instancie le menu contextuel "Edition".
-	 * @param p Le moodËle Paint.
+	 * @param p Le mood√©le Paint.
 	 */
 	public EditPopup(Paint p){
 		EditListener el = new EditListener();
@@ -33,7 +36,7 @@ public class EditPopup extends JPopupMenu {
 	
 	/**
 	 * Listener du menu contextuel "Edition".
-	 * /!\ A imlÈmenter.
+	 * /!\ A impl√©menter.
 	 */
 	class EditListener implements ActionListener{
 

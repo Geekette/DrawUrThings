@@ -2,6 +2,9 @@ package fr.drawurthings.figures;
 
 import java.awt.Color;
 
+/**
+ * La classe Triangle définit l'ensemble des méthodes permettant la gestion d'un triangle dans un espace vectoriel.
+ */
 public class Triangle extends Polygon{
 
 	private static final long serialVersionUID = 7574518786775440114l;

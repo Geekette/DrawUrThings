@@ -2,6 +2,9 @@ package fr.drawurthings.figures;
 
 import java.awt.Color;
 
+/**
+ * La classe Square définit l'ensemble des méthodes permettant la gestion d'un carré dans un espace vectoriel.
+ */
 @SuppressWarnings("serial")
 public class Square extends Drawable{
 	

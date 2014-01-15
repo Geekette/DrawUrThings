@@ -13,6 +13,9 @@ import javax.swing.JPanel;
 import fr.drawurthings.graphics.window.DrawWindow;
 import fr.drawurthings.model.Paint;
 
+/**
+ * Classe d√©finissant un bar de sup√©rieur pour le logiciel DrawUrThings. Cette barre propose les options Fichier, Edition, Affichage et "?".
+ */
 @SuppressWarnings("serial")
 public class TopMenuBar extends JPanel{
 	
@@ -31,7 +34,7 @@ public class TopMenuBar extends JPanel{
 	}
 	
 	/**
-	 * CrÈÈ les onglets Fichier, Edition, Affichage et "?".
+	 * Cr√©e les onglets Fichier, Edition, Affichage et "?".
 	 */
 	public void build(){
 		JMenuBar panel = new JMenuBar();

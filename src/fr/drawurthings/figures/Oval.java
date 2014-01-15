@@ -2,6 +2,9 @@ package fr.drawurthings.figures;
 
 import java.awt.Color;
 
+/**
+ * La classe Oval définit l'ensemble des méthodes permettant la gestion d'un oval dans un espace vectoriel.
+ */
 @SuppressWarnings("serial")
 public class Oval extends Drawable{
 	

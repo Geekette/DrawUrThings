@@ -81,7 +81,6 @@ public class Paint extends Observable implements Serializable{
 	 * @param originY Position de l'origine du vecteur directeur sur l'axe vertical
 	 * @param width Position horizontale de la pointe du vecteur directeur
 	 * @param height Position verticale de la pointe du vecteur directeur
-	 * @return Une instance fille de la classe abstraite fr.drawurthings.figures.Drawable
 	 */
 	public void addFigures(int type,int originX,int originY, int width, int height){
 		if(type == Drawable.LINE){

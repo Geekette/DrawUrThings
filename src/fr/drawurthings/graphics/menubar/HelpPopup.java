@@ -8,6 +8,9 @@ import javax.swing.JPopupMenu;
 
 import fr.drawurthings.graphics.window.AboutWindow;
 
+/**
+ * Classe définissant un JPopupMenu contenant des options d'aide pour le logiciel DrawUrThings.
+ */
 @SuppressWarnings("serial")
 public class HelpPopup extends JPopupMenu {
 	

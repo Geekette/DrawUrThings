@@ -13,6 +13,9 @@ import javax.swing.JPopupMenu;
 import fr.drawurthings.graphics.window.DrawWindow;
 import fr.drawurthings.model.Paint;
 
+/**
+ * Classe définissant un JPopupMenu contenant des options fréquente d'un menu "Fichier" pour le logiciel DrawUrThings.
+ */
 @SuppressWarnings("serial")
 public class FilePopup extends JPopupMenu {
 
