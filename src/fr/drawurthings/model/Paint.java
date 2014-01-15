@@ -37,21 +37,28 @@ public class Paint extends Observable implements Serializable{
 	private int active_layer = -1;
 	private double magnifyingLevel = 1;
 
+	/**
+	 * Instancie la classe Paint en y associant la ToolboxModel passée en paramètre.
+	 * @param t ToolboxModel.
+	 */
 	public Paint(ToolboxModel t){
 		this.figures = new ArrayList<Drawable>();
 		this.bgcolor = Color.WHITE;
 		this.toolbox = t;
 	}
 
-	public Paint(Color bgColor){
-		this.figures = new ArrayList<Drawable>();
-		this.bgcolor = bgColor;
-	}
-
+	/**
+	 * Retourne la couleur de fond du modèle.
+	 * @return Couleur de fond.
+	 */
 	public Color getBgcolor() {
 		return bgcolor;
 	}
 
+	/**
+	 * Edite la couleur de fond du modèle.
+	 * @param bgcolor Couleur de fond.
+	 */
 	public void setBgcolor(Color bgcolor) {
 		this.bgcolor = bgcolor;
 		this.setChanged();
@@ -158,52 +165,97 @@ public class Paint extends Observable implements Serializable{
 		notifyObservers();
 	}
 
-
+	/**
+	 * Change la couleur de remplissage de la figure au numéro de calque choisi.
+	 * @param layer Numéro du calque contenant la figure à éditer.
+	 * @param c Couleur qui remplira la figure.
+	 */
 	public void setFigureFillingColor(int layer,Color c){
 		this.figures.get(layer).setFillingColor(c);
 		setChanged();
 		notifyObservers();
 	}
 
+	/**
+	 * Change la couleur de la bordure de la figure au numéro de calque choisi.
+	 * @param layer Numéro du calque contenant la figure à éditer.
+	 * @param c Couleur qui remplira la figure.
+	 */
 	public void setFigureBorderColor(int layer,Color c){
 		this.figures.get(layer).setBorderColor(c);
 		setChanged();
 		notifyObservers();
 	}
 
+	/**
+	 * Retourne l'ArrayList des Drawables composants les dessins du modèle.
+	 * @return ArrayList (java.util.ArrayList) des Drawables composants le dessin.
+	 */
 	public ArrayList<Drawable> getDrawables(){
 		Collections.sort(this.figures);
 		return this.figures;
 	}
 
-	public void resizeFiguresOnLayer(int layer, int width, int heigth){
-		figures.get(layer).resize(width, heigth);
+	/**
+	 * Redimensione la figure au numéro de calque choisi en précisant sa largeur et sa longueur.
+	 * @param layer Numéro du calque contenant la figure à redimensioner.
+	 * @param width Position horizontale de la pointe du vecteur directeur.
+	 * @param height Position verticale de la pointe du vecteur directeur.
+	 */
+	public void resizeFiguresOnLayer(int layer, int width, int height){
+		figures.get(layer).resize(width, height);
 		setChanged();
 		notifyObservers();
 	}
 
+	/**
+	 * Repositione la figure au numéro de calque choisi en précisant son abscisse et son ordonnée.
+	 * @param layer Numéro du calque contenant la figure à repositioner.
+	 * @param coordX Position de l'origine du vecteur directeur sur l'axe horizontal.
+	 * @param coordY Position de l'origine du vecteur directeur sur l'axe vertical.
+	 */
 	public void moveFiguresOnLayer(int layer, int coordX, int coordY){
 		figures.get(layer).moveOrigin(coordX, coordY);
 		setChanged();
 		notifyObservers();
 	}
 
+	/**
+	 * Redimensione la figure en renseignant le coin séléctionné par la souris de l'utilisateur.
+	 * @param layer Numéro du calque contenant la figure à redimensioner.
+	 * @param corner (fr.drawurthings.figures.Drawable) Int représentant un coin par valeur entre 1000 et 1003.
+	 * @param posX Position de l'origine du vecteur directeur sur l'axe horizontal.
+	 * @param posY Position de l'origine du vecteur directeur sur l'axe vertical.
+	 */
 	public void resizeFigureUsingCorner(int layer, int corner, int posX, int posY){
 		this.figures.get(layer).resizeMovingACorner(corner, posX, posY);
 		setChanged();
 		notifyObservers();
 	}
 
+	/**
+	 * Pivote la figure au numéro de calque choisi en ajoutant l'angle séléctionné modulo 360 (Pour garder une valeur entre 0 et 360).
+	 * @param layer Numéro du calque contenant la figure à pivoter.
+	 * @param angle Angle multiple de 90.
+	 */
 	public void rotateFigureOnLayer(int layer, int angle){
 		this.figures.get(layer).setRotation(angle);
 		this.setChanged();
 		this.notifyObservers();
 	}
 
+	/**
+	 * Retourne la valeur du niveau de zoom (1 étant le zoom à 100%). 
+	 * @return Niveau de zoom.
+	 */
 	public double getMagnifyingLevel() {
 		return magnifyingLevel;
 	}
 
+	/**
+	 * Change la valeur du niveau de zoom.
+	 * @param magnifyingLevel Numéro de zoom.
+	 */
 	public void setMagnifyingLevel(double magnifyingLevel) {
 		this.magnifyingLevel = magnifyingLevel;
 		for(Iterator<Drawable> it = figures.iterator();it.hasNext();){
@@ -213,6 +265,9 @@ public class Paint extends Observable implements Serializable{
 		notifyObservers();
 	}
 
+	/**
+	 * Augmente la valeur du niveau de zoom.
+	 */
 	public void magnify(){
 		if(magnifyingLevel == 0.25){
 			setMagnifyingLevel(0.5);
@@ -225,6 +280,9 @@ public class Paint extends Observable implements Serializable{
 		}
 	}
 
+	/**
+	 * Baisse la valeur du niveau de zoom.
+	 */
 	public void demagnify(){
 		if(magnifyingLevel == 2.5){
 			setMagnifyingLevel(1.5);
@@ -237,6 +295,12 @@ public class Paint extends Observable implements Serializable{
 		}
 	}
 
+	/**
+	 * Cette méthode déplace si possible la figure sur un calque en fonction de l'action passé en paramètre.
+	 * @param source_layer Numéro de calque de la figure à déplacer
+	 * @param action Voir attributs final static de la classe Paint
+	 * @throws IllegalArgumentException avec un message associé décrivant la nature de l'erreur
+	 */
 	public void arrangeLayout(int source_layer, int action) throws IllegalArgumentException{
 		Drawable tmp = figures.get(source_layer);
 		if(action == UPPER_LAYER){
@@ -267,6 +331,12 @@ public class Paint extends Observable implements Serializable{
 		notifyObservers();
 	}
 
+	/**
+	 * Retourne le numéro du calque le plus au premier plan au coordonnées renseignées.
+	 * @param posX Position de l'origine du vecteur directeur sur l'axe horizontal.
+	 * @param posY Position de l'origine du vecteur directeur sur l'axe vertical.
+	 * @return Le numéro du calque le plus au premier plan.
+	 */
 	public int getActiveLayerAt(int posX, int posY){
 		for(int i = figures.size()-1;i>=0;i--){
 			if(figures.get(i).isVisibleAt(posX,posY)){
@@ -276,24 +346,44 @@ public class Paint extends Observable implements Serializable{
 		return -1;
 	}
 
+	/**
+	 * Retourne le numéro de calque de la figure dernièrement utilisé (création/édition/..).
+	 * @return Le numéro de calque de la figure.
+	 */
 	public int getWorkingLayer(){
 		return active_layer;
 	}
 
+	/**
+	 * Change le numéro du calque actif/courant.
+	 * @param layer Numéro du calque.
+	 */
 	public void setWorkingLayer(int layer){
 		this.active_layer = layer;
 		setChanged();
 		notifyObservers();
 	}
 
+	/**
+	 * Retourne l'outil actif dans la boite à outils associée.
+	 * @return int associé à une outil (voir fr.drawurthings.model.ToolboxModel
+	 */
 	public int getCurrentTool(){
 		return this.toolbox.getShape();
 	}
 
+	/**
+	 * Retourne la boite à outil ToolboxModel associée à l'instance courante de Paint.
+	 * @return ToobloxModel (fr.drawurthings.model.ToolboxModel)
+	 */
 	public ToolboxModel getToolbox(){
 		return this.toolbox;
 	}
 
+	/**
+	 * Sérialize et enregistre l'etat actuel du modèle dans la chemin spécifié.  
+	 * @param file Le fichier.
+	 */
 	public void saveAs(String file){
 		try{
 			File fichier = new File(file);
@@ -305,6 +395,10 @@ public class Paint extends Observable implements Serializable{
 		}
 	}
 
+	/**
+	 * Ouvre le fichier séléctionné dans DrawUrThings.
+	 * @param file Le fichier.
+	 */
 	public void open(String file){
 		ObjectInputStream is = null;
 		try{
@@ -321,6 +415,10 @@ public class Paint extends Observable implements Serializable{
 		}
 	}
 
+	/**
+	 * Exporte la figure du modèle en .png .
+	 * @param file Le fichier.
+	 */
 	public void exportAs(String file){
 		Export export  = new Export(this);
 		export.exportAs(file);
