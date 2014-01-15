@@ -11,4 +11,4 @@ https://www.iconfinder.com/search/?q=iconset%3Afugue
 https://github.com/Geekette/DrawUrThings
 Alexandre Canny [Geekette]
 Valentin Ramecourt [PommePommeGirl]
-Théo Plockyn [SquierDotQn]
+ThÃ©o Plockyn [SquierDotQn]
