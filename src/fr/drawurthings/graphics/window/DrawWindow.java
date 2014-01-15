@@ -26,7 +26,7 @@ public class DrawWindow extends JFrame implements Observer{
 	private JScrollPane jsp;
 	
 	public DrawWindow(Paint p){
-		super("DrawUrThings : Draw (RC1)");
+		super("DrawUrThings : Dessin");
 		this.setIconImage(new ImageIcon("ressources/icon/vectoricon.png").getImage());
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setVisible(true);

@@ -36,11 +36,11 @@ public class AboutWindow extends JFrame {
 		
 		JLabel logo = new JLabel(new ImageIcon("ressources/image/logo.png"));
 		
-		String resume = "\tDrawUrThings (Version 1.0 \"Hugo\" - RC1 (13012014) - JRE "+ System.getProperty("java.version")+")\n\tAlexandre Canny\n\tThéo Plockyn\n\tValentin Ramecourt";
+		String resume = "\tDrawUrThings (Version 1.0 \"Hugo\" - JRE "+ System.getProperty("java.version")+")\n\tAlexandre Canny\n\tThéo Plockyn\n\tValentin Ramecourt";
 		resume = resume.replaceAll("\n", "<br>");
 		
 		String credit = "Remerciements : \n\tNicolas Anquetil\n\tEric Lepretre\n\tJean Martinet\n\nRessources graphiques : \n\tFugue Icons (par Yusuke Kamiyamane) \n\nPolices :\n\tWaltograph (par Justin Callaghan)\n\n"
-				+ "Remerciements spéciaux :\n\tPatricia Everaere\n\tLes contributeurs de la documentation Java\n\nMessages des développeurs : \n\t\"Maman, on fait le Space Moutain!?\" (Geekette)";
+				+ "Remerciements spéciaux :\n\tPatricia Everaere\n\tLes contributeurs de la documentation Java\n\nMessages des développeurs : \n\t\"Maman, on fait le Space Moutain!?\" (Geekette)\n\t\"60% of the time, it works everytime.\" (Théo)\n\t\"Battu par une petite fille!\" (PommePommeGirl)";
 		JTextArea credits = new JTextArea(credit);
 		credits.setEditable(false);
 		JScrollPane paneCredit = new JScrollPane(credits);

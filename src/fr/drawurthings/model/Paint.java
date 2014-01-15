@@ -22,13 +22,22 @@ import fr.drawurthings.figures.Triangle;
 
 public class Paint extends Observable implements Serializable{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 7422059367299580777L;
+	/**
+	 * Action permettant de passer une figure en arrière plan.
+	 */
 	public static int BACKGROUD_LAYER = -10;
+	/**
+	 * Action permettant de faire monter le calque de la figure d'un niveau.
+	 */
 	public static int UPPER_LAYER = -20;
+	/**
+	 * Action permettant de faire descendre le calque de la figure d'un niveau.
+	 */
 	public static int DOWN_LAYER = -30;
+	/**
+	 * Action permettant de passer une figure au premier plan.
+	 */
 	public static int FOREGROUND_LAYER = -40;
 
 	private ArrayList<Drawable> figures;

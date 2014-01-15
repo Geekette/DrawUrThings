@@ -1,5 +1,6 @@
 eclipse.preferences.version=1
 encoding//src/Bugs=UTF-8
+encoding//src/fr/drawurthings/figures/Drawable.java=UTF-8
 encoding//src/fr/drawurthings/graphics/draw/DrawPopup.java=UTF-8
 encoding//src/fr/drawurthings/graphics/listener/DrawPanelListener.java=UTF-8
 encoding//src/fr/drawurthings/graphics/menubar/DisplayPopup.java=UTF-8
