@@ -13,6 +13,9 @@ public class HelpPopup extends JPopupMenu {
 	
 	private JMenuItem about;
 	
+	/**
+	 * Instancie le menu contextuel d'aide.
+	 */
 	public HelpPopup(){
 		ActionListener l = new HelpListener();
 		about = new JMenuItem("A propos de...");
@@ -21,7 +24,9 @@ public class HelpPopup extends JPopupMenu {
 		
 	}
 
-	
+	/**
+	 * Listener du menu contextuel d'aide.
+	 */
 	class HelpListener implements ActionListener{
 
 		@Override

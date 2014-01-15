@@ -16,6 +16,10 @@ public class EditPopup extends JPopupMenu {
 	private Paint p;
 	private JMenuItem cancel, redo;
 	
+	/**
+	 * Instancie le menu contextuel "Edition".
+	 * @param p Le moodèle Paint.
+	 */
 	public EditPopup(Paint p){
 		EditListener el = new EditListener();
 		this.p = p;
@@ -27,6 +31,10 @@ public class EditPopup extends JPopupMenu {
 		this.add(redo);
 	}
 	
+	/**
+	 * Listener du menu contextuel "Edition".
+	 * /!\ A imlémenter.
+	 */
 	class EditListener implements ActionListener{
 
 		@Override

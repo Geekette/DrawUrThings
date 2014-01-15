@@ -19,6 +19,10 @@ public class DisplayPopup extends JPopupMenu{
 	private JFrame tb, fl;
 	private Paint p;
 	
+	/**
+	 * Instancie le menu contextuel pour le zoom.
+	 * @param dw La DrawWindow
+	 */
 	public DisplayPopup(DrawWindow dw){
 		this.tb = dw.getToolFrame();
 		this.fl = dw.getFigsFrame();
@@ -26,6 +30,9 @@ public class DisplayPopup extends JPopupMenu{
 		this.build();
 	}
 	
+	/**
+	 * Construit les éléments graphiques du menu contextuel pour le zoom.
+	 */
 	public void build(){
 		DisplayPopupListener dpl = new DisplayPopupListener();
 		JMenu zoom = new JMenu("Zoom");
@@ -55,6 +62,9 @@ public class DisplayPopup extends JPopupMenu{
 		
 	}
 
+	/**
+	 * Listener pour le menu contextuel du zoom. 
+	 */
 	class DisplayPopupListener implements ActionListener{
 
 		@Override
