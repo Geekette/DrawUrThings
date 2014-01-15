@@ -38,6 +38,11 @@ public class FigureEditor extends JFrame {
 	
 	private Ecouteur ec;
 	
+	/**
+	 * Instancie une fenêtre d'édition des paramètres d'une figure en suivant le modèle Paint et en spécifiant le numéro de calque layer. 
+	 * @param p Paint (modèle)
+	 * @param working_layer Le numéro du calque sélectionné.
+	 */
 	public FigureEditor(Paint p, int working_layer){
 		setTitle("Editer une figure");
 		this.p = p;
@@ -52,6 +57,9 @@ public class FigureEditor extends JFrame {
 		this.setLocation(resol.width/2-getWidth()/2, resol.height/2-getHeight()/2);
 	}
 	
+	/**
+	 * Appelé par le constructeur, créé les blocs de la fenêtre à onglets.
+	 */
 	public void buildContentPane(){
 		mainPanel = new JTabbedPane();
 		param = new JPanel();
@@ -87,6 +95,11 @@ public class FigureEditor extends JFrame {
         this.getContentPane().add(mainPanel);
 	}
 
+	/**
+	 * 
+	 * @param i Int spécifiant la ligne voulant être créé.
+	 * @return Un JPanel, une ligne contenant une JTextArea non éditable et un JTextField.
+	 */
 	private JPanel createParamLine(int i) {
 		JPanel paramLine = new JPanel();
 		paramLine.setLayout(new GridLayout(1, 2));
@@ -132,6 +145,10 @@ public class FigureEditor extends JFrame {
 		return paramLine;
 	}
 
+	/**
+	 * Créé la ligne d'édition contenu en bas de chaque onglet.
+	 * @return JPanel, une ligne contenant les boutons de validation, annulation et application.
+	 */
 	private JPanel createBottomPanel() {
 			JPanel bottomPanel = new JPanel();
 			okBut = new JButton("OK");
@@ -147,8 +164,14 @@ public class FigureEditor extends JFrame {
 		return bottomPanel;
 	}
 	
+	/**
+	 * InnerClass permettant d'écouter les actions éffectuées sur les différents élements composant la fenêtre.
+	 */
 	public class Ecouteur implements ActionListener, KeyListener{
 		
+		/**
+		 * Gère les boutons "OK", "Annuler" et "Appliquer".
+		 */
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			JButton source = (JButton)e.getSource();
@@ -174,6 +197,10 @@ public class FigureEditor extends JFrame {
 		public void keyPressed(KeyEvent e) {
 		}
 
+		/**
+		 * Gère la saisie de touches
+		 * Permet d'éliminer les caractères non-numériques à la saisie.
+		 */
 		@Override
 		public void keyReleased(KeyEvent e) {
 			JTextField laSource = (JTextField)e.getSource();

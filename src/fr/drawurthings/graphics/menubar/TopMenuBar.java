@@ -20,12 +20,19 @@ public class TopMenuBar extends JPanel{
 	private DrawWindow dw;
 	private JMenuItem file, edit, display, help;
 	
+	/**
+	 * Instancie la barre de menu.
+	 * @param dw La DrawwWindow
+	 */
 	public TopMenuBar(DrawWindow dw){
 		this.dw = dw;
 		this.paint = dw.getPaint();
 		build();
 	}
 	
+	/**
+	 * Créé les onglets Fichier, Edition, Affichage et "?".
+	 */
 	public void build(){
 		JMenuBar panel = new JMenuBar();
 		MenuListener ml = new MenuListener();
@@ -46,6 +53,9 @@ public class TopMenuBar extends JPanel{
 		setPreferredSize(new Dimension(450,30));
 	}
 	
+	/**
+	 * Listener de la barre de menu.
+	 */
 	class MenuListener implements ActionListener{
 
 		@Override

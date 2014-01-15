@@ -19,11 +19,18 @@ public class FilePopup extends JPopupMenu {
 	private final Paint paint;
 	private JMenuItem newbutton, open, saveas, export, exit;
 
+	/**
+	 * Instancie la FilePopup en utilisant la DrawWindow en paramètre.
+	 * @param dw La DrawWindow.
+	 */
 	public FilePopup(DrawWindow dw) {
 		this.paint = dw.getPaint();
 		this.build();
 	}
 
+	/**
+	 * Permet de construire les éléments graphiques du menu contextuel
+	 */
 	public void build(){
 		FileListener fl = new FileListener();
 		newbutton = new JMenuItem("Nouveau", new ImageIcon("ressources/icon/new.png"));
@@ -46,6 +53,10 @@ public class FilePopup extends JPopupMenu {
 		this.add(exit);
 	}
 
+	/**
+	 * Listener du menu contextuel "Fichier".
+	 * Gère les actions entrainé par les différentes actions proposées.
+	 */
 	class FileListener implements ActionListener {
 
 		@Override
