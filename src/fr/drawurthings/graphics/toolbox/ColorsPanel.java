@@ -14,7 +14,7 @@ import fr.drawurthings.model.ToolboxModel;
 /**
  * Panel de couleurs selectionnables.
  * 
- * @author Théo Plockyn, Valentin Ramecourt, Alexandre Canny
+ * @author ThÃ©o Plockyn, Valentin Ramecourt, Alexandre Canny
  *
  */
 @SuppressWarnings("serial")
@@ -24,7 +24,7 @@ public class ColorsPanel extends JPanel {
 
 	/**
 	 * Constructeur du panel contenant les deux couleurs
-	 * @param m - Le modèle de la toolbox
+	 * @param m - Le modÃ¨le de la toolbox
 	 */
 	public ColorsPanel(ToolboxModel m){
 
@@ -48,15 +48,15 @@ public class ColorsPanel extends JPanel {
 
 	/**
 	 * Setter de la couleur de la bordure
-	 * @param c - La couleur souhaitée de la bordure
+	 * @param c - La couleur souhaitÃ©e de la bordure
 	 */
 	public void setBordure(Color c){
 		panelColorBordure.setBackground(c);
 	}
 
 	/**
-	 * Setter de la couleur de l'intérieur
-	 * @param c - La couleur souhaitée de l'interieur
+	 * Setter de la couleur de l'intï¿½rieur
+	 * @param c - La couleur souhaitï¿½e de l'interieur
 	 */
 	public void setInterieur(Color c){
 		panelColorInterieur.setBackground(c);
@@ -65,9 +65,9 @@ public class ColorsPanel extends JPanel {
 }
 
 /**
- * MouseListener du panel de couleur permettant de choisir soit la couleur d'intérieur soit de bordure.
+ * MouseListener du panel de couleur permettant de choisir soit la couleur d'intÃ©rieur soit de bordure.
  * 
- * @author Théo Plockyn, Valentin Ramecourt, Alexandre Canny
+ * @author ThÃ©o Plockyn, Valentin Ramecourt, Alexandre Canny
  *
  */
 class ColorListener implements MouseListener{

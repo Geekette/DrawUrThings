@@ -16,23 +16,29 @@ import fr.drawurthings.graphics.draw.DrawPopup;
 import fr.drawurthings.graphics.window.FigureEditor;
 import fr.drawurthings.model.Paint;
 
+/**
+ * Listener de la fenêtre de dessin.
+ * 
+ * @author Alexandre Canny, Valentin Ramecourt, Théo Plockyn
+ *
+ */
 public class DrawPanelListener implements MouseListener, MouseMotionListener, MouseWheelListener{
-	
-	private Paint p;
-	private DrawPanel d;
+
+	private final Paint p;
+	private final DrawPanel d;
 	private int working_layer = -1, active_corner, oringin_x, origin_y, delta_x, delta_y;
 	private boolean now_resizing = false, dragged = false;
-	
+
 	public DrawPanelListener(Paint p, DrawPanel d){
 		this.p = p;
 		this.d = d;
-		
+
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		if(e.getClickCount() == 2 && e.getButton() == MouseEvent.BUTTON1){
-			
+
 			if(working_layer == -1){
 				JOptionPane.showMessageDialog(null, "Fonctionnalité non implementée.");
 			}else{
@@ -51,46 +57,46 @@ public class DrawPanelListener implements MouseListener, MouseMotionListener, Mo
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-			oringin_x = e.getX();
-			origin_y = e.getY();
-			working_layer = p.getWorkingLayer();
-			if(working_layer != -1){
-				Drawable figure = p.getDrawables().get(working_layer);
-				if(e.getX() >= figure.getOriginX() - 5 && e.getX() <= figure.getOriginX() + 5 && e.getY() >= figure.getOriginY() - 5 && e.getY() <= figure.getOriginY() + 5){
-					active_corner = Drawable.TOP_LEFT_HAND_CORNER;
-					d.setCursor(new Cursor(Cursor.NW_RESIZE_CURSOR));
-					now_resizing=true;
-				}else if(e.getX() >= figure.getOriginX() - 5 && e.getX() <= figure.getOriginX() + 5 && e.getY() >= figure.getOriginY()+figure.getHeight() - 5 && e.getY() <= figure.getOriginY()+figure.getHeight() + 5){
-					active_corner = Drawable.BOTTOM_LEFT_HAND_CORNER;
-					d.setCursor(new Cursor(Cursor.SW_RESIZE_CURSOR));
-					now_resizing=true;
-				}else if(e.getX() >= figure.getOriginX()+figure.getWidth() - 5 && e.getX() <= figure.getOriginX()+figure.getWidth() + 5 && e.getY() >= figure.getOriginY()+figure.getHeight() - 5 && e.getY() <= figure.getOriginY()+figure.getHeight() + 5){
-					active_corner = Drawable.BOTTOM_RIGHT_HAND_CORNER;
-					d.setCursor(new Cursor(Cursor.SE_RESIZE_CURSOR));
-					now_resizing=true;
-				}else if(e.getX() >= figure.getOriginX()+figure.getWidth() - 5 && e.getX() <= figure.getOriginX()+figure.getWidth() + 5 && e.getY() >= figure.getOriginY() - 5 && e.getY() <= figure.getOriginY() + 5){
-					active_corner = Drawable.TOP_RIGHT_HAND_CORNER;
-					d.setCursor(new Cursor(Cursor.NE_RESIZE_CURSOR));
-					now_resizing=true;
-				}else if (p.getActiveLayerAt(e.getX(), e.getY()) != figure.getLayer()){
-					working_layer = p.getActiveLayerAt(e.getX(), e.getY());
-					p.setWorkingLayer(working_layer);
-				}else{
-					d.setCursor(new Cursor(Cursor.HAND_CURSOR));
-					delta_x = e.getX() - figure.getOriginX() ;
-					delta_y = e.getY() - figure.getOriginY() ;
-				}
+		oringin_x = e.getX();
+		origin_y = e.getY();
+		working_layer = p.getWorkingLayer();
+		if(working_layer != -1){
+			Drawable figure = p.getDrawables().get(working_layer);
+			if(e.getX() >= figure.getOriginX() - 5 && e.getX() <= figure.getOriginX() + 5 && e.getY() >= figure.getOriginY() - 5 && e.getY() <= figure.getOriginY() + 5){
+				active_corner = Drawable.TOP_LEFT_HAND_CORNER;
+				d.setCursor(new Cursor(Cursor.NW_RESIZE_CURSOR));
+				now_resizing=true;
+			}else if(e.getX() >= figure.getOriginX() - 5 && e.getX() <= figure.getOriginX() + 5 && e.getY() >= figure.getOriginY()+figure.getHeight() - 5 && e.getY() <= figure.getOriginY()+figure.getHeight() + 5){
+				active_corner = Drawable.BOTTOM_LEFT_HAND_CORNER;
+				d.setCursor(new Cursor(Cursor.SW_RESIZE_CURSOR));
+				now_resizing=true;
+			}else if(e.getX() >= figure.getOriginX()+figure.getWidth() - 5 && e.getX() <= figure.getOriginX()+figure.getWidth() + 5 && e.getY() >= figure.getOriginY()+figure.getHeight() - 5 && e.getY() <= figure.getOriginY()+figure.getHeight() + 5){
+				active_corner = Drawable.BOTTOM_RIGHT_HAND_CORNER;
+				d.setCursor(new Cursor(Cursor.SE_RESIZE_CURSOR));
+				now_resizing=true;
+			}else if(e.getX() >= figure.getOriginX()+figure.getWidth() - 5 && e.getX() <= figure.getOriginX()+figure.getWidth() + 5 && e.getY() >= figure.getOriginY() - 5 && e.getY() <= figure.getOriginY() + 5){
+				active_corner = Drawable.TOP_RIGHT_HAND_CORNER;
+				d.setCursor(new Cursor(Cursor.NE_RESIZE_CURSOR));
+				now_resizing=true;
+			}else if (p.getActiveLayerAt(e.getX(), e.getY()) != figure.getLayer()){
+				working_layer = p.getActiveLayerAt(e.getX(), e.getY());
+				p.setWorkingLayer(working_layer);
 			}else{
-				if(p.getActiveLayerAt(e.getX(), e.getY()) != -1){
-					this.working_layer = p.getActiveLayerAt(e.getX(), e.getY());
-					p.setWorkingLayer(working_layer);
-					delta_x = e.getX() - p.getDrawables().get(working_layer).getOriginX();
-					delta_y = e.getY() - p.getDrawables().get(working_layer).getOriginY();
-				}else{
-					this.working_layer = -1;
-					p.setWorkingLayer(working_layer);
-				}
+				d.setCursor(new Cursor(Cursor.HAND_CURSOR));
+				delta_x = e.getX() - figure.getOriginX() ;
+				delta_y = e.getY() - figure.getOriginY() ;
 			}
+		}else{
+			if(p.getActiveLayerAt(e.getX(), e.getY()) != -1){
+				this.working_layer = p.getActiveLayerAt(e.getX(), e.getY());
+				p.setWorkingLayer(working_layer);
+				delta_x = e.getX() - p.getDrawables().get(working_layer).getOriginX();
+				delta_y = e.getY() - p.getDrawables().get(working_layer).getOriginY();
+			}else{
+				this.working_layer = -1;
+				p.setWorkingLayer(working_layer);
+			}
+		}
 	}
 
 	@Override
@@ -122,13 +128,13 @@ public class DrawPanelListener implements MouseListener, MouseMotionListener, Mo
 				delta_y = e.getY() - origin_y ;
 				d.paintDrawable(p.buildDrawable(p.getCurrentTool(), oringin_x, origin_y, delta_x, delta_y), graphics);
 			}catch(Exception ex){
-				
+
 			}
 		}
 		dragged = true;
 	}
 
-	
+
 	@Override
 	public void mouseWheelMoved(MouseWheelEvent e) {
 		if(e.isControlDown()){	
@@ -150,7 +156,7 @@ public class DrawPanelListener implements MouseListener, MouseMotionListener, Mo
 	public void mouseExited(MouseEvent e) {
 		// TODO Auto-generated method stub	
 	}
-	
+
 	@Override
 	public void mouseMoved(MouseEvent e) {
 		// TODO Auto-generated method stub

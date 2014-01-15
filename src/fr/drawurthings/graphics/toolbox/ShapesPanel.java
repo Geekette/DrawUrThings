@@ -16,7 +16,7 @@ import fr.drawurthings.model.ToolboxModel;
 /**
  * Panel d'outils selectionnables.
  * 
- * @author Théo Plockyn, Valentin Ramecourt, Alexandre Canny
+ * @author ThÃ©o Plockyn, Valentin Ramecourt, Alexandre Canny
  *
  */
 @SuppressWarnings("serial")
@@ -27,7 +27,7 @@ public class ShapesPanel extends JPanel {
 
 	/**
 	 * Constructeur du panel contenant les outils
-	 * @param m - Le modèle de la toolbox
+	 * @param m - Le modÃ¨le de la toolbox
 	 */
 	public ShapesPanel(ToolboxModel m) {
 		setLayout(new GridLayout(4,2,10,2));
@@ -57,7 +57,7 @@ public class ShapesPanel extends JPanel {
 /**
  * ActionListener du panel d'outils permettant de choisir l'outil ou la forme que l'on souhaite.
  * 
- * @author Théo Plockyn, Valentin Ramecourt, Alexandre Canny
+ * @author ThÃ©o Plockyn, Valentin Ramecourt, Alexandre Canny
  *
  */
 class ShapeListener implements ActionListener{

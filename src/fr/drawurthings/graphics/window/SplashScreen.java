@@ -10,7 +10,10 @@ import javax.swing.JFrame;
 
 @SuppressWarnings("serial")
 public class SplashScreen extends JFrame {
-	
+
+	/**
+	 * Un splash screen.
+	 */
 	public SplashScreen(){
 		this.setUndecorated(true);
 		this.setVisible(true);
@@ -19,7 +22,8 @@ public class SplashScreen extends JFrame {
 		this.setLocation(resol.width/2-250, resol.height/2-125);
 		this.setAlwaysOnTop(true);
 	}
-	
+
+	@Override
 	public void paint(Graphics g){
 		BufferedImage splash = null;
 		try{
@@ -29,5 +33,5 @@ public class SplashScreen extends JFrame {
 			e.printStackTrace();
 		}
 	}
-	
+
 }

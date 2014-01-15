@@ -12,6 +12,10 @@ import fr.drawurthings.model.Paint;
 @SuppressWarnings("serial")
 public class FigureListWindows extends JFrame {
 
+	/**
+	 * Instancie une fenêtre de liste de figures en suivant le mod�le Paint et en sp�cifiant le num�ro de calque
+	 * @param p - Le modèle de Paint.
+	 */
 	public FigureListWindows(Paint p){
 		this.setTitle("Liste de figures");
 		Dimension resol = Toolkit.getDefaultToolkit().getScreenSize();
@@ -23,5 +27,5 @@ public class FigureListWindows extends JFrame {
 		this.setLocation((int)resol.getWidth()-250,(int) resol.getHeight()-450);
 		this.pack();
 	}
-	
+
 }

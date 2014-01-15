@@ -18,13 +18,17 @@ import fr.drawurthings.model.Paint;
 
 @SuppressWarnings("serial")
 public class DrawWindow extends JFrame implements Observer{
-	
-	private DrawPanel draw;
-	private Paint paint;
-	private JFrame toolFrame, figsFrame;
+
+	private final DrawPanel draw;
+	private final Paint paint;
+	private final JFrame toolFrame, figsFrame;
 	private JMenuItem zoom;
 	private JScrollPane jsp;
-	
+
+	/**
+	 * Instancie une fenêtre de dessin. 
+	 * @param p - Le modèle de Paint.
+	 */
 	public DrawWindow(Paint p){
 		super("DrawUrThings : Dessin");
 		this.setIconImage(new ImageIcon("ressources/icon/vectoricon.png").getImage());
@@ -38,7 +42,7 @@ public class DrawWindow extends JFrame implements Observer{
 		this.figsFrame = new FigureListWindows(p);
 		this.buildContentPane();
 	}
-	
+
 	public void buildContentPane(){
 		Container c = this.getContentPane();
 		c.setLayout(new BorderLayout());
@@ -53,19 +57,19 @@ public class DrawWindow extends JFrame implements Observer{
 		this.pack();
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 	}
-	
+
 	public Paint getPaint(){
 		return this.paint;
 	}
-	
+
 	public DrawPanel getDrawPanel(){
 		return draw;
 	}
-	
+
 	public JFrame getToolFrame(){
 		return this.toolFrame;
 	}
-	
+
 	public JFrame getFigsFrame(){
 		return this.figsFrame;
 	}
@@ -76,6 +80,6 @@ public class DrawWindow extends JFrame implements Observer{
 		this.zoom.setText("" + (int) (paint.getMagnifyingLevel()*100)+"%");
 		repaint();
 	}
-	
+
 
 }

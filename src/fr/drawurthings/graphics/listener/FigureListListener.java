@@ -8,15 +8,21 @@ import javax.swing.JList;
 import fr.drawurthings.graphics.draw.DrawPopup;
 import fr.drawurthings.model.Paint;
 
+/**
+ * Listener de la fenêtre de liste de layers.
+ * 
+ * @author Alexandre Canny, Valentin Ramecourt, Théo Plockyn
+ *
+ */
 public class FigureListListener implements MouseListener {
 
-	private Paint model;
+	private final Paint model;
 	private int indice = -1;
-	
+
 	public FigureListListener(Paint p){
 		this.model = p;
 	}
-	
+
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		if(e.getButton() == MouseEvent.BUTTON3 && model.getWorkingLayer()>-1){

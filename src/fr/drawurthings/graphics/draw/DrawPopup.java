@@ -17,27 +17,32 @@ import fr.drawurthings.model.Paint;
 
 @SuppressWarnings("serial")
 public class DrawPopup extends JPopupMenu{
-	
-	private Paint p;
+
+	private final Paint p;
 	private Drawable figure;
-	
+
 	private JMenuItem rotate90,rotate180,rotate270,colorBorder,colorFill, colorBW,arrangetop,arrangeup,arrangedown,arrangeback,duplicate,delete, properties;
 	private JMenuItem bgcolor,undo,redo,deleteall,percent25,percent50,percent,percent150,percent250,originalsize;
-	
+
+	/**
+	 * Instancie le menu contextuel lors du clic droit sur le panel de dessin.
+	 * 
+	 * @param p - Le modèle de Paint
+	 */
 	public DrawPopup(Paint p){
 		this.p = p;
 		this.buildForBackground();
 	}
-	
+
 	public DrawPopup(Paint p, Drawable d){
 		this.p = p;
 		this.figure = d;
 		this.buildForFigure();
 	}
-	
+
 	private void buildForFigure(){
 		PopupListener pl = new PopupListener();
-			
+
 		JMenu color = new JMenu("Couleurs");
 		color.setIcon(new ImageIcon("ressources/icon/color.png"));
 		colorBorder = new JMenuItem("Trait",new ImageIcon("ressources/icon/color_arrow.png"));
@@ -50,7 +55,7 @@ public class DrawPopup extends JPopupMenu{
 		color.add(colorFill);
 		color.add(new Separator());
 		color.add(colorBW);
-		
+
 		JMenu organise = new JMenu("Organiser");
 		organise.setIcon(new ImageIcon("ressources/icon/layer_arrow.png"));
 		arrangetop = new JMenuItem("Mettre au premier plan", new ImageIcon("ressources/icon/layer.png"));
@@ -65,7 +70,7 @@ public class DrawPopup extends JPopupMenu{
 		organise.add(arrangeup);
 		organise.add(arrangedown);
 		organise.add(arrangeback);
-		
+
 		JMenu rotate = new JMenu("Pivoter");
 		rotate.setIcon(new ImageIcon("ressources/icon/rotate.png"));
 		this.rotate90 = new JMenuItem("90°");
@@ -77,7 +82,7 @@ public class DrawPopup extends JPopupMenu{
 		rotate.add(rotate90);
 		rotate.add(rotate180);
 		rotate.add(rotate270);
-		
+
 		this.duplicate = new JMenuItem("Dupliquer", new ImageIcon("ressources/icon/duplicate.png"));
 		this.duplicate.addActionListener(pl);
 		this.delete = new JMenuItem("Supprimer", new ImageIcon("ressources/icon/remove.png"));
@@ -93,10 +98,10 @@ public class DrawPopup extends JPopupMenu{
 		this.add(new Separator());
 		this.add(properties);
 	}
-	
+
 	private void buildForBackground(){
 		PopupListener pl = new PopupListener();
-		
+
 		JMenu zoom = new JMenu("Zoom");
 		percent25 = new JMenuItem("25%");
 		percent25.addActionListener(pl);
@@ -113,7 +118,7 @@ public class DrawPopup extends JPopupMenu{
 		zoom.add(percent);
 		zoom.add(percent150);
 		zoom.add(percent250);
-		
+
 		bgcolor = new JMenuItem("Couleur d'arrière plan",new ImageIcon("ressources/icon/color_pencil.png"));
 		bgcolor.addActionListener(pl);
 		originalsize = new JMenuItem("Rétablir l'échelle originale");
@@ -134,7 +139,7 @@ public class DrawPopup extends JPopupMenu{
 		this.add(new Separator());
 		this.add(deleteall);
 	}
-	
+
 	class PopupListener implements ActionListener{
 
 		@Override
@@ -196,9 +201,9 @@ public class DrawPopup extends JPopupMenu{
 					JOptionPane.showMessageDialog(null, "Fonctionnalité non implémentée.");
 				}
 			}
-			
+
 		}
-		
+
 	}
 
 }

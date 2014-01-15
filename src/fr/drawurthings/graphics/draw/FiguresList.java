@@ -19,11 +19,16 @@ import fr.drawurthings.model.Paint;
 
 @SuppressWarnings("serial")
 public class FiguresList extends JPanel implements Observer{
-	
-	private Paint paint;
+
+	private final Paint paint;
 	@SuppressWarnings("rawtypes")
-	private JList liste;
-	
+	private final JList liste;
+
+	/**
+	 * Instancie la liste des drawables selon leur layer.
+	 * 
+	 * @param p - Le modèle de Paint
+	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public FiguresList(Paint p) {
 		this.paint = p;
@@ -35,23 +40,24 @@ public class FiguresList extends JPanel implements Observer{
 		this.add(listeScrool);
 		p.addObserver(this);
 	}
-	
+
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public void update(Observable o, Object arg) {
 		liste.setListData(paint.getDrawables().toArray());
 	}
-	
+
 	public class DrawableRenderer extends DefaultListCellRenderer{
-		
+
 		Icon iconeLigne   = new ImageIcon("ressources/icon/line.png");
 		Icon iconeRect    = new ImageIcon("ressources/icon/rectangle.png");
 		Icon iconeSquare  = new ImageIcon("ressources/icon/square.png");
 		Icon iconeOval    = new ImageIcon("ressources/icon/oval.png");
 		Icon iconeCircle  = new ImageIcon("ressources/icon/circle.png");
 		Icon iconePoly    = new ImageIcon("ressources/icon/polygon.png");
-		
+
+		@Override
 		@SuppressWarnings("rawtypes")
 		public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected,boolean hasFocus){
 			Drawable figure = (Drawable) value;

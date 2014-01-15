@@ -5,9 +5,9 @@ import java.io.Serializable;
 import java.util.Observable;
 
 /**
- * Modèle du panel d'outils et de couleurs selectionnables.
+ * ModÃ¨le du panel d'outils et de couleurs selectionnables.
  * 
- * @author Théo Plockyn, Valentin Ramecourt, Alexandre Canny
+ * @author ThÃ©o Plockyn, Valentin Ramecourt, Alexandre Canny
  *
  */
 public class ToolboxModel extends Observable implements Serializable {
@@ -20,7 +20,7 @@ public class ToolboxModel extends Observable implements Serializable {
 	int shapeSelected;
 
 	/**
-	 *  Constructeur initialisant par défaut les couleurs séléctionnées à blanc pour l'intérieur et noir pour l'extérieur, ainsi que l'outil de selection en focus.
+	 *  Constructeur initialisant par dÃ©faut les couleurs sÃ©lÃ©ctionnÃ©es Ã  blanc pour l'intÃ©rieur et noir pour l'extÃ©rieur, ainsi que l'outil de selection en focus.
 	 */
 	public ToolboxModel(){
 		colorInterieur = Color.WHITE;
@@ -29,8 +29,8 @@ public class ToolboxModel extends Observable implements Serializable {
 	}
 
 	/**
-	 * Setter de la couleur de l'intérieur
-	 * @param c - La couleur souhaitée de l'interieur
+	 * Setter de la couleur de l'intï¿½rieur
+	 * @param c - La couleur souhaitÃ©e de l'interieur
 	 */
 	public void setInterieur(Color c){
 		colorInterieur = c;
@@ -39,7 +39,7 @@ public class ToolboxModel extends Observable implements Serializable {
 
 	/**
 	 * Setter de la couleur de la bordure
-	 * @param c - La couleur souhaitée de la bordure
+	 * @param c - La couleur souhaitÃ©e de la bordure
 	 */
 	public void setBordure(Color c){
 		colorBordure = c;
@@ -48,7 +48,7 @@ public class ToolboxModel extends Observable implements Serializable {
 
 	/**
 	 * Setter de l'outil
-	 * @param s - La forme à dessiner souhaitée ( ou l'outil de selection )
+	 * @param s - La forme Ã  dessiner souhaitÃ©e ( ou l'outil de selection )
 	 */
 	public void setShape(int s){
 		shapeSelected = s;
@@ -56,7 +56,7 @@ public class ToolboxModel extends Observable implements Serializable {
 	}
 
 	/**
-	 * Getter de la couleur intérieure
+	 * Getter de la couleur intÃ©rieure
 	 * @return La couleur actuelle de l'interieur
 	 */
 	public Color getInterieur(){
@@ -64,7 +64,7 @@ public class ToolboxModel extends Observable implements Serializable {
 	}
 
 	/**
-	 * Getter de la couleur extérieure
+	 * Getter de la couleur extÃ©rieure
 	 * @return La couleur actuelle de la bordure
 	 */
 	public Color getBordure(){
@@ -73,7 +73,7 @@ public class ToolboxModel extends Observable implements Serializable {
 
 	/**
 	 * Getter de l'outil
-	 * @return L'outil  actuel
+	 * @return L'outil actuel
 	 */
 	public int getShape(){
 		return shapeSelected;

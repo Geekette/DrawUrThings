@@ -7,8 +7,14 @@ import fr.drawurthings.model.Paint;
 import fr.drawurthings.model.ToolboxModel;
 
 
+/**
+ * Classe de main permettant de lancer le programme de dessin vectoriel.
+ * 
+ * @author Valentin Ramecourt, Alexandre Théo Plockyn
+ *
+ */
 public class Main {
-	
+
 	public static void main(String[] args){
 		JFrame splash = new SplashScreen();
 		ToolboxModel tbm = new ToolboxModel();

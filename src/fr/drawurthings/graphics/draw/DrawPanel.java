@@ -16,9 +16,14 @@ import fr.drawurthings.model.Paint;
 
 @SuppressWarnings("serial")
 public class DrawPanel extends JPanel implements Observer {
-	
-	private Paint p;
-	
+
+	private final Paint p;
+
+	/**
+	 * Panel de dessin.
+	 * 
+	 * @param draw - Le modèle de Paint
+	 */
 	public DrawPanel(Paint draw){
 		this.p = draw;
 		this.p.addObserver(this);
@@ -29,7 +34,8 @@ public class DrawPanel extends JPanel implements Observer {
 		this.addMouseWheelListener(dpl);
 		repaint();
 	}
-	
+
+	@Override
 	public void paint(Graphics g){
 		g.setColor(p.getBgcolor());
 		g.fillRect(0, 0, getWidth(), getHeight());
@@ -51,7 +57,13 @@ public class DrawPanel extends JPanel implements Observer {
 			}
 		}
 	}
-	
+
+	/**
+	 * Methode de peinture des drawables.
+	 * 
+	 * @param d - Le drawable à dessiner
+	 * @param g - Sa représentation en graphics
+	 */
 	public void paintDrawable(Drawable d,Graphics g){
 		if(d.getShapeType() == Drawable.LINE){
 			g.setColor(d.getBorderColor());
